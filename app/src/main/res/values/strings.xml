@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BetterLife</string>
+    <string name="personnal_goal">個人目標</string>
+    <string name="other_goal">他人目標</string>
+    <string name="better_life">Better Life</string>
+
 </resources>

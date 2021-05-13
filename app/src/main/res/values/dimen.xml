@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Toolbar -->
+    <dimen name="height_toolbar">60dp</dimen>
+    <dimen name="height_status_bar_origin">24dp</dimen>
+
+    <!-- Nav view of Drawer -->
+    <dimen name="width_drawer">304dp</dimen>
+
+    <!-- Bottom Navigation -->
+    <dimen name="height_bottom_nav_view_main">56dp</dimen>
+    <dimen name="size_bottom_nav_icon">36dp</dimen>
+
+    <!-- Catalog -->
+    <dimen name="height_catalog_tab">48dp</dimen>
+    <dimen name="space_catalog_grid">16dp</dimen>
+    <dimen name="width_catalog_item">156dp</dimen>
+    <dimen name="height_catalog_item">220dp</dimen>
+    <dimen name="space_outside_horizontal_catalog_item">16dp</dimen>
+    <dimen name="space_inside_horizontal_catalog_item">8dp</dimen>
+    <dimen name="space_outside_vertical_catalog_item">24dp</dimen>
+    <dimen name="space_inside_vertical_catalog_item">12dp</dimen>
+
+    <!-- Profile  -->
+    <dimen name="height_profile_header">92dp</dimen>
+    <dimen name="radius_profile_avatar">60dp</dimen>
+
+    <!-- Login Dialog -->
+    <dimen name="height_login">202dp</dimen>
+
+    <!-- IMessage Dialog -->
+    <dimen name="size_message">123dp</dimen>
+
+    <!-- Add2Cart Dialog -->
+    <dimen name="height_add2cart">532dp</dimen>
+    <dimen name="height_add2cart_select_amount">48dp</dimen>
+    <dimen name="size_add2cart_select">48dp</dimen>
+    <dimen name="edge_add2cart_color">1dp</dimen>
+    <dimen name="edge_add2cart_color_white">8dp</dimen>
+    <dimen name="edge_add2cart_color_black">2dp</dimen>
+    <dimen name="edge_add2cart_select">2dp</dimen>
+    <dimen name="space_add2cart_select">16dp</dimen>
+
+    <!-- Check Out Success Dialog -->
+    <dimen name="size_checkout_success_icon">80dp</dimen>
+
+    <!-- Detail -->
+    <dimen name="space_detail_color">8dp</dimen>
+    <dimen name="space_detail_circle">8dp</dimen>
+    <dimen name="height_detail_gallery">500dp</dimen>
+    <dimen name="size_detail_color">24dp</dimen>
+    <dimen name="edge_detail_color">1dp</dimen>
+    <dimen name="size_detail_close">44dp</dimen>
+    <dimen name="size_detail_circle">6dp</dimen>
+    <dimen name="radius_detail_circle">3dp</dimen>
+    <dimen name="edge_detail_circle">1px</dimen>
+
+    <!-- Cart -->
+    <dimen name="size_cart_color">22dp</dimen>
+    <dimen name="height_cart_select_amount">32dp</dimen>
+    <dimen name="width_cart_select_amount">86dp</dimen>
+    <dimen name="size_cart_select">32dp</dimen>
+    <dimen name="edge_cart_color">1dp</dimen>
+    <dimen name="edge_cart_select">2dp</dimen>
+
+    <!-- Payment -->
+    <dimen name="height_payment_editor">56dp</dimen>
+    <dimen name="edge_payment_color">1dp</dimen>
+    <dimen name="underline_payment_spinner">2dp</dimen>
+    <dimen name="size_payment_progress">24dp</dimen>
+
+    <!-- General -->
+    <dimen name="elevation_all">4dp</dimen>
+    <dimen name="height_all_bottom_layout">80dp</dimen>
+
+    <!-- Logo -->
+    <dimen name="width_logo">254dp</dimen>
+    <dimen name="height_logo">39dp</dimen>
+    <dimen name="duration_logo_translate">-575dp</dimen>
+    <dimen name="size_particle_logo">30dp</dimen>
+</resources>

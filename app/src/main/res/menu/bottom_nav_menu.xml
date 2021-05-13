@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_main"
+        android:icon="@drawable/outline_person_outline_black_18"
+        android:title="@string/personnal_goal" />
+
+    <item
+        android:id="@+id/navigation_other"
+        android:icon="@drawable/outline_groups_black_18"
+        android:title="@string/other_goal" />
+
+
+</menu>
