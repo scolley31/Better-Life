@@ -46,6 +46,7 @@
                 android:layout_height="0dp"
                 android:layout_marginEnd="16dp"
                 android:text="@{plan.category}"
+                android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="@+id/text_plan_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/text_plan_name"
@@ -54,6 +55,9 @@
             <ProgressBar
                 android:id="@+id/plan_progress"
                 style="?android:attr/progressBarStyleHorizontal"
+                android:min="0"
+                android:max="100"
+                android:progress="50"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="24dp"
@@ -66,22 +70,20 @@
 
             <TextView
                 android:id="@+id/text_time_sum"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text=""
-                app:layout_constraintEnd_toEndOf="@+id/text_plan_name"
+                android:text='@{"累積時間: "+String.valueOf(plan.sumDaily)+" 分鐘"}'
                 app:layout_constraintStart_toStartOf="@+id/text_plan_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
 
             <TextView
                 android:id="@+id/text_time_target"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{String.valueOf(plan.completedList[0])}"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text='@{"目標時間: "+String.valueOf(plan.target)+" 分鐘"}'
                 app:layout_constraintBottom_toBottomOf="@+id/text_time_sum"
                 app:layout_constraintEnd_toEndOf="@+id/text_plan_category"
-                app:layout_constraintStart_toStartOf="@+id/text_plan_category"
                 app:layout_constraintTop_toTopOf="@+id/text_time_sum" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

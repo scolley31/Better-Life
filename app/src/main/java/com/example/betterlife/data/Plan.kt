@@ -14,7 +14,9 @@ data class Plan(
         val members: List<String>,
         val type: String,
         val target: Int,
-        val completedList: List<Completed>
+        val completedList: List<Completed>,
+        var sumDaily: Int?,
+        var progress: Int?
 
 ): Parcelable
 
@@ -24,7 +26,7 @@ data class Completed(
         val id: String,
         val user_id: String,
         val isCompleted: Boolean,
-        val daily: Long,
+        val daily: Int,
         val date: String
 
 ) : Parcelable
