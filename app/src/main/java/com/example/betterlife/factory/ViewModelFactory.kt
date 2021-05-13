@@ -3,10 +3,8 @@ package com.example.betterlife.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.betterlife.MainViewMode
-import com.example.betterlife.data.Source.PlanRepository
-import com.example.betterlife.home.HomeViewModel
+import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.home.item.HomeItemViewModel
-import com.example.betterlife.other.OtherFragment
 import com.example.betterlife.other.OtherViewModel
 
 @Suppress("UNCHECKED_CAST")

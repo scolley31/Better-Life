@@ -1,18 +1,17 @@
 package com.example.betterlife.home.item
 
-import android.graphics.Insets.add
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
-import com.example.betterlife.data.Source.PlanRepository
+import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlin.math.absoluteValue
+import kotlinx.coroutines.launch
 
 class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
@@ -25,6 +24,12 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
     val allDaily: LiveData<List<Int>?>
         get() = _allDaily
+
+    private val _navigateToTimer = MutableLiveData<Boolean?>()
+
+    val navigateToTimer: MutableLiveData<Boolean?>
+        get() = _navigateToTimer
+
 
     private var viewModelJob = Job()
 
@@ -41,6 +46,17 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         Logger.i("------------------------------------")
 
         setMockData()
+    }
+
+    fun navigationToTimer () {
+
+        coroutineScope.launch {
+             _navigateToTimer.value = true
+        }
+    }
+
+    fun onTimerNavigated() {
+        _navigateToTimer.value = null
     }
 
     fun setSumData() {

@@ -1,7 +1,7 @@
 package com.example.betterlife
 
 import android.app.Application
-import com.example.betterlife.data.Source.PlanRepository
+import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.util.ServiceLocator
 import kotlin.properties.Delegates
 

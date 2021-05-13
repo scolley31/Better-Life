@@ -5,7 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- Toolbar -->
-    <dimen name="height_toolbar">60dp</dimen>
+    <dimen name="height_toolbar">80dp</dimen>
     <dimen name="height_status_bar_origin">24dp</dimen>
 
     <!-- Nav view of Drawer -->

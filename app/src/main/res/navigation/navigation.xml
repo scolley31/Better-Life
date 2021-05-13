@@ -21,4 +21,12 @@
     <action
         android:id="@+id/action_global_otherFragment"
         app:destination="@id/otherFragment" />
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.example.betterlife.timer.TimerFragment"
+        android:label="TimerFragment"
+        tools:layout="@layout/fragment_timer" />
+    <action
+        android:id="@+id/action_global_timerFragment"
+        app:destination="@id/timerFragment" />
 </navigation>

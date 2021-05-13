@@ -1,7 +1,7 @@
 package com.example.betterlife.other
 
 import androidx.lifecycle.ViewModel
-import com.example.betterlife.data.Source.PlanRepository
+import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

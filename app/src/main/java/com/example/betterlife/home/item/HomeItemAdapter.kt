@@ -38,5 +38,6 @@ class HomeItemAdapter(val viewModel: HomeItemViewModel) :
 
     override fun onBindViewHolder(holder: PlanViewHolder, position: Int) {
         holder.bind(getItem(position), viewModel)
+
     }
 }

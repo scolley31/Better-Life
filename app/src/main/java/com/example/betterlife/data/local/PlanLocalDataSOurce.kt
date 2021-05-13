@@ -3,8 +3,7 @@ package com.example.betterlife.data.local
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.example.betterlife.data.Plan
-import com.example.betterlife.data.Source.PlanDataSource
-import com.example.betterlife.data.User
+import com.example.betterlife.data.source.PlanDataSource
 
 class PlanLocalDataSource(val context: Context) : PlanDataSource {
 
