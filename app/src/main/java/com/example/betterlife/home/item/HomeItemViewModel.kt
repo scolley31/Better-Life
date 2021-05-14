@@ -25,9 +25,9 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
     val allDaily: LiveData<List<Int>?>
         get() = _allDaily
 
-    private val _navigateToTimer = MutableLiveData<Boolean?>()
+    private val _navigateToTimer = MutableLiveData<Plan?>()
 
-    val navigateToTimer: MutableLiveData<Boolean?>
+    val navigateToTimer: MutableLiveData<Plan?>
         get() = _navigateToTimer
 
 
@@ -48,15 +48,15 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         setMockData()
     }
 
-    fun navigationToTimer () {
+//    fun navigationToTimer () {
+//
+//        coroutineScope.launch {
+//             _navigateToTimer.value = Plan
+//        }
+//    }
 
-        coroutineScope.launch {
-             _navigateToTimer.value = true
-        }
-    }
-
-    fun onTimerNavigated() {
-        _navigateToTimer.value = null
+    fun navigateTimer(plan: Plan) {
+        _navigateToTimer.value = plan
     }
 
     fun setSumData() {

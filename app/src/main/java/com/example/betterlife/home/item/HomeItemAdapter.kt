@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.ItemHomeGridBinding
 
-class HomeItemAdapter(val viewModel: HomeItemViewModel) :
+class HomeItemAdapter(val viewModel: HomeItemViewModel,val onClickListener: OnClickListener) :
         ListAdapter<Plan, HomeItemAdapter.PlanViewHolder>(DiffCallback) {
 
     class PlanViewHolder(private var binding: ItemHomeGridBinding)
@@ -36,8 +36,22 @@ class HomeItemAdapter(val viewModel: HomeItemViewModel) :
         return PlanViewHolder(ItemHomeGridBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: PlanViewHolder, position: Int) {
-        holder.bind(getItem(position), viewModel)
 
+    /**
+     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Product]
+     * associated with the current item to the [onClick] function.
+     * @param clickListener lambda that will be called with the current [Product]
+     */
+    override fun onBindViewHolder(holder: PlanViewHolder, position: Int) {
+        val plan = getItem(position)
+        holder.bind(getItem(position), viewModel)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(plan)
+        }
+
+    }
+
+    class OnClickListener(val clickListener: (plan : Plan) -> Unit) {
+        fun onClick(plan : Plan) = clickListener(plan)
     }
 }

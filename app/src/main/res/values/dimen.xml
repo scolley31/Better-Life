@@ -15,6 +15,9 @@
     <dimen name="height_bottom_nav_view_main">56dp</dimen>
     <dimen name="size_bottom_nav_icon">36dp</dimen>
 
+    <!-- TimerViewPager -->
+    <dimen name="height_timer_tab">60dp</dimen>
+
     <!-- Catalog -->
     <dimen name="height_catalog_tab">48dp</dimen>
     <dimen name="space_catalog_grid">16dp</dimen>

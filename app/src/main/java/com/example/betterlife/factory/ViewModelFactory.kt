@@ -6,6 +6,7 @@ import com.example.betterlife.MainViewMode
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.home.item.HomeItemViewModel
 import com.example.betterlife.other.OtherViewModel
+import com.example.betterlife.timer.item.TimerItemViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
@@ -20,6 +21,9 @@ class ViewModelFactory constructor(
 
                     isAssignableFrom(HomeItemViewModel::class.java) ->
                         HomeItemViewModel(repository)
+
+                    isAssignableFrom(TimerItemViewModel::class.java) ->
+                        TimerItemViewModel(repository)
 
                     isAssignableFrom(MainViewMode::class.java) ->
                         MainViewMode(repository)
