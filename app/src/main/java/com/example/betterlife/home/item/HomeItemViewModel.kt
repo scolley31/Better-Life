@@ -59,6 +59,10 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         _navigateToTimer.value = plan
     }
 
+    fun deleteNavigateTimer() {
+        _navigateToTimer.value = null
+    }
+
     fun setSumData() {
         var progress : Float = 0F
         for (i in plan.value!!.indices){

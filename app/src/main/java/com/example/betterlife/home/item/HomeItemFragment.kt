@@ -39,8 +39,8 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
         viewModel.navigateToTimer.observe(viewLifecycleOwner, Observer {
             Log.i("test","navigateToTimer = ${viewModel.navigateToTimer.value}")
             it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalTimerFragment())
-                viewModel.onTimerNavigated()
+                findNavController().navigate(NavigationDirections.actionGlobalTimerFragment(it))
+                viewModel.deleteNavigateTimer()
             }
         }
         )

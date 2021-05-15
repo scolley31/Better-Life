@@ -25,7 +25,12 @@
         android:id="@+id/timerFragment"
         android:name="com.example.betterlife.timer.TimerFragment"
         android:label="TimerFragment"
-        tools:layout="@layout/fragment_timer" />
+        tools:layout="@layout/fragment_timer" >
+        <argument
+            android:name="planKey"
+            app:argType="com.example.betterlife.data.Plan"
+            app:nullable="false"/>
+    </fragment>
     <action
         android:id="@+id/action_global_timerFragment"
         app:destination="@id/timerFragment" />
