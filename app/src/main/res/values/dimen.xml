@@ -18,6 +18,8 @@
     <!-- TimerViewPager -->
     <dimen name="height_timer_tab">60dp</dimen>
 
+    <dimen name="height_timerItem_tab">80dp</dimen>
+
     <!-- Catalog -->
     <dimen name="height_catalog_tab">48dp</dimen>
     <dimen name="space_catalog_grid">16dp</dimen>

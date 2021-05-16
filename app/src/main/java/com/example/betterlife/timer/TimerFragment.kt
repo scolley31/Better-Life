@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.betterlife.databinding.FragmentHomeBinding
+import androidx.lifecycle.Observer
 import com.example.betterlife.databinding.FragmentTimerBinding
 import com.example.betterlife.ext.getVmFactory
-import com.example.betterlife.home.HomeAdapter
+import com.google.android.material.tabs.TabLayout
 
 class TimerFragment(): Fragment() {
 
     lateinit var binding: FragmentTimerBinding
-
     private val viewModel by viewModels<TimerViewModel> { getVmFactory(TimerFragmentArgs.fromBundle(requireArguments()).planKey) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -23,8 +22,17 @@ class TimerFragment(): Fragment() {
         binding = FragmentTimerBinding.inflate(inflater)
         binding.viewModel = viewModel
         Log.d("test","argement = ${viewModel.plan.value}")
-        binding.viewpagerTimer.adapter = TimeAdapter(childFragmentManager)
-        binding.tabsTimer.setupWithViewPager(binding.viewpagerTimer)
+
+        viewModel.plan.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                binding.viewpagerTimer.let {
+                    binding.tabsTimer.setupWithViewPager(it)
+                    it.adapter = TimerAdapter(childFragmentManager, viewModel.plan.value!!)
+                    it.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabsTimer))
+                }
+            }
+        })
+
 
 
 

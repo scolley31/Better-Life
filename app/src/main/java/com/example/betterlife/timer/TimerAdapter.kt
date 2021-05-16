@@ -3,11 +3,17 @@ package com.example.betterlife.timer
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.example.betterlife.data.Plan
+import com.example.betterlife.timer.item.TimerInfoFragment
 import com.example.betterlife.timer.item.TimerItemFragment
 
-class TimeAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class TimerAdapter(fragmentManager: FragmentManager, val plan: Plan) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment {
-        return TimerItemFragment(TimerPage.values()[position])
+        return when (position) {
+            0 -> TimerItemFragment(plan)
+            1 -> TimerInfoFragment(plan)
+            else -> TimerItemFragment(plan)
+        }
     }
 
     override fun getCount() = TimerPage.values().size

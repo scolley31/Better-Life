@@ -18,6 +18,7 @@ class PlanViewModelFactory(
                     isAssignableFrom(TimerViewModel::class.java) ->
                         TimerViewModel(planRepository, plan)
 
+
                     else ->
                         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
                 }

@@ -25,7 +25,7 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs_timer"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_timer_tab">
+                android:layout_height="@dimen/height_timerItem_tab">
 
             </com.google.android.material.tabs.TabLayout>
         </androidx.viewpager.widget.ViewPager>

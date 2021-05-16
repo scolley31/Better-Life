@@ -2,11 +2,13 @@ package com.example.betterlife.timer.item
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.FragmentHomeItemBinding
 import com.example.betterlife.databinding.FragmentTimerItemBinding
 import com.example.betterlife.ext.getVmFactory
@@ -16,18 +18,33 @@ import com.example.betterlife.timer.TimerPage
 import com.example.betterlife.util.PrefUtil
 import java.util.*
 
-class TimerItemFragment(private val timerPage: TimerPage) : Fragment() {
+class TimerItemFragment(private val plan: Plan) : Fragment() {
 
     private val viewModel by viewModels<TimerItemViewModel> { getVmFactory() }
     lateinit var binding: FragmentTimerItemBinding
     private lateinit var timer: CountDownTimer
-    private var timerLengthSeconds: Long = 1000
+//    private var timerLengthSeconds: Long = 0
     private var timerStatus = TimerStatus.Stopped
-    private var secondsRemaining: Long = 10
+    private var secondsRemaining: Long = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        viewModel._timer.value = plan
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentTimerItemBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        secondsRemaining = viewModel._timer.value!!.sumDaily!!.toLong()
+
+        viewModel.timer.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("test", "timer = ${viewModel.timer.value}")
+//            binding.Timer.text = viewModel._timer.value!!.sumDaily!!.toLong().toString()
+        })
 
         binding.begin.setOnClickListener {
             timerStatus=  TimerStatus.Running
@@ -83,8 +100,8 @@ class TimerItemFragment(private val timerPage: TimerPage) : Fragment() {
 
     private fun onTimerFinished(){
         timerStatus = TimerStatus.Stopped
-        PrefUtil.setSecondsRemaining(timerLengthSeconds, this.requireContext())
-        secondsRemaining = timerLengthSeconds
+        PrefUtil.setSecondsRemaining(viewModel._timer.value!!.sumDaily!!.toLong(), this.requireContext())
+        secondsRemaining = viewModel._timer.value!!.sumDaily!!.toLong()
         updateButtons()
         updateCountdownUI()
     }

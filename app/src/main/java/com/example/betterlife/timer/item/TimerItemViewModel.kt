@@ -23,5 +23,10 @@ import java.util.*
 
 class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
+    val _timer = MutableLiveData<Plan>()
+
+    val timer: LiveData<Plan>
+        get() = _timer
+
 
 }
