@@ -30,6 +30,11 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
     val navigateToTimer: MutableLiveData<Plan?>
         get() = _navigateToTimer
 
+    private val _navigateToAddTask = MutableLiveData<Boolean>()
+
+    val navigateToAddTask: MutableLiveData<Boolean>
+        get() = _navigateToAddTask
+
 
     private var viewModelJob = Job()
 
@@ -61,6 +66,10 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
     fun deleteNavigateTimer() {
         _navigateToTimer.value = null
+    }
+
+    fun navigateAddTask () {
+        _navigateToAddTask.value = true
     }
 
     fun setSumData() {

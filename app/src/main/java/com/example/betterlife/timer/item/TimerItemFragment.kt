@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.FragmentHomeItemBinding
 import com.example.betterlife.databinding.FragmentTimerItemBinding
@@ -44,6 +46,12 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
         viewModel.timer.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.d("test", "timer = ${viewModel.timer.value}")
 //            binding.Timer.text = viewModel._timer.value!!.sumDaily!!.toLong().toString()
+        })
+
+        viewModel.leaveTimer.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                if (it) findNavController().popBackStack()
+            }
         })
 
         binding.begin.setOnClickListener {

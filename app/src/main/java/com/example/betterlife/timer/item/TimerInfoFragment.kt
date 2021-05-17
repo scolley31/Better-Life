@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.FragmentTimerBinding
 import com.example.betterlife.databinding.FragmentTimerInfoBinding
@@ -29,6 +31,12 @@ class TimerInfoFragment(private val plan: Plan):Fragment() {
         viewModel.info.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.d("test", "info = ${viewModel.info.value}")
 //            binding.Timer.text = viewModel._timer.value!!.sumDaily!!.toLong().toString()
+        })
+
+        viewModel.leaveTimer.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (it) findNavController().popBackStack()
+            }
         })
 
         return binding.root

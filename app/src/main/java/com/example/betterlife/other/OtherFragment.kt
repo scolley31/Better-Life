@@ -27,7 +27,7 @@ class OtherFragment: Fragment() {
         binding.viewModel = viewModel
 
         binding.RecyclerOther.layoutManager = GridLayoutManager(context,2)
-        binding.RecyclerOther.addItemDecoration(DividerItemDecoration(context, GridLayoutManager.VERTICAL))
+//        binding.RecyclerOther.addItemDecoration(DividerItemDecoration(context, GridLayoutManager.VERTICAL))
         binding.RecyclerOther.adapter = OtherAdapter(viewModel, OtherAdapter.OnClickListener{
             Log.d("test","otherPlan = $it")
         })

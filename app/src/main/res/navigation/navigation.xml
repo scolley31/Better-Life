@@ -34,4 +34,12 @@
     <action
         android:id="@+id/action_global_timerFragment"
         app:destination="@id/timerFragment" />
+    <dialog
+        android:id="@+id/addTaskFragment"
+        android:name="com.example.betterlife.addtask.AddTaskFragment"
+        android:label="AddTaskFragment"
+        tools:layout="@layout/dialog_addtask"/>
+    <action
+        android:id="@+id/action_global_addTaskFragment"
+        app:destination="@id/addTaskFragment" />
 </navigation>

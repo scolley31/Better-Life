@@ -3,6 +3,7 @@ package com.example.betterlife.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.betterlife.MainViewMode
+import com.example.betterlife.addtask.AddTaskViewModel
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.home.item.HomeItemViewModel
@@ -29,6 +30,9 @@ class ViewModelFactory constructor(
 
                     isAssignableFrom(TimerInfoViewModel::class.java) ->
                         TimerInfoViewModel(repository)
+
+                    isAssignableFrom(AddTaskViewModel::class.java) ->
+                        AddTaskViewModel(repository)
 
                     isAssignableFrom(MainViewMode::class.java) ->
                         MainViewMode(repository)

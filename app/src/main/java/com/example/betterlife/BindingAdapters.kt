@@ -1,5 +1,6 @@
 package com.example.betterlife
 
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.betterlife.data.Plan
@@ -17,3 +18,4 @@ fun bindRecyclerViewWithPlan(recyclerView: RecyclerView, plan: List<Plan>?) {
             }
         }
     }
+

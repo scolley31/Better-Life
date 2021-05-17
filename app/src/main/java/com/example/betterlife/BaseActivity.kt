@@ -34,17 +34,18 @@ open class BaseActivity : AppCompatActivity(), CoroutineScope {
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.P -> {
 
                     window?.let {
-                        val displayCutout: DisplayCutout? = it.decorView.rootWindowInsets.displayCutout
-                        Logger.d("displayCutout?.safeInsetTop=${displayCutout?.safeInsetTop}")
-                        Logger.d("displayCutout?.safeInsetBottom=${displayCutout?.safeInsetBottom}")
-                        Logger.d("displayCutout?.safeInsetLeft=${displayCutout?.safeInsetLeft}")
-                        Logger.d("displayCutout?.safeInsetRight=${displayCutout?.safeInsetRight}")
+                            val displayCutout: DisplayCutout? = it.decorView.rootWindowInsets.displayCutout
+                            Logger.d("displayCutout?.safeInsetTop=${displayCutout?.safeInsetTop}")
+                            Logger.d("displayCutout?.safeInsetBottom=${displayCutout?.safeInsetBottom}")
+                            Logger.d("displayCutout?.safeInsetLeft=${displayCutout?.safeInsetLeft}")
+                            Logger.d("displayCutout?.safeInsetRight=${displayCutout?.safeInsetRight}")
 
-                        val rects: List<Rect>? = displayCutout?.boundingRects
-                        Logger.d("rects?.size=${rects?.size}")
-                        Logger.d("rects=$rects")
+                            val rects: List<Rect>? = displayCutout?.boundingRects
+                            Logger.d("rects?.size=${rects?.size}")
+                            Logger.d("rects=$rects")
 
-                        displayCutout?.safeInsetTop ?: 0
+                            displayCutout?.safeInsetTop ?: 0
+
                     } ?: 0
                 }
                 else -> 0

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.betterlife.addtask.AddTaskViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/border_circle_line_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/icon_goal_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/outline_add_task_black_18" />
+
+
+            <TextView
+                android:id="@+id/text_goal_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/text_goal"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_goal_name"
+                app:layout_constraintStart_toEndOf="@+id/icon_goal_name"
+                app:layout_constraintTop_toTopOf="@+id/icon_goal_name" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_goal_name_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/border_line_otherfilter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/icon_goal_name"
+                app:layout_constraintTop_toBottomOf="@+id/icon_goal_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_goal_name_inputedit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="想做什麼呢?"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/line_goal_name"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/bottom_navigation_item_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_goal_name_input" />
+
+            <ImageView
+                android:id="@+id/icon_goal_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/line_goal_name"
+                app:layout_constraintTop_toBottomOf="@+id/line_goal_name"
+                app:srcCompat="@drawable/outline_category_black_18" />
+
+            <TextView
+                android:id="@+id/text_goal_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/text_goal_category"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_goal_category"
+                app:layout_constraintStart_toEndOf="@+id/icon_goal_category"
+                app:layout_constraintTop_toTopOf="@+id/icon_goal_category" />
+
+            <Spinner
+                android:id="@+id/spinner_goal_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/icon_goal_category"
+                app:layout_constraintTop_toBottomOf="@+id/icon_goal_category" />
+
+            <View
+                android:id="@+id/line_goal_category"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/bottom_navigation_item_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_goal_category" />
+
+            <ImageView
+                android:id="@+id/icon_goal_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/line_goal_category"
+                app:layout_constraintTop_toBottomOf="@+id/line_goal_category"
+                app:srcCompat="@drawable/outline_alarm_add_black_18" />
+
+            <TextView
+                android:id="@+id/text_goal_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/text_goal_target"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_goal_target"
+                app:layout_constraintStart_toEndOf="@+id/icon_goal_target"
+                app:layout_constraintTop_toTopOf="@+id/icon_goal_target" />
+
+            <View
+                android:id="@+id/line_goal_target"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/bottom_navigation_item_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+            <ImageView
+                android:id="@+id/icon_goal_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/line_goal_target"
+                app:layout_constraintTop_toBottomOf="@+id/line_goal_target"
+                app:srcCompat="@drawable/outline_image_black_18" />
+
+            <TextView
+                android:id="@+id/text_goal_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/text_goal_image"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_goal_image"
+                app:layout_constraintStart_toEndOf="@+id/icon_goal_image"
+                app:layout_constraintTop_toTopOf="@+id/icon_goal_image" />
+
+            <ImageView
+                android:id="@+id/image_goal_update"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/icon_goal_image"
+                app:layout_constraintTop_toBottomOf="@+id/icon_goal_image"
+                app:srcCompat="@drawable/add_picture" />
+
+            <View
+                android:id="@+id/line_goal_image"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/bottom_navigation_item_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_goal_update" />
+
+            <ImageView
+                android:id="@+id/icon_goal_invited"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/line_goal_image"
+                app:layout_constraintTop_toBottomOf="@+id/line_goal_image"
+                app:srcCompat="@drawable/outline_group_add_black_18" />
+
+            <TextView
+                android:id="@+id/text_goal_invite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/text_goal_invited"
+                app:layout_constraintBottom_toBottomOf="@+id/icon_goal_invited"
+                app:layout_constraintStart_toEndOf="@+id/icon_goal_invited"
+                app:layout_constraintTop_toTopOf="@+id/icon_goal_invited" />
+
+            <Button
+                android:id="@+id/button_addtask"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="58dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/border_circle_line_black"
+                android:text="@string/button_addTask"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icon_goal_invited" />
+
+            <TextView
+                android:id="@+id/text_goal_target_daily"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/text_goal_target_daily"
+                app:layout_constraintStart_toStartOf="@+id/text_goal_target"
+                app:layout_constraintTop_toBottomOf="@+id/text_goal_target" />
+
+            <TextView
+                android:id="@+id/text_goal_target_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/text_goal_target_total"
+                app:layout_constraintStart_toStartOf="@+id/text_goal_target_daily"
+                app:layout_constraintTop_toBottomOf="@+id/text_goal_target_daily" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_daily"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text_goal_dailyshow"
+                app:layout_constraintTop_toTopOf="@+id/text_goal_target_daily"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/text_goal_dailyshow"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:hint="60分鐘"
+                app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_daily"
+                app:layout_constraintStart_toEndOf="@+id/text_goal_target_daily"
+                app:layout_constraintTop_toTopOf="@+id/text_goal_target_daily"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="28dp"
+                android:layout_height="0dp"
+                android:text="@string/text_minute"
+                app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_total"
+                app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
+                app:layout_constraintTop_toTopOf="@+id/text_goal_target_total" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_total"
+                app:layout_constraintStart_toStartOf="@+id/text_goal_dailyshow"
+                app:layout_constraintTop_toTopOf="@+id/text_goal_target_total">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_goal_targetTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="加油!"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

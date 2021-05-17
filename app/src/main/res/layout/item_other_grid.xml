@@ -15,16 +15,79 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:background="@drawable/border_circle_line"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/text_other_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:hint="計畫名稱"
+                android:text="@{otherPlan.name}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_other_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="計畫分類"
+                android:text="@{otherPlan.category}"
+                app:layout_constraintEnd_toEndOf="@+id/text_other_title"
+                app:layout_constraintStart_toStartOf="@+id/text_other_title"
+                app:layout_constraintTop_toBottomOf="@+id/text_other_title" />
+
+            <TextView
+                android:id="@+id/text_other_target"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="計畫目標"
+                android:text='@{"目標時間:"+String.valueOf(otherPlan.target)+"分鐘"}'
+                app:layout_constraintStart_toStartOf="@+id/text_other_category"
+                app:layout_constraintTop_toBottomOf="@+id/text_other_category" />
+
+            <TextView
+                android:id="@+id/text_other_members"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="參加人數"
+                app:layout_constraintStart_toStartOf="@+id/text_other_target"
+                app:layout_constraintTop_toBottomOf="@+id/text_other_target" />
+
+            <TextView
+                android:id="@+id/text_other_owner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="發起人"
+                app:layout_constraintStart_toStartOf="@+id/text_other_members"
+                app:layout_constraintTop_toBottomOf="@+id/text_other_members" />
+
+            <TextView
+                android:id="@+id/text_other_rank"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:hint="榜一"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_other_owner"
+                app:layout_constraintTop_toBottomOf="@+id/text_other_owner" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

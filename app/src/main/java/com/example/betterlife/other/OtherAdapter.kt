@@ -17,7 +17,6 @@ class OtherAdapter(val viewModel: OtherViewModel, val onClickListener: OnClickLi
         : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(otherPlan: Plan, viewModel: OtherViewModel) {
-
             binding.otherPlan = otherPlan
             binding.viewModel = viewModel
             binding.executePendingBindings()

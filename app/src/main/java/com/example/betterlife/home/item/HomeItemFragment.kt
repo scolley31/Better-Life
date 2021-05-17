@@ -45,6 +45,14 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
         }
         )
 
+        viewModel.navigateToAddTask.observe(viewLifecycleOwner, Observer {
+            Log.i("test","navigateToAddTask = ${viewModel.navigateToAddTask.value}")
+            it?.let {
+                findNavController().navigate(NavigationDirections.actionGlobalAddTaskFragment())
+            }
+        }
+        )
+
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 

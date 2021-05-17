@@ -24,4 +24,13 @@
     <style name="PublishDialog">
         <item name="android:windowBackground">@color/transparent</item>
     </style>
+
+    <style name="MessageDialog">
+        <item name="android:windowBackground">@color/translucent_80</item>
+    </style>
+
+    <style name="LoginDialog">
+        <item name="android:windowBackground">@color/translucent_40</item>
+    </style>
+
 </resources>

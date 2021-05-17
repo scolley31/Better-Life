@@ -14,15 +14,86 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/filter"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/nofilter"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_line_otherfilter"
+                android:text="@string/text_nofilter"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_study"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/text_study"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_line_otherfilter"
+                android:text="@string/text_study"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/nofilter"
+                app:layout_constraintEnd_toStartOf="@+id/text_exercise"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/nofilter"
+                app:layout_constraintTop_toTopOf="@+id/nofilter" />
+
+            <Button
+                android:id="@+id/text_exercise"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_line_otherfilter"
+                android:text="@string/text_exercise"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_study"
+                app:layout_constraintEnd_toStartOf="@+id/text_habbit"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_study"
+                app:layout_constraintTop_toTopOf="@+id/text_study" />
+
+            <Button
+                android:id="@+id/text_habbit"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/border_line_otherfilter"
+                android:text="@string/text_habbit"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_exercise"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_exercise"
+                app:layout_constraintTop_toTopOf="@+id/text_exercise" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Recycler_other"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:plan="@{viewModel.otherPlan}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/filter"
+            app:plan="@{viewModel.otherPlan}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

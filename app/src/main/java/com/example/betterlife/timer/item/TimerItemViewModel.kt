@@ -28,5 +28,15 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
     val timer: LiveData<Plan>
         get() = _timer
 
+    private val _leaveTimer = MutableLiveData<Boolean>()
+
+    val leaveTimer: LiveData<Boolean>
+        get() = _leaveTimer
+
+
+    fun leaveTimer() {
+        _leaveTimer.value = true
+    }
+
 
 }
