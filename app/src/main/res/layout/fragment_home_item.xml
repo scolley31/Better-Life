@@ -37,11 +37,14 @@
             android:clickable="true"
             android:elevation="2dp"
             android:onClick="@{() -> viewModel.navigateAddTask()}"
+            android:soundEffectsEnabled="false"
             app:backgroundTint="#FFFFFF"
+            app:fabCustomSize="40dp"
+            app:fabSize="auto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:maxImageSize="65dp"
-            app:srcCompat="@drawable/outline_add_circle_outline_black_48" />
+            app:maxImageSize="47dp"
+            app:srcCompat="@drawable/outline_add_circle_outline_black_36" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/outline_add_task_black_18" />
@@ -220,24 +220,6 @@
                 app:layout_constraintStart_toEndOf="@+id/icon_goal_invited"
                 app:layout_constraintTop_toTopOf="@+id/icon_goal_invited" />
 
-            <Button
-                android:id="@+id/button_addtask"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="58dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/border_circle_line_black"
-                android:text="@string/button_addTask"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/icon_goal_invited" />
-
             <TextView
                 android:id="@+id/text_goal_target_daily"
                 android:layout_width="0dp"
@@ -306,6 +288,37 @@
                     android:text="@={viewModel.convertLongToString(viewModel.target)}"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/button_addtask"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="58dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background='@{viewModel.name != null &amp; viewModel.dailyTarget != null  &amp; viewModel.target != null &amp; viewModel.category != null ? @drawable/border_circle_line_black : @drawable/border_circle_line_gray }'
+                android:clickable='@{viewModel.name != null &amp; viewModel.dailyTarget != null  &amp; viewModel.target != null &amp; viewModel.category != null ? true : false }'
+                android:onClick="@{() -> viewModel.navigateToHome()}"
+                android:text="@string/button_addTask"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icon_goal_invited" />
+
+            <ImageView
+                android:id="@+id/back_buttom_addtask"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{() -> viewModel.navigateToHome()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/outline_cancel_black_18" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

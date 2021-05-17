@@ -25,6 +25,11 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
 
     val newTask = MutableLiveData<Plan>()
 
+    private val _navigateToHome = MutableLiveData<Boolean>()
+
+    val navigateToHome: MutableLiveData<Boolean>
+        get() = _navigateToHome
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -38,6 +43,10 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+    }
+
+    fun navigateToHome () {
+        _navigateToHome.value = true
     }
 
     @InverseMethod("convertLongToString")
