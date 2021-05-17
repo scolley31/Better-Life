@@ -19,5 +19,11 @@
     <string name="text_goal_target_daily">每日目標</string>
     <string name="text_goal_target_total">總目標</string>
     <string name="text_minute">分鐘</string>
+    <string-array name="category_array">
+        <item>學習</item>
+        <item>運動</item>
+        <item>興趣</item>
+        <item>其他</item>
+    </string-array>
 
 </resources>

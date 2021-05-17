@@ -65,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:text="@={viewModel.name}"
                     android:hint="想做什麼呢?"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -253,25 +254,27 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/text_goal_target_total"
                 app:layout_constraintStart_toStartOf="@+id/text_goal_target_daily"
-                app:layout_constraintTop_toBottomOf="@+id/text_goal_target_daily" />
+                app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_daily"
+                android:max="120"
+                android:min="0"
+                android:progress="@={viewModel.dailyTarget}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text_goal_dailyshow"
-                app:layout_constraintTop_toTopOf="@+id/text_goal_target_daily"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintStart_toStartOf="@+id/text_goal_target_daily"
+                app:layout_constraintTop_toBottomOf="@+id/text_goal_target_daily" />
 
             <TextView
                 android:id="@+id/text_goal_dailyshow"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
+                android:text='@{String.valueOf(viewModel.dailyTarget)+" 分鐘"}'
                 android:hint="60分鐘"
                 app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_daily"
                 app:layout_constraintStart_toEndOf="@+id/text_goal_target_daily"
@@ -300,6 +303,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="加油!"
+                    android:text="@={viewModel.convertLongToString(viewModel.target)}"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

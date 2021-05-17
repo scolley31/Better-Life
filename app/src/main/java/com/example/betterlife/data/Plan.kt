@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class Plan(
 
         val id: String,
-        val name: String,
+        var name: String,
         val category: String,
         val image: String?,
         val createdTime: String,
