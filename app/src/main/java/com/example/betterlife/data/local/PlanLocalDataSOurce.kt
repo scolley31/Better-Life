@@ -24,11 +24,11 @@ class PlanLocalDataSource(val context: Context) : PlanDataSource {
 //        }
 //    }
 
-    suspend fun getArticles(): com.example.betterlife.data.Result<List<Plan>> {
+    override suspend fun getPlanResult(): com.example.betterlife.data.Result<List<Plan>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun getLiveArticles(): MutableLiveData<List<Plan>> {
+    override fun getLivePlanResult(): MutableLiveData<List<Plan>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -8,17 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.betterlife.NavigationDirections
 import com.example.betterlife.databinding.FragmentHomeItemBinding
 import com.example.betterlife.ext.getVmFactory
-import com.example.betterlife.home.HomeAdapter
 import com.example.betterlife.home.PlanStatus
-import com.example.betterlife.other.OtherViewModel
-import com.example.betterlife.util.Logger
 
 class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
 
@@ -30,8 +26,8 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
 
         binding = FragmentHomeItemBinding.inflate(inflater, container, false)
 
-        viewModel.plan.observe(viewLifecycleOwner, Observer {
-                Log.i("test","plan = ${viewModel.plan.value}")
+        viewModel.plans.observe(viewLifecycleOwner, Observer {
+                Log.i("test","plan = ${viewModel.plans.value}")
 //                viewModel.setSumData()
             }
         )
@@ -50,6 +46,12 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalAddTaskFragment())
             }
+        }
+        )
+
+        viewModel.plans.observe(viewLifecycleOwner, Observer {
+            Log.i("test","plans = ${viewModel.plans.value}")
+
         }
         )
 

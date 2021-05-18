@@ -4,21 +4,27 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.betterlife.data.Completed
+import com.example.betterlife.PlanApplication
+import com.example.betterlife.R
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.User
 import com.example.betterlife.data.source.PlanRepository
+import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import com.example.betterlife.data.Result
 
 class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
-    private val _plan = MutableLiveData<List<Plan>>()
+    private val _plans = MutableLiveData<List<Plan>>()
 
-    val plan: MutableLiveData<List<Plan>>
-        get() = _plan
+    val plans: LiveData<List<Plan>>
+        get() = _plans
+
+    var livePlans = MutableLiveData<List<Plan>>()
 
     private var _allDaily = MutableLiveData<List<Int>?>()
 
@@ -40,6 +46,20 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
     val user: LiveData<User>
         get() = _user
 
+    private val _status = MutableLiveData<LoadApiStatus>()
+
+    val status: LiveData<LoadApiStatus>
+        get() = _status
+
+    private val _refreshStatus = MutableLiveData<Boolean>()
+
+    val refreshStatus: LiveData<Boolean>
+        get() = _refreshStatus
+
+    private val _error = MutableLiveData<String>()
+
+    val error: LiveData<String>
+        get() = _error
 
     private var viewModelJob = Job()
 
@@ -54,16 +74,17 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+
         mockUser()
+
+//        if (PlanApplication.instance.isLiveDataDesign()) {
+//            getLivePlanResult()
+//        } else {
+            getPlanResult()
+//        }
+
 //        setMockData()
     }
-
-//    fun navigationToTimer () {
-//
-//        coroutineScope.launch {
-//             _navigateToTimer.value = Plan
-//        }
-//    }
 
     private fun mockUser() {
         var mockUser = User()
@@ -74,6 +95,50 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
             this.userName = "Scolley"
         }
         _user.value = mockUser
+    }
+
+    fun getLivePlanResult() {
+        livePlans = repository.getLivePlanResult()
+        _status.value = LoadApiStatus.DONE
+        _refreshStatus.value = false
+        Log.d("test","livePlans = ${livePlans.value}")
+    }
+
+    fun getPlanResult() {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getPlanResult()
+
+            Log.d("test","result = $result")
+
+            _plans.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            Log.d("test","plan = ${_plans.value}")
+            _refreshStatus.value = false
+        }
     }
 
     fun navigateTimer(plan: Plan) {
