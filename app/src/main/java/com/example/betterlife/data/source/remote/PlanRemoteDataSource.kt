@@ -21,6 +21,7 @@ object PlanRemoteDataSource : PlanDataSource {
     override suspend fun getPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES)
+            .whereArrayContains("members","Scolley")
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener { task ->
