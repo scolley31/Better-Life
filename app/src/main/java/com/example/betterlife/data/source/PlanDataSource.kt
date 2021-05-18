@@ -10,6 +10,8 @@ interface PlanDataSource {
 
     suspend fun getPlanResult(): Result<List<Plan>>
 
+    suspend fun getOtherPlanResult(): Result<List<Plan>>
+
     fun getLivePlanResult(): MutableLiveData<List<Plan>>
 
 

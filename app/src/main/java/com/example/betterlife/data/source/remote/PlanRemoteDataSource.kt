@@ -46,6 +46,33 @@ object PlanRemoteDataSource : PlanDataSource {
             }
     }
 
+    override suspend fun getOtherPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES)
+            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<Plan>()
+                    for (document in task.result!!) {
+                        Logger.d(document.id + " => " + document.data)
+
+                        val article = document.toObject(Plan::class.java)
+                        list.add(article)
+                    }
+                    continuation.resume(Result.Success(list))
+                } else {
+                    task.exception?.let {
+
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+    }
+
     override fun getLivePlanResult(): MutableLiveData<List<Plan>> {
 
         val liveData = MutableLiveData<List<Plan>>()
