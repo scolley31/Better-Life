@@ -86,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text='@{String.valueOf(viewModel.info.sumDaily)+" 分鐘"}'
+                        android:text='@{String.valueOf(viewModel.info.dailyTarget)+" 分鐘"}'
                         android:hint="0 分鐘"
                         android:letterSpacing="0.15"
                         android:textSize="14sp"

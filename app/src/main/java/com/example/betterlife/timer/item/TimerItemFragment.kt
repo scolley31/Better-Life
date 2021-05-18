@@ -8,17 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.betterlife.data.Plan
-import com.example.betterlife.databinding.FragmentHomeItemBinding
 import com.example.betterlife.databinding.FragmentTimerItemBinding
 import com.example.betterlife.ext.getVmFactory
-import com.example.betterlife.home.PlanStatus
-import com.example.betterlife.home.item.HomeItemViewModel
-import com.example.betterlife.timer.TimerPage
 import com.example.betterlife.util.PrefUtil
-import java.util.*
 
 class TimerItemFragment(private val plan: Plan) : Fragment() {
 
@@ -41,7 +35,7 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
         binding = FragmentTimerItemBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        secondsRemaining = viewModel._timer.value!!.sumDaily!!.toLong()
+        secondsRemaining = viewModel._timer.value!!.dailyTarget!!.toLong()
 
         viewModel.timer.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.d("test", "timer = ${viewModel.timer.value}")
@@ -108,8 +102,8 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
 
     private fun onTimerFinished(){
         timerStatus = TimerStatus.Stopped
-        PrefUtil.setSecondsRemaining(viewModel._timer.value!!.sumDaily!!.toLong(), this.requireContext())
-        secondsRemaining = viewModel._timer.value!!.sumDaily!!.toLong()
+        PrefUtil.setSecondsRemaining(viewModel._timer.value!!.dailyTarget!!.toLong(), this.requireContext())
+        secondsRemaining = viewModel._timer.value!!.dailyTarget!!.toLong()
         updateButtons()
         updateCountdownUI()
     }

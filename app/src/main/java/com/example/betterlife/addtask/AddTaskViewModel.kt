@@ -1,21 +1,28 @@
 package com.example.betterlife.addtask
 
+import android.graphics.Insets.add
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.example.betterlife.PlanApplication
+import com.example.betterlife.R
 import com.example.betterlife.data.Plan
+import com.example.betterlife.data.Result
+import com.example.betterlife.data.User
 import com.example.betterlife.data.source.PlanRepository
+import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
 
 class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
 
-    val name = MutableLiveData<String>()
+    val name = MutableLiveData<String?>()
 
     val target = MutableLiveData<Long>()
 
@@ -23,7 +30,20 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
 
     val category = MutableLiveData<String>()
 
-    val newTask = MutableLiveData<Plan>()
+    private val _user = MutableLiveData<User>()
+
+    val user: LiveData<User>
+        get() = _user
+
+    private val _status = MutableLiveData<LoadApiStatus>()
+
+    val status: LiveData<LoadApiStatus>
+        get() = _status
+
+    private val _error = MutableLiveData<String?>()
+
+    val error: LiveData<String?>
+        get() = _error
 
     private val _navigateToHome = MutableLiveData<Boolean>()
 
@@ -49,6 +69,11 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         _navigateToHome.value = true
     }
 
+    fun navigateToHomeAfterSend (needRefresh: Boolean = false) {
+        _navigateToHome.value = needRefresh
+    }
+
+
     @InverseMethod("convertLongToString")
     fun convertStringToLong(value: String): Long {
         return try {
@@ -65,6 +90,40 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
 
     fun convertLongToString(value: Long): String {
         return value.toString()
+    }
+
+    fun addTask(){
+
+        coroutineScope.launch {
+
+            val newTask = Plan(
+                    members = listOf("Scolley"),
+                    name = name.value!!,
+                    dailyTarget = dailyTarget.value!!,
+                    category = category.value!!,
+                    target = target.value!!
+                )
+
+            when (val result = repository.addTask(newTask)) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    navigateToHomeAfterSend(true)
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+        }
     }
 
 }

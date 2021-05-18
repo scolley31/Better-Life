@@ -32,7 +32,7 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
 
         viewModel.plan.observe(viewLifecycleOwner, Observer {
                 Log.i("test","plan = ${viewModel.plan.value}")
-                viewModel.setSumData()
+//                viewModel.setSumData()
             }
         )
 

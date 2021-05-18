@@ -32,7 +32,7 @@ class PlanLocalDataSource(val context: Context) : PlanDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    suspend fun publish(plan: Plan): com.example.betterlife.data.Result<Boolean> {
+    override suspend fun addTask(plan: Plan): com.example.betterlife.data.Result<Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -1,5 +1,9 @@
 package com.example.betterlife.data
 
+/**
+ * A generic class that holds a value with its api status.
+ * @param <T>
+ */
 sealed class Result<out R> {
 
     data class Success<out T>(val data: T) : Result<T>()

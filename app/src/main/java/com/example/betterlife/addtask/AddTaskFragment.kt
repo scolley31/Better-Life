@@ -29,8 +29,6 @@ class AddTaskFragment(): AppCompatDialogFragment() {
 
     private val viewModel by viewModels<AddTaskViewModel> { getVmFactory() }
 
-    val db = FirebaseFirestore.getInstance()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.LoginDialog)
@@ -77,9 +75,13 @@ class AddTaskFragment(): AppCompatDialogFragment() {
         }
         )
 
-
         viewModel.name.observe(viewLifecycleOwner, Observer {
             Log.i("test","name = ${viewModel.name.value}")
+        }
+        )
+
+        viewModel.category.observe(viewLifecycleOwner, Observer {
+            Log.i("test","category = ${viewModel.category.value}")
         }
         )
 
@@ -93,43 +95,36 @@ class AddTaskFragment(): AppCompatDialogFragment() {
         }
         )
 
-        viewModel.category.observe(viewLifecycleOwner, Observer {
-            Log.i("test","category = ${viewModel.category.value}")
-        }
-        )
-
-        test()
-
-
-
 
         return binding.root
     }
 
-    private fun test() {
-        val plan = db.collection("plan")
-        plan.get()
-            .addOnSuccessListener {
-                if (it.isEmpty) {
-                    Toast.makeText(context, "無此人喔", Toast.LENGTH_LONG).show()
-                }else{
-                    db.collection("plan")
-                        .get()
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                for (document in task.result!!) {
-                                    Log.d("ADD", document.id + " => " + document.data)
-                                }
-                            } else {
-                                Log.w("ADD", "Error getting documents.", task.exception)
-                            }
-                        }
-                }
-            }
-            .addOnFailureListener { e -> Log.w("TAG", "Error adding document", e) }
-
-
-    }
+//    val db = FirebaseFirestore.getInstance()
+//
+//    private fun test() {
+//        val plan = db.collection("plan")
+//        plan.get()
+//            .addOnSuccessListener {
+//                if (it.isEmpty) {
+//                    Toast.makeText(context, "無此人喔", Toast.LENGTH_LONG).show()
+//                }else{
+//                    db.collection("plan")
+//                        .get()
+//                        .addOnCompleteListener { task ->
+//                            if (task.isSuccessful) {
+//                                for (document in task.result!!) {
+//                                    Log.d("ADD", document.id + " => " + document.data)
+//                                }
+//                            } else {
+//                                Log.w("ADD", "Error getting documents.", task.exception)
+//                            }
+//                        }
+//                }
+//            }
+//            .addOnFailureListener { e -> Log.w("TAG", "Error adding document", e) }
+//
+//
+//    }
 
 
 }

@@ -6,17 +6,15 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Plan(
 
-        val id: String,
-        var name: String,
-        val category: String,
-        val image: String?,
-        val createdTime: String,
-        val members: List<String>,
-        val type: String,
-        val target: Int,
-        val completedList: List<Completed>,
-        var sumDaily: Int?,
-        var progress: Int?
+        var id: String = "",
+        var name: String = "",
+        var category: String = "",
+        var image: String? = "",
+        var createdTime: Long = -1,
+        var members: List<String> = listOf(),
+        var target: Long = 0,
+        var dailyTarget: Int = 0,
+        var completedList: List<Completed> = listOf()
 
 ): Parcelable
 
