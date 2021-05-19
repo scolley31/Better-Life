@@ -2,6 +2,7 @@ package com.example.betterlife.data.local
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.source.PlanDataSource
 
@@ -38,6 +39,10 @@ class PlanLocalDataSource(val context: Context) : PlanDataSource {
     }
 
     override suspend fun addTask(plan: Plan): com.example.betterlife.data.Result<Boolean> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun sendCompleted(completed: Completed, taskID: String): com.example.betterlife.data.Result<Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

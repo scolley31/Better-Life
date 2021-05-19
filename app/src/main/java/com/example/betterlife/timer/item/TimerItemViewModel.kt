@@ -1,11 +1,16 @@
 package com.example.betterlife.timer.item
 
+import android.icu.util.Calendar
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.betterlife.PlanApplication
+import com.example.betterlife.R
 import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
+import com.example.betterlife.data.Result
 import com.example.betterlife.data.User
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
@@ -13,6 +18,8 @@ import com.example.betterlife.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.util.*
 
 class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
@@ -48,6 +55,8 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
     val dailyTaskRemained = MutableLiveData<Int>()
 
+    val dailyTaskTarget = MutableLiveData<Int>()
+
     val completed = MutableLiveData<Boolean>()
 
     var timeStatus =  MutableLiveData<TimerStatus>()
@@ -74,16 +83,38 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
     }
 
     fun sendCompleted() {
+        coroutineScope.launch {
+            val newCompleted = Completed(
+                    user_id = "Scolley",
+                    daily = dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1),
+                    isCompleted = completed.value!!,
+                    date = Calendar.getInstance().time
+            )
 
-        val newCompleted = Completed(
-                user_id = "Scolley",
-                daily = dailyTaskRemained.value!!,
-                isCompleted = completed.value!!
-        )
+            Log.d("test","newCompleted = $newCompleted")
 
+            when (val result = timer.value?.let { repository.sendCompleted(newCompleted, it.id) }) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    leaveTimer()
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+        }
 
-
-
+        leaveTimer
     }
 
 

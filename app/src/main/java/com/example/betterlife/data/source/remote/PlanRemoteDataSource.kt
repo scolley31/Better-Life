@@ -4,6 +4,7 @@ import android.icu.util.Calendar
 import androidx.lifecycle.MutableLiveData
 import com.example.betterlife.PlanApplication
 import com.example.betterlife.R
+import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.source.PlanDataSource
 import com.example.betterlife.util.Logger
@@ -125,6 +126,32 @@ object PlanRemoteDataSource : PlanDataSource {
                     continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
                 }
             }
+    }
+
+    override suspend fun sendCompleted(completed: Completed, taskID: String): Result<Boolean> = suspendCoroutine { continuation ->
+        val plans = FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskID)
+        val subCollection = plans.collection("completedList")
+        val document = subCollection.document()
+
+        completed.id = document.id
+
+        document
+                .set(completed)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Logger.i("Publish: $completed")
+
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
     }
 
 }

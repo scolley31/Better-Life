@@ -1,6 +1,7 @@
 package com.example.betterlife.data
 
 import android.os.Parcelable
+import com.google.type.Date
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -13,8 +14,8 @@ data class Plan(
         var createdTime: Long = -1,
         var members: List<String> = listOf(),
         var target: Long = 0,
-        var dailyTarget: Int = 0,
-        var completedList: List<Completed> = listOf()
+        var dailyTarget: Int = 0
+//        var completedList: List<Completed> = listOf()
 
 ): Parcelable
 
@@ -25,7 +26,7 @@ data class Completed(
         var user_id: String = "",
         var isCompleted: Boolean = false,
         var daily: Int = 0,
-        var date: String = ""
+        var date: java.util.Date
 
 ) : Parcelable
 

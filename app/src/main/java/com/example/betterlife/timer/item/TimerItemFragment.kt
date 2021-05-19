@@ -24,6 +24,7 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
 
         viewModel._timer.value = plan
         viewModel.dailyTaskRemained.value = plan.dailyTarget.times(60)
+        viewModel.dailyTaskTarget.value = plan.dailyTarget.times(60)
 
         super.onCreate(savedInstanceState)
     }
@@ -69,6 +70,7 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
             updateButtons()
         }
 
+        updateCountdownUI()
 
         return binding.root
     }
