@@ -21,11 +21,11 @@ data class Plan(
 @Parcelize
 data class Completed(
 
-        val id: String,
-        val user_id: String,
-        val isCompleted: Boolean,
-        val daily: Int,
-        val date: String
+        var id: String = "",
+        var user_id: String = "",
+        var isCompleted: Boolean = false,
+        var daily: Int = 0,
+        var date: String = ""
 
 ) : Parcelable
 

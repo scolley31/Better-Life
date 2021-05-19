@@ -19,13 +19,11 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
     private val viewModel by viewModels<TimerItemViewModel> { getVmFactory() }
     lateinit var binding: FragmentTimerItemBinding
     private lateinit var timer: CountDownTimer
-//    private var timerLengthSeconds: Long = 0
-    private var timerStatus = TimerStatus.Stopped
-    private var secondsRemaining: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         viewModel._timer.value = plan
+        viewModel.dailyTaskRemained.value = plan.dailyTarget.times(60)
 
         super.onCreate(savedInstanceState)
     }
@@ -35,11 +33,9 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
         binding = FragmentTimerItemBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        secondsRemaining = viewModel._timer.value!!.dailyTarget!!.toLong()
 
         viewModel.timer.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.d("test", "timer = ${viewModel.timer.value}")
-//            binding.Timer.text = viewModel._timer.value!!.sumDaily!!.toLong().toString()
         })
 
         viewModel.leaveTimer.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -48,69 +44,74 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
             }
         })
 
+        viewModel.dailyTaskRemained.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("test", "dailyTaskRemained = ${viewModel.dailyTaskRemained.value}")
+        })
+
+        viewModel.timeStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("test", "timeStatus = ${viewModel.timeStatus.value}")
+        })
+
+        viewModel.completed.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("test", "completed = ${viewModel.completed.value}")
+        })
+
+
         binding.begin.setOnClickListener {
-            timerStatus=  TimerStatus.Running
+            viewModel.timeStatus.value=  TimerStatus.Running
             startTimer()
             updateButtons()
         }
 
         binding.stop.setOnClickListener {
-            timerStatus=  TimerStatus.Stopped
+            viewModel.timeStatus.value =  TimerStatus.Stopped
             timer.cancel()
             updateButtons()
         }
 
-        binding.restart.setOnClickListener {
-            timer.cancel()
-            onTimerFinished()
-        }
 
         return binding.root
     }
 
     private fun updateButtons(){
-        when (timerStatus) {
+        when (viewModel.timeStatus.value) {
             TimerStatus.Running ->{
                 binding.begin.isEnabled = false
                 binding.stop.isEnabled = true
-                binding.restart.isEnabled = true
+
             }
             TimerStatus.Stopped -> {
                 binding.begin.isEnabled = true
                 binding.stop.isEnabled = false
-                binding.restart.isEnabled = false
-            }
-            TimerStatus.Paused -> {
-                binding.begin.isEnabled = true
-                binding.stop.isEnabled = false
-                binding.restart.isEnabled = true
+
             }
         }
     }
 
     private fun startTimer(){
-        timerStatus = TimerStatus.Running
-        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
+        viewModel.timeStatus.value = TimerStatus.Running
+        timer = object : CountDownTimer(viewModel.dailyTaskRemained.value?.times(1000)!!.toLong(), 1000) {
             override fun onFinish() = onTimerFinished()
 
             override fun onTick(millisUntilFinished: Long) {
-                secondsRemaining = millisUntilFinished / 1000
+                viewModel.dailyTaskRemained.value = (millisUntilFinished / 1000) .toInt()
                 updateCountdownUI()
             }
         }.start()
     }
 
     private fun onTimerFinished(){
-        timerStatus = TimerStatus.Stopped
+        viewModel.timeStatus.value = TimerStatus.Stopped
         PrefUtil.setSecondsRemaining(viewModel._timer.value!!.dailyTarget!!.toLong(), this.requireContext())
-        secondsRemaining = viewModel._timer.value!!.dailyTarget!!.toLong()
+        viewModel.dailyTaskRemained.value = viewModel._timer.value!!.dailyTarget!!
+        viewModel.completed.value = true
         updateButtons()
         updateCountdownUI()
     }
 
     private fun updateCountdownUI(){
-        val minutesUntilFinished = secondsRemaining / 60
-        val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
+        val minutesUntilFinished = viewModel.dailyTaskRemained.value?.div(60)
+        val secondsInMinuteUntilFinished = minutesUntilFinished?.times(60)?.let { viewModel.dailyTaskRemained.value?.minus(it) }
         val secondsStr = secondsInMinuteUntilFinished.toString()
         binding.Timer.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
     }
