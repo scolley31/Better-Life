@@ -101,7 +101,7 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
                     name = name.value!!,
                     dailyTarget = dailyTarget.value!!,
                     category = category.value!!,
-                    target = target.value!!
+                    target = target.value!!.toInt()
                 )
 
             when (val result = repository.addTask(newTask)) {

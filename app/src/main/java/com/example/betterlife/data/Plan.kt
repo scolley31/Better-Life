@@ -14,14 +14,13 @@ data class Plan(
         var image: String? = "",
         var createdTime: Long = -1,
         var members: List<String> = listOf(),
-        var target: Long = 0,
+        var target: Int = 0,
         var dailyTarget: Int = 0,
-        var progressTime: Long = 0
+        var progressTime: Int = 0
 //        var completedList: List<Completed> = listOf()
 
 ): Parcelable {
-    var targetToInt: Int = target.toInt()
-    var progressTimeToInt : Int = progressTime.toInt()
+
 }
 
 @Parcelize

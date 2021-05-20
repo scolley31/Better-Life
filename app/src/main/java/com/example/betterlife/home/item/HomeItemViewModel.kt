@@ -174,7 +174,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                     }
                 }
                 singlePlanCompleted.value.let {
-                    var sum : Long = 0
+                    var sum : Int = 0
                     for (j in singlePlanCompleted.value!!.indices){
                         sum += singlePlanCompleted.value!![j].daily
                     }
@@ -186,8 +186,8 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
             }
 
             _plans.value = _plans.value
-            Log.d("test","_planInViewModel = ${_plans.value}")
-            Log.d("test","planInViewModel = ${plans.value}")
+//            Log.d("test","_planInViewModel = ${_plans.value}")
+//            Log.d("test","planInViewModel = ${plans.value}")
         }
     }
 

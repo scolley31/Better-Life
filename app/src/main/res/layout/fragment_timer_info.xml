@@ -86,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text='@{String.valueOf(viewModel.info.dailyTarget)+" 分鐘"}'
+                        android:text='@{String.valueOf(viewModel.info.progressTime)+" 分鐘"}'
                         android:hint="0 分鐘"
                         android:letterSpacing="0.15"
                         android:textSize="14sp"
@@ -125,12 +125,28 @@
                         android:layout_width="0dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="32dp"
+                        android:max="@{viewModel.info.target}"
                         android:min="0"
-                        android:max="100"
-                        android:progress="50"
+                        android:progress="@{viewModel.info.progressTime}"
+                        android:progressDrawable="@drawable/custom_progress_bar_horizontal"
+                        android:secondaryProgress="100"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="@+id/text_timer_target"
                         app:layout_constraintStart_toStartOf="@+id/text_timer_targetText"
-                        app:layout_constraintTop_toBottomOf="@+id/text_timer_targetText" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_timer_targetText"
+                        tools:progress="50"/>
+
+                    <TextView
+                        android:id="@+id/text_plan_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="50%"
+                        android:textColor="@color/white"
+                        android:text='@{String.valueOf(((viewModel.info.progressTime*100)/viewModel.info.target))+" %"}'
+                        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+                        app:layout_constraintStart_toStartOf="@+id/progressBar"
+                        app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

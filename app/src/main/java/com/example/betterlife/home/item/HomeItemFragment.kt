@@ -27,6 +27,7 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
 
         binding = FragmentHomeItemBinding.inflate(inflater, container, false)
 
+
         viewModel.plans.observe(viewLifecycleOwner, Observer {
             it?.let{
                 Log.i("test","planInFragment = ${viewModel.plans.value}")
@@ -54,7 +55,6 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
 
         viewModel.plans.observe(viewLifecycleOwner, Observer {
             Log.i("test","plans = ${viewModel.plans.value}")
-//            viewModel.getCompleted()
 
         }
         )
