@@ -19,6 +19,37 @@ object PlanRemoteDataSource : PlanDataSource {
     private const val PATH_ARTICLES = "plan"
     private const val KEY_CREATED_TIME = "createdTime"
 
+    override suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+                .collection(PATH_ARTICLES)
+                .document(taskID)
+                .collection("completedList")
+                .whereEqualTo("user_id",userID)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Completed>()
+                        for (document in task.result!!) {
+                            Logger.d(document.id + " => " + document.data)
+
+                            val completed = document.toObject(Completed::class.java)
+                            list.add(completed)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+    }
+
+
+
     override suspend fun getPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES)
@@ -135,8 +166,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
         completed.id = document.id
 
-        document
-                .set(completed)
+        document.set(completed)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Logger.i("Publish: $completed")

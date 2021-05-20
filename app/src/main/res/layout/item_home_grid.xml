@@ -24,12 +24,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:onClick="@{() -> viewModel.navigateTimer(plan)}"
             android:background="@drawable/border_circle_line"
+            android:onClick="@{() -> viewModel.navigateTimer(plan)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/text_plan_name"
@@ -37,6 +39,7 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:hint="名稱"
                 android:text="@{plan.name}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +49,7 @@
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="16dp"
+                android:hint="分類"
                 android:text="@{plan.category}"
                 android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="@+id/text_plan_name"
@@ -56,14 +60,14 @@
             <ProgressBar
                 android:id="@+id/plan_progress"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:min="0"
-                android:max="100"
-                android:progress="50"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
+                android:max="@{plan.targetToInt}"
+                android:min="0"
+                android:progress="@{plan.progressTimeToInt}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/text_time_sum"
@@ -74,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:hint="累積時間"
                 android:text='@{"累積時間: "+String.valueOf(plan.dailyTarget)+" 分鐘"}'
                 app:layout_constraintStart_toStartOf="@+id/text_plan_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
@@ -82,10 +87,29 @@
                 android:id="@+id/text_time_target"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:hint="目標時間"
                 android:text='@{"目標時間: "+String.valueOf(plan.target)+" 分鐘"}'
                 app:layout_constraintBottom_toBottomOf="@+id/text_time_sum"
                 app:layout_constraintEnd_toEndOf="@+id/text_plan_category"
                 app:layout_constraintTop_toTopOf="@+id/text_time_sum" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@{String.valueOf(plan.target)}"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/text_plan_name"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="37dp"-->
+<!--                android:text="@{String.valueOf(plan.progressTime)}"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/plan_progress"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/text_plan_name"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/textView" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

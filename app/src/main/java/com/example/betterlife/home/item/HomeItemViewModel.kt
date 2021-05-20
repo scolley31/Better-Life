@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.betterlife.PlanApplication
 import com.example.betterlife.R
+import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.User
 import com.example.betterlife.data.source.PlanRepository
@@ -61,6 +62,8 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
     val error: LiveData<String>
         get() = _error
 
+    val singlePlanCompleted = MutableLiveData<List<Completed>>()
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -89,7 +92,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
     private fun mockUser() {
         var mockUser = User()
         mockUser.run {
-            this.userId = "scolley31"
+            this.userId = "Scolley"
             this.google_id = "scolley31"
             this.userImage = ""
             this.userName = "Scolley"
@@ -109,9 +112,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
-
             val result = repository.getPlanResult()
-
             Log.d("test","result = $result")
 
             _plans.value = when (result) {
@@ -134,10 +135,59 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                     _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
-                }
+//                }
             }
+        }
             Log.d("test","plan = ${_plans.value}")
             _refreshStatus.value = false
+
+            getCompleted()
+
+        }
+    }
+
+    fun getCompleted(){
+
+        coroutineScope.launch {
+            for (i in _plans.value!!.indices) {
+                var completed = repository.getCompleted(_plans.value!![i].id, user.value!!.userId)
+                singlePlanCompleted.value = when(completed) {
+                    is Result.Success -> {
+                        _error.value = null
+                        _status.value = LoadApiStatus.DONE
+                        completed.data
+                    }
+                    is Result.Fail -> {
+                        _error.value = completed.error
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                    is Result.Error -> {
+                        _error.value = completed.exception.toString()
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                    else -> {
+                        _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                }
+                singlePlanCompleted.value.let {
+                    var sum : Long = 0
+                    for (j in singlePlanCompleted.value!!.indices){
+                        sum += singlePlanCompleted.value!![j].daily
+                    }
+                    _plans.value!![i].progressTime = sum
+//                    Log.d("test","_plans.value!![i].progressTime = ${_plans.value!![i].progressTime}")
+//                    Log.d("test","_planInViewModel = ${_plans.value}")
+//                    Log.d("test","planInViewModel = ${plans.value}")
+                }
+            }
+
+            _plans.value = _plans.value
+            Log.d("test","_planInViewModel = ${_plans.value}")
+            Log.d("test","planInViewModel = ${plans.value}")
         }
     }
 

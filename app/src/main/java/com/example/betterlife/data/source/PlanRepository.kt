@@ -11,6 +11,8 @@ interface PlanRepository {
 
     suspend fun sendCompleted(completed: Completed, taskID : String): Result<Boolean>
 
+    suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>>
+
     suspend fun getPlanResult(): Result<List<Plan>>
 
     suspend fun getOtherPlanResult(): Result<List<Plan>>

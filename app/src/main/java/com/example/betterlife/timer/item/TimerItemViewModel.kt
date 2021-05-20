@@ -1,7 +1,5 @@
 package com.example.betterlife.timer.item
 
-import android.icu.util.Calendar
-import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,10 +9,10 @@ import com.example.betterlife.R
 import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.Result
-import com.example.betterlife.data.User
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.Logger
+import com.google.firebase.Timestamp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -84,11 +82,12 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
     fun sendCompleted() {
         coroutineScope.launch {
+
             val newCompleted = Completed(
                     user_id = "Scolley",
                     daily = dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1),
-                    isCompleted = completed.value!!,
-                    date = Calendar.getInstance().time
+                    completed = completed.value!!,
+                    date = Timestamp(Date())
             )
 
             Log.d("test","newCompleted = $newCompleted")
