@@ -42,6 +42,8 @@
     <string name="detail_end_date">截止時間: yyyy 年 MM 月 dd 日</string>
     <string name="diary_record_date">dd/MM/yyyy</string>
     <string name="diary_select_date">d/M/yyyy</string>
+    <string name="text_timer_targetText">每日平均時間 :</string>
+    <string name="text_timer_dailyTargetText">每日目標時間 :</string>
 
 
 </resources>

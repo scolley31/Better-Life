@@ -18,6 +18,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
     private const val PATH_ARTICLES = "plan"
     private const val KEY_CREATED_TIME = "createdTime"
+    private const val KEY_COMPLETED_TIME = "date"
 
     override suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
@@ -25,6 +26,7 @@ object PlanRemoteDataSource : PlanDataSource {
                 .document(taskID)
                 .collection("completedList")
                 .whereEqualTo("user_id",userID)
+                .orderBy(KEY_COMPLETED_TIME, Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {

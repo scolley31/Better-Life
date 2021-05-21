@@ -12,11 +12,11 @@ import com.example.betterlife.data.Result
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.Logger
-import com.google.firebase.Timestamp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 
 class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
@@ -87,7 +87,7 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
                     user_id = "Scolley",
                     daily = dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1),
                     completed = completed.value!!,
-                    date = Timestamp(Date())
+                    date = Calendar.getInstance().timeInMillis
             )
 
             Log.d("test","newCompleted = $newCompleted")
@@ -115,6 +115,5 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
         leaveTimer
     }
-
 
 }

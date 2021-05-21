@@ -173,7 +173,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                         null
                     }
                 }
-                singlePlanCompleted.value.let {
+                singlePlanCompleted.value?.let {
                     var sum : Int = 0
                     for (j in singlePlanCompleted.value!!.indices){
                         sum += singlePlanCompleted.value!![j].daily

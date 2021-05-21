@@ -1,8 +1,8 @@
 package com.example.betterlife.data
 
 import android.os.Parcelable
-import com.google.firebase.Timestamp
 import kotlinx.android.parcel.Parcelize
+import java.text.SimpleDateFormat
 import java.util.*
 
 @Parcelize
@@ -30,9 +30,13 @@ data class Completed(
         var user_id: String = "",
         var completed: Boolean = false,
         var daily: Int = 0,
-        var date: Timestamp = Timestamp(Date())
+        var date: Long = -1
 
-) : Parcelable
+) : Parcelable {
+
+
+
+}
 
 @Parcelize
 data class Progress(

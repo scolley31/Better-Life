@@ -43,7 +43,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -86,9 +86,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text='@{String.valueOf(viewModel.info.progressTime)+" 分鐘"}'
                         android:hint="0 分鐘"
                         android:letterSpacing="0.15"
+                        android:text='@{String.valueOf(viewModel.info.progressTime)+" 分鐘"}'
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_timer_sumText"
                         app:layout_constraintEnd_toEndOf="@+id/text_timer_title"
@@ -111,9 +111,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center_horizontal|center_vertical"
-                        android:text='@{String.valueOf(viewModel.info.target)+" 分鐘"}'
                         android:hint="0 分鐘"
                         android:letterSpacing="0.15"
+                        android:text='@{String.valueOf(viewModel.info.target)+" 分鐘"}'
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_timer_targetText"
                         app:layout_constraintEnd_toEndOf="@+id/text_timer_sum"
@@ -134,20 +134,97 @@
                         app:layout_constraintEnd_toEndOf="@+id/text_timer_target"
                         app:layout_constraintStart_toStartOf="@+id/text_timer_targetText"
                         app:layout_constraintTop_toBottomOf="@+id/text_timer_targetText"
-                        tools:progress="50"/>
+                        tools:progress="50" />
 
                     <TextView
                         android:id="@+id/text_plan_progress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="50%"
-                        android:textColor="@color/white"
                         android:text='@{String.valueOf(((viewModel.info.progressTime*100)/viewModel.info.target))+" %"}'
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
                         app:layout_constraintEnd_toEndOf="@+id/progressBar"
                         app:layout_constraintStart_toStartOf="@+id/progressBar"
                         app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/BarChart_daily"
+                        android:layout_width="0dp"
+                        android:layout_height="250dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginVertical="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_timer_dailyTargetText" />
+
+                    <View
+                        android:id="@+id/line_timer_1"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/bottom_navigation_item_normal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+                    <TextView
+                        android:id="@+id/text_timer_dailyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:letterSpacing="0.15"
+                        android:text="@string/text_timer_targetText"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/progressBar"
+                        app:layout_constraintTop_toBottomOf="@+id/line_timer_1" />
+
+                    <TextView
+                        android:id="@+id/text_timer_daily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="0 分鐘"
+                        android:letterSpacing="0.15"
+                        android:text='@{String.valueOf(viewModel.averageDailyTime)+" 分鐘"}'
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+                        app:layout_constraintTop_toBottomOf="@+id/line_timer_1" />
+
+                    <TextView
+                        android:id="@+id/text_timer_dailyTargetText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:letterSpacing="0.15"
+                        android:text="@string/text_timer_dailyTargetText"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_timer_dailyText"
+                        app:layout_constraintTop_toBottomOf="@+id/text_timer_dailyText" />
+
+                    <TextView
+                        android:id="@+id/text_timer_dailyTarget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="0 分鐘"
+                        android:letterSpacing="0.15"
+                        android:text='@{String.valueOf(viewModel.info.dailyTarget)+" 分鐘"}'
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/text_timer_daily"
+                        app:layout_constraintTop_toBottomOf="@+id/text_timer_daily" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
