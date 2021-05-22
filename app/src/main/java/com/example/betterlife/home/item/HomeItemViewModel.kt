@@ -79,14 +79,14 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         Logger.i("------------------------------------")
 
         mockUser()
+        getPlanResult()
 
 //        if (PlanApplication.instance.isLiveDataDesign()) {
 //            getLivePlanResult()
 //        } else {
-            getPlanResult()
+//            getPlanResult()
 //        }
 
-//        setMockData()
     }
 
     private fun mockUser() {
@@ -179,15 +179,9 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                         sum += singlePlanCompleted.value!![j].daily
                     }
                     _plans.value!![i].progressTime = sum
-//                    Log.d("test","_plans.value!![i].progressTime = ${_plans.value!![i].progressTime}")
-//                    Log.d("test","_planInViewModel = ${_plans.value}")
-//                    Log.d("test","planInViewModel = ${plans.value}")
                 }
             }
-
             _plans.value = _plans.value
-//            Log.d("test","_planInViewModel = ${_plans.value}")
-//            Log.d("test","planInViewModel = ${plans.value}")
         }
     }
 

@@ -16,6 +16,7 @@ import com.example.betterlife.databinding.FragmentTimerBinding
 import com.example.betterlife.databinding.FragmentTimerInfoBinding
 import com.example.betterlife.databinding.FragmentTimerItemBinding
 import com.example.betterlife.ext.getVmFactory
+import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
@@ -39,8 +40,7 @@ class TimerInfoFragment(private val plan: Plan):Fragment() {
 
         viewModel.info.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.d("test", "info = ${viewModel.info.value}")
-
-//            viewModel.getCompletedForChart()
+            viewModel.getRank()
         })
 
         viewModel.completedTest.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -56,6 +56,12 @@ class TimerInfoFragment(private val plan: Plan):Fragment() {
         viewModel.forPrintChat.observe(viewLifecycleOwner, Observer {
             it?.let {
                 setBarChart()
+            }
+        })
+
+        viewModel.rank.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Log.d("test", "rank = ${viewModel.rank.value}")
             }
         })
 
@@ -96,9 +102,15 @@ class TimerInfoFragment(private val plan: Plan):Fragment() {
         // Controlling left side of y axis
         val yAxisLeft = binding.BarChartDaily.axisLeft
         yAxisLeft.granularity = 1f
+
+        // setup limit line
+        val dailyTarget = viewModel.info.value?.dailyTarget
+        val LimitLine = LimitLine(dailyTarget!!.toFloat(),"")
+
         // Setting Data
         val data = BarData(dataSet)
         binding.BarChartDaily.data = data
+        binding.BarChartDaily.axisLeft.addLimitLine(LimitLine)
         binding.BarChartDaily.invalidate()
         binding.BarChartDaily.xAxis.apply {
             valueFormatter = IndexAxisValueFormatter(viewModel.label)

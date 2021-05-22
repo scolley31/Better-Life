@@ -39,9 +39,9 @@ data class Completed(
 }
 
 @Parcelize
-data class Progress(
+data class Rank(
         var user_id: String = "",
-        var percent: Float = 0.0f
+        var totalTime: Int = 0
 ) : Parcelable
 
 

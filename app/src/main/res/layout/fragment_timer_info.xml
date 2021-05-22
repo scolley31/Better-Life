@@ -42,6 +42,7 @@
                     app:srcCompat="@drawable/icons_44px_back01" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/Constraint_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -157,8 +158,6 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="32dp"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="32dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_timer_dailyTargetText" />
@@ -226,6 +225,267 @@
                         app:layout_constraintEnd_toEndOf="@+id/text_timer_daily"
                         app:layout_constraintTop_toBottomOf="@+id/text_timer_daily" />
 
+
+                    <View
+                        android:id="@+id/line_timer_2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@color/bottom_navigation_item_normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/BarChart_daily" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/Constraint_rank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Constraint_info">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/Constraint_rankText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="32dp"
+                        android:background="@drawable/border_line_rank"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <TextView
+                            android:id="@+id/text_rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/noto_sans"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:letterSpacing="0.15"
+                            android:text="@string/text_rank"
+                            android:textColor="@color/black_3f3a3a"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_rank1"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="榜一 : "
+                            android:letterSpacing="0.15"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_rank" />
+
+                        <TextView
+                            android:id="@+id/text_rank2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="榜二 : "
+                            android:letterSpacing="0.15"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@+id/text_rank1"
+                            app:layout_constraintHorizontal_bias="0.114"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank1"
+                            app:layout_constraintTop_toBottomOf="@+id/text_rank1" />
+
+                        <TextView
+                            android:id="@+id/text_rank3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="榜三 : "
+                            android:letterSpacing="0.15"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@+id/text_rank2"
+                            app:layout_constraintHorizontal_bias="0.114"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank2"
+                            app:layout_constraintTop_toBottomOf="@+id/text_rank2" />
+
+                        <TextView
+                            android:id="@+id/text_rank4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="榜四 : "
+                            android:letterSpacing="0.15"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="@+id/text_rank3"
+                            app:layout_constraintHorizontal_bias="0.114"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank3"
+                            app:layout_constraintTop_toBottomOf="@+id/text_rank3" />
+
+                        <TextView
+                            android:id="@+id/text_rank5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="榜五 : "
+                            android:letterSpacing="0.15"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/text_rank4"
+                            app:layout_constraintHorizontal_bias="0.114"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank4"
+                            app:layout_constraintTop_toBottomOf="@+id/text_rank4"
+                            app:layout_constraintVertical_bias="1.0" />
+
+                        <TextView
+                            android:id="@+id/text_rank1_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{viewModel.rank[0].user_id}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank1"
+                            app:layout_constraintStart_toEndOf="@+id/text_rank1"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank1" />
+
+                        <TextView
+                            android:id="@+id/text_rank2_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{viewModel.rank[1].user_id}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank2"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank1_name"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank2" />
+
+                        <TextView
+                            android:id="@+id/text_rank3_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{viewModel.rank[2].user_id}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank3"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank2_name"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank3" />
+
+                        <TextView
+                            android:id="@+id/text_rank4_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{viewModel.rank[3].user_id}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank4"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank3_name"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank4" />
+
+                        <TextView
+                            android:id="@+id/text_rank5_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{viewModel.rank[4].user_id}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank5"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank4_name"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank5" />
+
+                        <TextView
+                            android:id="@+id/text_rank1_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{"|  累積時間 : "+viewModel.rank[0].totalTime + " 分鐘"}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank1_name"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank1_name" />
+
+                        <TextView
+                            android:id="@+id/text_rank2_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{"|  累積時間 : "+viewModel.rank[1].totalTime + " 分鐘"}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank2_name"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank2_name" />
+
+                        <TextView
+                            android:id="@+id/text_rank3_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{"|  累積時間 : "+viewModel.rank[2].totalTime + " 分鐘"}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank3_name"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank3_name" />
+
+                        <TextView
+                            android:id="@+id/text_rank4_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{"|  累積時間 : "+viewModel.rank[3].totalTime + " 分鐘"}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank4_name"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank4_name" />
+
+                        <TextView
+                            android:id="@+id/text_rank5_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:hint="從缺"
+                            android:letterSpacing="0.15"
+                            android:text='@{"|  累積時間 : "+viewModel.rank[4].totalTime + " 分鐘"}'
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_rank5_name"
+                            app:layout_constraintStart_toStartOf="@+id/text_rank"
+                            app:layout_constraintTop_toTopOf="@+id/text_rank5_name" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

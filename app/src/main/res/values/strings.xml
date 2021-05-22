@@ -44,6 +44,8 @@
     <string name="diary_select_date">d/M/yyyy</string>
     <string name="text_timer_targetText">每日平均時間 :</string>
     <string name="text_timer_dailyTargetText">每日目標時間 :</string>
+    <string name="text_rank">排行榜</string>
+    <string name="text_rank_nothing">從缺</string>
 
 
 </resources>
