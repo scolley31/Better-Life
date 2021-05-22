@@ -26,6 +26,10 @@ class PlanLocalDataSource(val context: Context) : PlanDataSource {
 //        }
 //    }
 
+    override suspend fun addToOtherTask(userId: String, taskId: String): Result<Boolean> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun deleteUserOngoingTask(userId: String, taskId: String): Result<Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -39,6 +43,10 @@ class PlanLocalDataSource(val context: Context) : PlanDataSource {
     }
 
     override suspend fun getOtherPlanResult(): com.example.betterlife.data.Result<List<Plan>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getLiveOtherPlanResult(): MutableLiveData<List<Plan>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

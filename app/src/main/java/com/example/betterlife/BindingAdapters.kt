@@ -12,13 +12,17 @@ fun bindRecyclerViewWithPlan(recyclerView: RecyclerView, plan: List<Plan>?) {
     plan?.let {
         recyclerView.adapter?.apply {
             when (this) {
-                is HomeItemAdapter -> {
-                    notifyDataSetChanged()
-                    submitList(it)
-                }
-                is OtherAdapter -> submitList(it)
+                        is HomeItemAdapter -> {
+                            notifyDataSetChanged()
+                            submitList(it)
+                        }
+                        is OtherAdapter -> {
+                            notifyDataSetChanged()
+                            submitList(it)
+                        }
+                    }
                 }
             }
-        }
     }
+
 

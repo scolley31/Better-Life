@@ -10,6 +10,10 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
 
 ) : PlanRepository {
 
+    override suspend fun addToOtherTask(userId: String, taskId: String): Result<Boolean>  {
+        return remoteDataSource.addToOtherTask(userId, taskId)
+    }
+
     override suspend fun deleteUserOngoingTask(userId: String, taskId: String): Result<Boolean>  {
         return remoteDataSource.deleteUserOngoingTask(userId, taskId)
     }
@@ -42,5 +46,8 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
         return remoteDataSource.getLivePlanResult()
     }
 
+    override fun getLiveOtherPlanResult(): MutableLiveData<List<Plan>> {
+        return remoteDataSource.getLiveOtherPlanResult()
+    }
 
 }

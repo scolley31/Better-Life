@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,12 @@ class OtherFragment: Fragment() {
         binding.RecyclerOther.adapter = OtherAdapter(viewModel, OtherAdapter.OnClickListener{
             Log.d("test","otherPlan = $it")
         })
+
+        viewModel.otherPlan.observe(viewLifecycleOwner, Observer {
+            Log.i("test","otherPlan = ${viewModel.otherPlan.value}")
+
+        }
+        )
 
         return binding.root
     }

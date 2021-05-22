@@ -44,8 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="計畫分類"
-                android:text="@{otherPlan.category}"
-                app:layout_constraintEnd_toEndOf="@+id/text_other_title"
+                android:text='@{"分類 : "+otherPlan.category}'
                 app:layout_constraintStart_toStartOf="@+id/text_other_title"
                 app:layout_constraintTop_toBottomOf="@+id/text_other_title" />
 
@@ -55,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="計畫目標"
-                android:text='@{"目標時間:"+String.valueOf(otherPlan.target)+"分鐘"}'
+                android:text='@{"目標 : "+String.valueOf(otherPlan.target)+" 分鐘"}'
                 app:layout_constraintStart_toStartOf="@+id/text_other_category"
                 app:layout_constraintTop_toBottomOf="@+id/text_other_category" />
 
@@ -64,18 +63,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:text='@{"參加人數 : "+String.valueOf(otherPlan.members.size)+ " 人"}'
                 android:hint="參加人數"
                 app:layout_constraintStart_toStartOf="@+id/text_other_target"
                 app:layout_constraintTop_toBottomOf="@+id/text_other_target" />
-
-            <TextView
-                android:id="@+id/text_other_owner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="發起人"
-                app:layout_constraintStart_toStartOf="@+id/text_other_members"
-                app:layout_constraintTop_toBottomOf="@+id/text_other_members" />
 
             <TextView
                 android:id="@+id/text_other_rank"
@@ -85,8 +76,18 @@
                 android:layout_marginBottom="16dp"
                 android:hint="榜一"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/text_other_owner"
-                app:layout_constraintTop_toBottomOf="@+id/text_other_owner" />
+                app:layout_constraintStart_toStartOf="@+id/text_other_members"
+                app:layout_constraintTop_toBottomOf="@+id/text_other_members" />
+
+            <ImageView
+                android:id="@+id/button_addOthersTask"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/outline_group_add_black_18" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

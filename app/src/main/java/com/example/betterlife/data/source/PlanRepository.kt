@@ -7,6 +7,8 @@ import com.example.betterlife.data.Result
 
 interface PlanRepository {
 
+    suspend fun addToOtherTask(userId: String, taskId: String): Result<Boolean>
+
     suspend fun deleteUserOngoingTask(userId: String, taskId: String): Result<Boolean>
 
     suspend fun deleteTask(taskId: String): Result<Boolean>
@@ -22,5 +24,7 @@ interface PlanRepository {
     suspend fun getOtherPlanResult(): Result<List<Plan>>
 
     fun getLivePlanResult(): MutableLiveData<List<Plan>>
+
+    fun getLiveOtherPlanResult(): MutableLiveData<List<Plan>>
 
 }

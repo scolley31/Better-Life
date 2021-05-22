@@ -9,6 +9,7 @@ import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.ItemHomeGridBinding
 import com.example.betterlife.databinding.ItemOtherGridBinding
 import com.example.betterlife.home.item.HomeItemViewModel
+import kotlinx.android.synthetic.main.item_other_grid.view.*
 
 class OtherAdapter(val viewModel: OtherViewModel, val onClickListener: OnClickListener) :
         ListAdapter<Plan, OtherAdapter.OtherPlanViewHolder>(DiffCallback) {
@@ -48,6 +49,9 @@ class OtherAdapter(val viewModel: OtherViewModel, val onClickListener: OnClickLi
         holder.bind(getItem(position), viewModel)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(plan)
+        }
+        holder.itemView.button_addOthersTask.setOnClickListener {
+            viewModel.addToOtherTask(plan)
         }
 
     }

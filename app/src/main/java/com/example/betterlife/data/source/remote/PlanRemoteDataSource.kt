@@ -61,6 +61,25 @@ object PlanRemoteDataSource : PlanDataSource {
         }
 
 
+    override suspend fun addToOtherTask(userId: String, taskId: String): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskId)
+                .update(KEY_PLAN_MEMBER, FieldValue.arrayUnion(userId))
+                .addOnCompleteListener { addId ->
+                    if (addId.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        addId.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+        }
+
+
     override suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>> =
         suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
@@ -148,6 +167,34 @@ object PlanRemoteDataSource : PlanDataSource {
                     continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
                 }
             }
+    }
+
+    override fun getLiveOtherPlanResult(): MutableLiveData<List<Plan>> {
+
+        val liveData = MutableLiveData<List<Plan>>()
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES)
+            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshot, exception ->
+
+                Logger.i("addSnapshotListener detect")
+
+                exception?.let {
+                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                }
+
+                val list = mutableListOf<Plan>()
+                for (document in snapshot!!) {
+                    Logger.d(document.id + " => " + document.data)
+
+                    val article = document.toObject(Plan::class.java)
+                    list.add(article)
+                }
+
+                liveData.value = list
+            }
+        return liveData
     }
 
     override fun getLivePlanResult(): MutableLiveData<List<Plan>> {

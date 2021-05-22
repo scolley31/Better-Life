@@ -19,9 +19,9 @@ import kotlinx.coroutines.launch
 
 class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
 
-    private val _otherPlan = MutableLiveData<List<Plan>>()
+    private val _otherPlan = repository.getLiveOtherPlanResult()
 
-    val otherPlan: MutableLiveData<List<Plan>>
+    val otherPlan: LiveData<List<Plan>>
         get() = _otherPlan
 
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -57,6 +57,19 @@ class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
 
 //        setMockData()
     }
+
+    fun addToOtherTask(plan: Plan) {
+
+        coroutineScope.launch {
+
+                val result = repository.addToOtherTask("Scolley",plan.id)
+                Log.d("result","result = $result")
+                getOtherPlanResult()
+            
+        }
+
+    }
+
 
     fun getOtherPlanResult() {
 
