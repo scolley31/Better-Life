@@ -205,8 +205,9 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                 sum += completedTest.value!![i].daily
                 number += 1
             }
-
-            averageDailyTime.value = sum/number
+            if(number != 0) {
+                averageDailyTime.value = sum / number
+            }
             forPrintChat.value = true
 
 

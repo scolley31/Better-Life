@@ -10,6 +10,14 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
 
 ) : PlanRepository {
 
+    override suspend fun deleteUserOngoingTask(userId: String, taskId: String): Result<Boolean>  {
+        return remoteDataSource.deleteUserOngoingTask(userId, taskId)
+    }
+
+    override suspend fun deleteTask(taskId: String): Result<Boolean> {
+        return remoteDataSource.deleteTask(taskId)
+    }
+
     override suspend fun addTask(plan: Plan): Result<Boolean> {
         return remoteDataSource.addTask(plan)
     }

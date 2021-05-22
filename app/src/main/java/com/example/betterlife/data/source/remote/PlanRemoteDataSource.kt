@@ -3,6 +3,7 @@ package com.example.betterlife.data.source.remote
 import android.icu.util.Calendar
 import androidx.lifecycle.MutableLiveData
 import com.example.betterlife.PlanApplication
+import com.example.betterlife.PlanApplication.Companion.instance
 import com.example.betterlife.R
 import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
@@ -12,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import com.example.betterlife.data.Result
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 
 object PlanRemoteDataSource : PlanDataSource {
@@ -19,8 +21,48 @@ object PlanRemoteDataSource : PlanDataSource {
     private const val PATH_ARTICLES = "plan"
     private const val KEY_CREATED_TIME = "createdTime"
     private const val KEY_COMPLETED_TIME = "date"
+    private const val KEY_PLAN_MEMBER = "members"
 
-    override suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>> = suspendCoroutine { continuation ->
+
+    override suspend fun deleteTask(taskId: String): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskId)
+                .delete()
+                .addOnCompleteListener { addId ->
+                    if (addId.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        addId.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+        }
+
+    override suspend fun deleteUserOngoingTask(userId: String, taskId: String): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskId)
+                .update(KEY_PLAN_MEMBER, FieldValue.arrayRemove(userId))
+                .addOnCompleteListener { addId ->
+                    if (addId.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        addId.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+        }
+
+
+    override suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>> =
+        suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
                 .collection(PATH_ARTICLES)
                 .document(taskID)
@@ -80,7 +122,8 @@ object PlanRemoteDataSource : PlanDataSource {
             }
     }
 
-    override suspend fun getOtherPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
+    override suspend fun getOtherPlanResult(): Result<List<Plan>> =
+        suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES)
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
@@ -113,6 +156,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES)
+            .whereArrayContains("members","Scolley")
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, exception ->
 
@@ -135,7 +179,8 @@ object PlanRemoteDataSource : PlanDataSource {
         return liveData
     }
 
-    override suspend fun addTask(plan: Plan): Result<Boolean> = suspendCoroutine { continuation ->
+    override suspend fun addTask(plan: Plan): Result<Boolean> =
+        suspendCoroutine { continuation ->
         val plans = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
         val document = plans.document()
 
@@ -161,7 +206,8 @@ object PlanRemoteDataSource : PlanDataSource {
             }
     }
 
-    override suspend fun sendCompleted(completed: Completed, taskID: String): Result<Boolean> = suspendCoroutine { continuation ->
+    override suspend fun sendCompleted(completed: Completed, taskID: String): Result<Boolean> =
+        suspendCoroutine { continuation ->
         val plans = FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskID)
         val subCollection = plans.collection("completedList")
         val document = subCollection.document()

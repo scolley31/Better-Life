@@ -48,12 +48,12 @@
                 android:id="@+id/text_plan_category"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="16dp"
+                android:gravity="center_horizontal|center_vertical"
                 android:hint="分類"
                 android:text="@{plan.category}"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="@+id/text_plan_name"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/text_plan_name"
                 app:layout_constraintTop_toTopOf="@+id/text_plan_name"
                 app:layout_constraintVertical_bias="1.0" />
 
@@ -73,9 +73,11 @@
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/text_time_sum"
                 app:layout_constraintTop_toBottomOf="@+id/text_time_target"
-                tools:progress="50"/>
+                app:layout_constraintVertical_bias="0.0"
+                tools:progress="50" />
 
             <TextView
                 android:id="@+id/text_time_sum"
@@ -94,7 +96,7 @@
                 android:hint="目標時間"
                 android:text='@{"目標時間: "+String.valueOf(plan.target)+" 分鐘"}'
                 app:layout_constraintBottom_toBottomOf="@+id/text_time_sum"
-                app:layout_constraintEnd_toEndOf="@+id/text_plan_category"
+                app:layout_constraintEnd_toEndOf="@+id/button_delete"
                 app:layout_constraintTop_toTopOf="@+id/text_time_sum" />
 
             <TextView
@@ -108,6 +110,16 @@
                 app:layout_constraintEnd_toEndOf="@+id/plan_progress"
                 app:layout_constraintStart_toStartOf="@+id/plan_progress"
                 app:layout_constraintTop_toTopOf="@+id/plan_progress" />
+
+            <ImageView
+                android:id="@+id/button_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_plan_category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_plan_category"
+                app:srcCompat="@drawable/outline_cancel_presentation_black_48" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

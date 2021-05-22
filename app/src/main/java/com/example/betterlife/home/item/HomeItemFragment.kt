@@ -59,6 +59,7 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
         }
         )
 
+
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 

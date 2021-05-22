@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.ItemHomeGridBinding
+import kotlinx.android.synthetic.main.item_home_grid.view.*
 
 class HomeItemAdapter(val viewModel: HomeItemViewModel,val onClickListener: OnClickListener) :
         ListAdapter<Plan, HomeItemAdapter.PlanViewHolder>(DiffCallback) {
@@ -47,6 +48,9 @@ class HomeItemAdapter(val viewModel: HomeItemViewModel,val onClickListener: OnCl
         holder.bind(getItem(position), viewModel)
         holder.itemView.setOnClickListener {
             onClickListener.onClick(plan)
+        }
+        holder.itemView.button_delete.setOnClickListener {
+            viewModel.deletePlan(plan)
         }
 
     }

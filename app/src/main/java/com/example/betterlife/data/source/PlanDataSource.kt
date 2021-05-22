@@ -7,6 +7,10 @@ import com.example.betterlife.data.Result
 
 interface PlanDataSource {
 
+    suspend fun deleteUserOngoingTask(userId: String, taskId: String): Result<Boolean>
+
+    suspend fun deleteTask(taskId: String): Result<Boolean>
+
     suspend fun addTask(plan: Plan): Result<Boolean>
 
     suspend fun sendCompleted(completed: Completed, taskID: String): Result<Boolean>

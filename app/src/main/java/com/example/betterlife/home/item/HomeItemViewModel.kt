@@ -20,7 +20,7 @@ import com.example.betterlife.data.Result
 
 class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
-    private val _plans = MutableLiveData<List<Plan>>()
+    private val _plans = repository.getLivePlanResult()
 
     val plans: LiveData<List<Plan>>
         get() = _plans
@@ -105,6 +105,23 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         _status.value = LoadApiStatus.DONE
         _refreshStatus.value = false
         Log.d("test","livePlans = ${livePlans.value}")
+    }
+
+    fun deletePlan(plan: Plan) {
+
+        coroutineScope.launch {
+            if (plan.members.size == 1) {
+
+                val result = repository.deleteTask(plan.id)
+                Log.d("result","deleteTask result = $result")
+
+            } else {
+
+                val result = repository.deleteUserOngoingTask(user.value!!.userId,plan.id)
+                Log.d("result","deleteUserOngoingTask result = $result")
+            }
+        }
+
     }
 
     fun getPlanResult() {
