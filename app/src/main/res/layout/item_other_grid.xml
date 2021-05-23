@@ -63,21 +63,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text='@{"參加人數 : "+String.valueOf(otherPlan.members.size)+ " 人"}'
+                android:layout_marginBottom="16dp"
                 android:hint="參加人數"
+                android:text='@{"參加人數 : "+String.valueOf(otherPlan.members.size)+ " 人"}'
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/text_other_target"
                 app:layout_constraintTop_toBottomOf="@+id/text_other_target" />
-
-            <TextView
-                android:id="@+id/text_other_rank"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:hint="榜一"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/text_other_members"
-                app:layout_constraintTop_toBottomOf="@+id/text_other_members" />
 
             <ImageView
                 android:id="@+id/button_addOthersTask"

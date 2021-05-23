@@ -42,12 +42,20 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
         return remoteDataSource.getOtherPlanResult()
     }
 
+    override suspend fun getOtherSelectedPlanResult(categoryID: String): Result<List<Plan>> {
+        return remoteDataSource.getOtherSelectedPlanResult(categoryID)
+    }
+
     override fun getLivePlanResult(): MutableLiveData<List<Plan>> {
         return remoteDataSource.getLivePlanResult()
     }
 
     override fun getLiveOtherPlanResult(): MutableLiveData<List<Plan>> {
         return remoteDataSource.getLiveOtherPlanResult()
+    }
+
+    override fun getLiveOtherSelectedPlanResult(categoryID: String): MutableLiveData<List<Plan>> {
+        return remoteDataSource.getLiveOtherSelectedPlanResult(categoryID)
     }
 
 }

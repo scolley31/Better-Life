@@ -8,10 +8,14 @@
     <string name="better_life">Better Life</string>
     <string name="text_sum">累積時間 : </string>
     <string name="text_target">目標時間 : </string>
+
     <string name="text_nofilter">不分類</string>
     <string name="text_study">學習</string>
     <string name="text_exercise">運動</string>
     <string name="text_habbit">興趣</string>
+    <string name="text_other">其他</string>
+
+
     <string name="image_other">Image_other</string>
     <string name="text_goal">目標名稱</string>
     <string name="text_goal_category">目標分類</string>

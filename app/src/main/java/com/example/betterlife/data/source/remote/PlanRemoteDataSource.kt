@@ -22,6 +22,10 @@ object PlanRemoteDataSource : PlanDataSource {
     private const val KEY_CREATED_TIME = "createdTime"
     private const val KEY_COMPLETED_TIME = "date"
     private const val KEY_PLAN_MEMBER = "members"
+    private const val KEY_PLAN_CATEGORY = "category"
+    private const val KEY_PLAN_COMPLETEDLIST = "completedList"
+
+
 
 
     override suspend fun deleteTask(taskId: String): Result<Boolean> =
@@ -85,7 +89,7 @@ object PlanRemoteDataSource : PlanDataSource {
         FirebaseFirestore.getInstance()
                 .collection(PATH_ARTICLES)
                 .document(taskID)
-                .collection("completedList")
+                .collection(KEY_PLAN_COMPLETEDLIST)
                 .whereEqualTo("user_id",userID)
                 .orderBy(KEY_COMPLETED_TIME, Query.Direction.ASCENDING)
                 .get()
@@ -116,7 +120,7 @@ object PlanRemoteDataSource : PlanDataSource {
     override suspend fun getPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES)
-            .whereArrayContains("members","Scolley")
+            .whereArrayContains(KEY_PLAN_MEMBER,"Scolley")
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener { task ->
@@ -140,6 +144,35 @@ object PlanRemoteDataSource : PlanDataSource {
                 }
             }
     }
+
+    override suspend fun getOtherSelectedPlanResult(categoryID: String): Result<List<Plan>> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection(PATH_ARTICLES)
+                .whereEqualTo(KEY_PLAN_CATEGORY,categoryID)
+                .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Plan>()
+                        for (document in task.result!!) {
+                            Logger.d(document.id + " => " + document.data)
+
+                            val article = document.toObject(Plan::class.java)
+                            list.add(article)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+        }
 
     override suspend fun getOtherPlanResult(): Result<List<Plan>> =
         suspendCoroutine { continuation ->
@@ -197,13 +230,42 @@ object PlanRemoteDataSource : PlanDataSource {
         return liveData
     }
 
+    override fun getLiveOtherSelectedPlanResult(categoryID: String): MutableLiveData<List<Plan>> {
+
+        val liveData = MutableLiveData<List<Plan>>()
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_ARTICLES)
+            .whereEqualTo(KEY_PLAN_CATEGORY,categoryID)
+            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshot, exception ->
+
+                Logger.i("addSnapshotListener detect")
+
+                exception?.let {
+                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                }
+
+                val list = mutableListOf<Plan>()
+                for (document in snapshot!!) {
+                    Logger.d(document.id + " => " + document.data)
+
+                    val article = document.toObject(Plan::class.java)
+                    list.add(article)
+                }
+
+                liveData.value = list
+            }
+        return liveData
+    }
+
     override fun getLivePlanResult(): MutableLiveData<List<Plan>> {
 
         val liveData = MutableLiveData<List<Plan>>()
 
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES)
-            .whereArrayContains("members","Scolley")
+            .whereArrayContains(KEY_PLAN_MEMBER,"Scolley")
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, exception ->
 
@@ -256,7 +318,7 @@ object PlanRemoteDataSource : PlanDataSource {
     override suspend fun sendCompleted(completed: Completed, taskID: String): Result<Boolean> =
         suspendCoroutine { continuation ->
         val plans = FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskID)
-        val subCollection = plans.collection("completedList")
+        val subCollection = plans.collection(KEY_PLAN_COMPLETEDLIST)
         val document = subCollection.document()
 
         completed.id = document.id

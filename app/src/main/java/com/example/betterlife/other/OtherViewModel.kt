@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.betterlife.PlanApplication
 import com.example.betterlife.R
+import com.example.betterlife.data.Category
 import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.Result
@@ -19,6 +20,8 @@ import kotlinx.coroutines.launch
 
 class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
 
+
+
     private val _otherPlan = repository.getLiveOtherPlanResult()
 
     val otherPlan: LiveData<List<Plan>>
@@ -28,6 +31,11 @@ class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
 
     val status: LiveData<LoadApiStatus>
         get() = _status
+
+    private val _category = MutableLiveData<Category>()
+
+    val category: LiveData<Category>
+        get() = _category
 
     private val _refreshStatus = MutableLiveData<Boolean>()
 
@@ -49,12 +57,64 @@ class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
     }
 
     init {
+
+        _category.value = Category.NOFILTER
+
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
         getOtherPlanResult()
     }
+
+
+    fun categoryTask (selected: Category) {
+        _category.value = selected
+    }
+
+
+    fun getOtherSelectedPlanResult (category: Category) {
+
+        coroutineScope.launch {
+
+            if (category == Category.NOFILTER) {
+
+                getOtherPlanResult()
+
+            } else {
+
+                _status.value = LoadApiStatus.LOADING
+
+                val result = repository.getOtherSelectedPlanResult(category.category)
+                Log.d("test", "result = $result")
+                _otherPlan.value = when (result) {
+                    is Result.Success -> {
+                        _error.value = null
+                        _status.value = LoadApiStatus.DONE
+                        result.data
+                    }
+                    is Result.Fail -> {
+                        _error.value = result.error
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                    is Result.Error -> {
+                        _error.value = result.exception.toString()
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                    else -> {
+                        _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                }
+                _refreshStatus.value = false
+                _otherPlan.value = _otherPlan.value
+            }
+        }
+    }
+
 
     fun addToOtherTask(plan: Plan) {
 

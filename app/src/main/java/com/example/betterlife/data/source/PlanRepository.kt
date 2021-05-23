@@ -23,8 +23,12 @@ interface PlanRepository {
 
     suspend fun getOtherPlanResult(): Result<List<Plan>>
 
+    suspend fun getOtherSelectedPlanResult(categoryID: String): Result<List<Plan>>
+
     fun getLivePlanResult(): MutableLiveData<List<Plan>>
 
     fun getLiveOtherPlanResult(): MutableLiveData<List<Plan>>
+
+    fun getLiveOtherSelectedPlanResult(categoryID: String): MutableLiveData<List<Plan>>
 
 }

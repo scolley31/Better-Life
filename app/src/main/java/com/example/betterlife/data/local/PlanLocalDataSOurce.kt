@@ -42,7 +42,15 @@ class PlanLocalDataSource(val context: Context) : PlanDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override suspend fun getOtherSelectedPlanResult(categoryID: String): com.example.betterlife.data.Result<List<Plan>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun getOtherPlanResult(): com.example.betterlife.data.Result<List<Plan>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getLiveOtherSelectedPlanResult(categoryID: String): MutableLiveData<List<Plan>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

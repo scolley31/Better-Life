@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.example.betterlife.other.OtherViewModel" />
+        <variable
+            name="category"
+            type="com.example.betterlife.data.Category" />
 
     </data>
 
@@ -25,12 +28,17 @@
             <Button
                 android:id="@+id/nofilter"
                 android:layout_width="0dp"
-                android:layout_height="25dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/border_line_otherfilter"
+                android:autoSizeTextType="uniform"
+                android:background="@{viewModel.category == category.NOFILTER ? @drawable/border_line_otherfilter_dark : @drawable/border_line_otherfilter}"
+                android:onClick="@{() -> viewModel.categoryTask(category.NOFILTER)}"
                 android:text="@string/text_nofilter"
-                android:textSize="18sp"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@{viewModel.category == category.NOFILTER ? @color/white : @color/black}"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/text_study"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -41,12 +49,15 @@
             <Button
                 android:id="@+id/text_study"
                 android:layout_width="0dp"
-                android:layout_height="25dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/border_line_otherfilter"
+                android:autoSizeTextType="uniform"
+                android:background="@{viewModel.category == category.STUDY ? @drawable/border_line_otherfilter_dark : @drawable/border_line_otherfilter}"
+                android:onClick="@{() -> viewModel.categoryTask(category.STUDY)}"
                 android:text="@string/text_study"
-                android:textSize="18sp"
+                android:textColor="@{viewModel.category == category.STUDY ? @color/white : @color/black}"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/nofilter"
                 app:layout_constraintEnd_toStartOf="@+id/text_exercise"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -56,32 +67,58 @@
             <Button
                 android:id="@+id/text_exercise"
                 android:layout_width="0dp"
-                android:layout_height="25dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/border_line_otherfilter"
+                android:autoSizeTextType="uniform"
+                android:background="@{viewModel.category == category.EXERCISE ? @drawable/border_line_otherfilter_dark : @drawable/border_line_otherfilter}"
+                android:onClick="@{() -> viewModel.categoryTask(category.EXERCISE)}"
                 android:text="@string/text_exercise"
-                android:textSize="18sp"
+                android:textColor="@{viewModel.category == category.EXERCISE ? @color/white : @color/black}"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_study"
-                app:layout_constraintEnd_toStartOf="@+id/text_habbit"
+                app:layout_constraintEnd_toStartOf="@+id/text_habit"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/text_study"
                 app:layout_constraintTop_toTopOf="@+id/text_study" />
 
             <Button
-                android:id="@+id/text_habbit"
+                android:id="@+id/text_habit"
                 android:layout_width="0dp"
-                android:layout_height="25dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/border_line_otherfilter"
+                android:layout_marginEnd="8dp"
+                android:autoSizeTextType="uniform"
+                android:background="@{viewModel.category == category.HABIT ? @drawable/border_line_otherfilter_dark : @drawable/border_line_otherfilter}"
+                android:onClick="@{() -> viewModel.categoryTask(category.HABIT)}"
                 android:text="@string/text_habbit"
-                android:textSize="18sp"
+                android:textColor="@{viewModel.category == category.HABIT ? @color/white : @color/black}"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_exercise"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/text_other"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/text_exercise"
                 app:layout_constraintTop_toTopOf="@+id/text_exercise" />
+
+            <Button
+                android:id="@+id/text_other"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:autoSizeTextType="uniform"
+                android:autoText="false"
+                android:background="@{viewModel.category == category.OTHER ? @drawable/border_line_otherfilter_dark : @drawable/border_line_otherfilter}"
+                android:onClick="@{() -> viewModel.categoryTask(category.OTHER)}"
+                android:text="@string/text_other"
+                android:textColor="@{viewModel.category == category.OTHER ? @color/white : @color/black}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_habit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/text_habit"
+                app:layout_constraintTop_toTopOf="@+id/text_habit" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView

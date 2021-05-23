@@ -39,6 +39,15 @@ class OtherFragment: Fragment() {
         }
         )
 
+        viewModel.category.observe(viewLifecycleOwner, Observer {
+            Log.i("test","category = ${viewModel.category.value}")
+            it?.let {
+                viewModel.getOtherSelectedPlanResult(it)
+            }
+
+        }
+        )
+
         return binding.root
     }
 
