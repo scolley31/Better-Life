@@ -35,7 +35,7 @@
 
             <TextView
                 android:id="@+id/text_plan_name"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
@@ -50,10 +50,10 @@
                 android:layout_height="0dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:hint="分類"
-                android:text="@{plan.category}"
+                android:text='@{"#"+plan.category}'
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="@+id/text_plan_name"
-                app:layout_constraintStart_toEndOf="@+id/text_plan_name"
+                app:layout_constraintStart_toStartOf="@+id/text_progress"
                 app:layout_constraintTop_toTopOf="@+id/text_plan_name"
                 app:layout_constraintVertical_bias="1.0" />
 
@@ -82,12 +82,12 @@
             <TextView
                 android:id="@+id/text_time_sum"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="16dp"
                 android:hint="累積時間"
                 android:text='@{"累積時間: "+String.valueOf(plan.progressTime)+" 分鐘"}'
-                app:layout_constraintStart_toStartOf="@+id/text_plan_name"
-                app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
+                app:layout_constraintStart_toStartOf="@+id/text_todayDone"
+                app:layout_constraintTop_toBottomOf="@+id/text_todayDone" />
 
             <TextView
                 android:id="@+id/text_time_target"
@@ -120,6 +120,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/text_plan_category"
                 app:srcCompat="@drawable/outline_cancel_presentation_black_48" />
+
+            <TextView
+                android:id="@+id/text_todayDone"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@{plan.todayDone == false ? @color/red_d0021b : @color/green}"
+                android:text="@{plan.todayDone == false ? @string/text_todayNotDone : @string/text_todayDone}"
+                android:hint="今日未執行"
+                app:layout_constraintStart_toStartOf="@+id/text_plan_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

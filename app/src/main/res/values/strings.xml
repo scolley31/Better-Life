@@ -51,5 +51,8 @@
     <string name="text_rank">排行榜</string>
     <string name="text_rank_nothing">從缺</string>
 
+    <string name="text_todayNotDone">今日未執行</string>
+    <string name="text_todayDone">今日已執行</string>
+    <string name="text_taskDone">任務已完成</string>
 
 </resources>

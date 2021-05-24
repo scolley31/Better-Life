@@ -12,6 +12,7 @@ import com.example.betterlife.data.Result
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.Logger
+import com.example.betterlife.util.TimeConverters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -51,6 +52,11 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
     val error: LiveData<String>
         get() = _error
 
+    private val _navigateToHome = MutableLiveData<Boolean>()
+
+    val navigateToHome: MutableLiveData<Boolean>
+        get() = _navigateToHome
+
     val dailyTaskRemained = MutableLiveData<Int>()
 
     val dailyTaskTarget = MutableLiveData<Int>()
@@ -74,6 +80,10 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
         Logger.i("------------------------------------")
         timeStatus.value = TimerStatus.Stopped
         completed.value = false
+    }
+
+    fun navigateToHome() {
+        _navigateToHome.value = true
     }
 
     fun leaveTimer() {
@@ -138,7 +148,7 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
                     checkTaskDone()
-                    leaveTimer()
+                    navigateToHome()
                 }
                 is Result.Fail -> {
                     _error.value = result.error

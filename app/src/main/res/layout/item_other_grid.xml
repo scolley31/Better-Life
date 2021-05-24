@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="計畫分類"
-                android:text='@{"分類 : "+otherPlan.category}'
+                android:text='@{"# "+otherPlan.category}'
                 app:layout_constraintStart_toStartOf="@+id/text_other_title"
                 app:layout_constraintTop_toBottomOf="@+id/text_other_title" />
 

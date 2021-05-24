@@ -17,6 +17,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.example.betterlife.data.Result
+import com.example.betterlife.util.TimeConverters
+import java.util.*
 
 class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
@@ -196,6 +198,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                     var sum : Int = 0
                     for (j in singlePlanCompleted.value!!.indices){
                         sum += singlePlanCompleted.value!![j].daily
+                        checkTodayDone(j,i)
                     }
                     _plans.value!![i].progressTime = sum
                     if (sum> _plans.value!![i].target) {
@@ -210,6 +213,17 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
             _plans.value = _plans.value
         }
     }
+
+    fun checkTodayDone(j: Int,i : Int) {
+
+        val today = TimeConverters.timestampToDate(Calendar.getInstance().timeInMillis, Locale.TAIWAN)
+        val completedDay = TimeConverters.timestampToDate(singlePlanCompleted.value!![j].date, Locale.TAIWAN)
+
+        if (completedDay == today) {
+            _plans.value!![i].todayDone = true
+        }
+    }
+
 
     fun navigateTimer(plan: Plan) {
         _navigateToTimer.value = plan

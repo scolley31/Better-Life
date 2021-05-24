@@ -44,4 +44,6 @@
 
     <color name="warm_grey">#999999</color>
     <color name="stylish_profile_personal_information">#3f3a3a</color>
+    <color name="green">#31BB27</color>
+    <color name="blue">#363CF4</color>
 </resources>

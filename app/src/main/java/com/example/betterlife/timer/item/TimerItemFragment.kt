@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.betterlife.NavigationDirections
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.FragmentTimerItemBinding
 import com.example.betterlife.ext.getVmFactory
@@ -42,6 +43,12 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
         viewModel.leaveTimer.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
                 if (it) findNavController().popBackStack()
+            }
+        })
+
+        viewModel.navigateToHome.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
             }
         })
 
