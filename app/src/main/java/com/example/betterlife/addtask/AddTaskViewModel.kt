@@ -63,6 +63,10 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+        name.value = ""
+        dailyTarget.value = 0
+        target.value = 0
+
     }
 
     fun navigateToHome () {
