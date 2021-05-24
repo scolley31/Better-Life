@@ -8,6 +8,7 @@ import com.example.betterlife.PlanApplication
 import com.example.betterlife.R
 import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
+import com.example.betterlife.data.Result
 import com.example.betterlife.data.User
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
@@ -16,9 +17,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import com.example.betterlife.data.Result
 
-class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
+class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
 
     private val _plans = MutableLiveData<List<Plan>>()
 
@@ -100,32 +100,6 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         _user.value = mockUser
     }
 
-    fun getLivePlanResult() {
-        livePlans = repository.getLivePlanResult()
-        _status.value = LoadApiStatus.DONE
-        _refreshStatus.value = false
-        Log.d("test","livePlans = ${livePlans.value}")
-    }
-
-    fun deletePlan(plan: Plan) {
-
-        coroutineScope.launch {
-            if (plan.members.size == 1) {
-
-                val result = repository.deleteTask(plan.id)
-                Log.d("result","deleteTask result = $result")
-                getPlanResult()
-            } else {
-
-                val result = repository.deleteUserOngoingTask(user.value!!.userId,plan.id)
-                Log.d("result","deleteUserOngoingTask result = $result")
-                getPlanResult()
-
-            }
-        }
-
-    }
-
     fun getPlanResult() {
 
         coroutineScope.launch {
@@ -155,9 +129,9 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                     _status.value = LoadApiStatus.ERROR
                     null
 //                }
+                }
             }
-        }
-            Log.d("test","plan = ${_plans.value}")
+            Log.d("test","getPlanResult plan = ${_plans.value}")
             _refreshStatus.value = false
 
             getCompleted()
@@ -204,7 +178,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                 }
             }
             val filter = _plans.value!!.filter {
-                it.taskDone == false
+                it.taskDone == true
             }
             _plans.value = filter
             _plans.value = _plans.value
@@ -223,62 +197,5 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         _navigateToAddTask.value = true
     }
 
-//    fun setSumData() {
-//        var progress : Float = 0F
-//        for (i in plan.value!!.indices){
-//            plan.value!![i].dailyTarget = (plan.value!![i].completedList.sumBy { it.daily })
-//            progress = plan.value!![i].dailyTarget?.div(plan.value!![i].target)!!.toFloat()
-//            plan.value!![i].progress = progress.toInt()
-//            Log.i("test","After setSumData plan = ${plan.value}")
-//        }
-//
-//    }
-
-//    fun setMockData() {
-//
-//        var mock = mutableListOf<Plan>()
-//        mock.run {
-//            add(Plan("1", "跑步", "運動", "", "2200-0412",
-//                    listOf("Wayne","Sean"),"",4000,
-//                    listOf(Completed("1","Scolley",true,300,"2200-0412")
-//                            ,Completed("2","Wayne",true,300,"2200-0412")
-//                            ,Completed("3","Sean",true,200,"2200-0412"))
-//                            ,300
-//                            ,null))
-//
-//            add(Plan("2", "跳繩", "運動", "", "2200-0412",
-//                    listOf("Wayne","Sean"),"",2000,
-//                    listOf(Completed("1","Scolley",true,200,"2200-0412")
-//                            ,Completed("2","Wayne",true,300,"2200-0412")
-//                            ,Completed("3","Sean",true,100,"2200-0412"))
-//                            ,300
-//                            ,null))
-//
-//            add(Plan("3", "打籃球", "運動", "", "2200-0412",
-//                    listOf("Wayne","Sean"),"",10000,
-//                    listOf(Completed("1","Scolley",true,100,"2200-0412")
-//                            ,Completed("2","Wayne",true,500,"2200-0412")
-//                            ,Completed("3","Sean",true,300,"2200-0412"))
-//                            ,300
-//                            ,null))
-//
-//            add(Plan("4", "打羽球", "運動", "", "2200-0412",
-//                    listOf("Wayne","Sean"),"",5000,
-//                    listOf(Completed("1","Scolley",true,300,"2200-0412")
-//                            ,Completed("2","Wayne",true,200,"2200-0412")
-//                            ,Completed("3","Sean",true,300,"2200-0412"))
-//                            ,300
-//                            ,null))
-//
-//            add(Plan("5", "散步", "運動", "", "2200-0412",
-//                    listOf("Wayne","Sean"),"",3000,
-//                    listOf(Completed("1","Scolley",true,300,"2200-0412")
-//                            ,Completed("2","Wayne",true,300,"2200-0412")
-//                            ,Completed("3","Sean",true,300,"2200-0412"))
-//                            ,300
-//                            ,null))
-//        }
-//        _plan.value = mock
-//    }
 
 }

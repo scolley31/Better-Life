@@ -1,6 +1,8 @@
 package com.example.betterlife.data.source.remote
 
+import android.content.ContentValues.TAG
 import android.icu.util.Calendar
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.betterlife.PlanApplication
 import com.example.betterlife.PlanApplication.Companion.instance
@@ -24,8 +26,15 @@ object PlanRemoteDataSource : PlanDataSource {
     private const val KEY_PLAN_MEMBER = "members"
     private const val KEY_PLAN_CATEGORY = "category"
     private const val KEY_PLAN_COMPLETEDLIST = "completedList"
+    private const val KEY_PLAN_TASKDONE = "taskDone"
 
-
+    override suspend fun taskFinish(taskId: String): Result<Boolean> =
+        suspendCoroutine {
+            FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskId)
+                    .update(KEY_PLAN_TASKDONE,true)
+                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+                    .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+        }
 
 
     override suspend fun deleteTask(taskId: String): Result<Boolean> =
@@ -115,6 +124,35 @@ object PlanRemoteDataSource : PlanDataSource {
                 }
     }
 
+
+    override suspend fun getFinishedPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+                .collection(PATH_ARTICLES)
+                .whereEqualTo(KEY_PLAN_TASKDONE,true)
+                .whereArrayContains(KEY_PLAN_MEMBER,"Scolley")
+                .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Plan>()
+                        for (document in task.result!!) {
+                            Logger.d(document.id + " => " + document.data)
+
+                            val article = document.toObject(Plan::class.java)
+                            list.add(article)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+    }
 
 
     override suspend fun getPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
@@ -287,6 +325,7 @@ object PlanRemoteDataSource : PlanDataSource {
             }
         return liveData
     }
+
 
     override suspend fun addTask(plan: Plan): Result<Boolean> =
         suspendCoroutine { continuation ->

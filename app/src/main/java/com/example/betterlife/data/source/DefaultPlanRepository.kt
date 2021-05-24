@@ -10,6 +10,10 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
 
 ) : PlanRepository {
 
+    override suspend fun taskFinish(taskId: String): Result<Boolean>  {
+        return remoteDataSource.taskFinish(taskId)
+    }
+
     override suspend fun addToOtherTask(userId: String, taskId: String): Result<Boolean>  {
         return remoteDataSource.addToOtherTask(userId, taskId)
     }
@@ -32,6 +36,10 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
 
     override suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>> {
         return remoteDataSource.getCompleted(taskID, userID)
+    }
+
+    override suspend fun getFinishedPlanResult(): Result<List<Plan>> {
+        return remoteDataSource.getFinishedPlanResult()
     }
 
     override suspend fun getPlanResult(): Result<List<Plan>> {

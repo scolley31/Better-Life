@@ -16,7 +16,9 @@ data class Plan(
         var members: List<String> = listOf(),
         var target: Int = 0,
         var dailyTarget: Int = 0,
-        var progressTime: Int = 0
+        var progressTime: Int = 0,
+        var taskDone: Boolean = false, //whether a history task or not
+        var todayDone: Boolean = false //whether finish the task today
 //        var completedList: List<Completed> = listOf()
 
 ): Parcelable {

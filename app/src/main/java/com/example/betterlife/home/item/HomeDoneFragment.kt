@@ -12,28 +12,27 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.betterlife.NavigationDirections
-import com.example.betterlife.data.Plan
 import com.example.betterlife.data.PlanStatus
+import com.example.betterlife.databinding.FragmentHomeDoneBinding
 import com.example.betterlife.databinding.FragmentHomeItemBinding
 import com.example.betterlife.ext.getVmFactory
 
+class HomeDoneFragment (private val planStatus: PlanStatus) : Fragment() {
 
-class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
+    private val viewModel by viewModels<HomeDoneViewModel> { getVmFactory() }
 
-    private val viewModel by viewModels<HomeItemViewModel> { getVmFactory() }
-
-    lateinit var binding: FragmentHomeItemBinding
+    lateinit var binding: FragmentHomeDoneBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        binding = FragmentHomeItemBinding.inflate(inflater, container, false)
+        binding = FragmentHomeDoneBinding.inflate(inflater, container, false)
 
         viewModel.plans.observe(viewLifecycleOwner, Observer {
             it?.let{
                 Log.i("test","planInFragment = ${viewModel.plans.value}")
             }
 
-            }
+        }
         )
 
         viewModel.navigateToTimer.observe(viewLifecycleOwner, Observer {
@@ -63,9 +62,9 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        binding.RecyclerHome.layoutManager = LinearLayoutManager(context)
-        binding.RecyclerHome.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        binding.RecyclerHome.adapter = HomeItemAdapter(viewModel, HomeItemAdapter.OnClickListener{
+        binding.RecyclerHomeDone.layoutManager = LinearLayoutManager(context)
+        binding.RecyclerHomeDone.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.RecyclerHomeDone.adapter = HomeDoneAdapter(viewModel, HomeDoneAdapter.OnClickListener{
             viewModel.navigateTimer(it)
             Log.d("test","plan = $it")
         })

@@ -4,12 +4,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.example.betterlife.data.PlanStatus
+import com.example.betterlife.home.item.HomeDoneFragment
 import com.example.betterlife.home.item.HomeItemFragment
 
 class HomeAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment {
-        return HomeItemFragment(PlanStatus.values()[position])
+        return when (position) {
+           0 -> HomeItemFragment(PlanStatus.values()[position])
+           1 -> HomeDoneFragment(PlanStatus.values()[position])
+           else ->  HomeItemFragment(PlanStatus.values()[position])
+        }
     }
+
 
     override fun getCount() = PlanStatus.values().size
 
@@ -18,8 +25,3 @@ class HomeAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(
     }
 }
 
-enum class PlanStatus(val value: String) {
-    Ongoing ("進行中"),
-    Success("已完成"),
-    Fail("未完成")
-}

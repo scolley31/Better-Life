@@ -80,7 +80,48 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
         _leaveTimer.value = true
     }
 
+    fun checkTaskDone() {
+
+        coroutineScope.launch {
+            var completed = repository.getCompleted(_timer.value!!.id, "Scolley")
+            var completedList = when (completed) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    completed.data
+                }
+                is Result.Fail -> {
+                    _error.value = completed.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = completed.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            var sum = 0
+            if (completedList != null) {
+                for (i in completedList.indices) {
+                    sum += completedList[i].daily
+                }
+            }
+            if (sum >= _timer.value!!.target) {
+                /**
+                 * When task is finish , what to do?
+                 */
+            }
+        }
+    }
+
     fun sendCompleted() {
+
         coroutineScope.launch {
 
             val newCompleted = Completed(
@@ -96,6 +137,7 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
+                    checkTaskDone()
                     leaveTimer()
                 }
                 is Result.Fail -> {
@@ -112,8 +154,6 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
                 }
             }
         }
-
-        leaveTimer
     }
 
 }
