@@ -56,6 +56,10 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
             Log.d("test", "dailyTaskRemained = ${viewModel.dailyTaskRemained.value}")
         })
 
+        viewModel.dailyTaskTarget.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("test", "dailyTaskTarget = ${viewModel.dailyTaskTarget.value}")
+        })
+
         viewModel.timeStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.d("test", "timeStatus = ${viewModel.timeStatus.value}")
         })

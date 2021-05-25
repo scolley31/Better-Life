@@ -171,8 +171,8 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
                     for (j in singlePlanCompleted.value!!.indices){
                         sum += singlePlanCompleted.value!![j].daily
                     }
-                    _plans.value!![i].progressTime = sum
-                    if (sum> _plans.value!![i].target) {
+                    _plans.value!![i].progressTime = sum/60
+                    if (sum/60 >= _plans.value!![i].target) {
                         _plans.value!![i].taskDone = true
                     }
                 }

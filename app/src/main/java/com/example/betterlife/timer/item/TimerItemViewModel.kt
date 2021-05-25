@@ -130,9 +130,13 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
         }
     }
 
+
+
     fun sendCompleted() {
 
         coroutineScope.launch {
+
+
 
             val newCompleted = Completed(
                     user_id = "Scolley",

@@ -121,7 +121,7 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                 }
 
                 rankTmp.run {
-                    add(Rank(info.value!!.members[i],sum))
+                    add(Rank(info.value!!.members[i],sum/60))
                 }
                 Log.d("test","rankTmp = $rankTmp")
             }
@@ -200,9 +200,9 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                 })
 
 
-                 entries.add(BarEntry(i.toFloat(), completedTest.value!![i].daily.toFloat()))
+                 entries.add(BarEntry(i.toFloat(), completedTest.value!![i].daily/60.toFloat()))
 
-                sum += completedTest.value!![i].daily
+                sum += completedTest.value!![i].daily/60
                 number += 1
             }
             if(number != 0) {

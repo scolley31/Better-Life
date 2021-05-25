@@ -14,9 +14,9 @@ data class Plan(
         var image: String? = "",
         var createdTime: Long = -1,
         var members: List<String> = listOf(),
-        var target: Int = 0,
-        var dailyTarget: Int = 0,
-        var progressTime: Int = 0,
+        var target: Int = 0, //min
+        var dailyTarget: Int = 0, //min
+        var progressTime: Int = 0, // min
         var taskDone: Boolean = false, //whether a history task or not
         var todayDone: Boolean = false //whether finish the task today
 //        var completedList: List<Completed> = listOf()
@@ -31,7 +31,7 @@ data class Completed(
         var id: String = "",
         var user_id: String = "",
         var completed: Boolean = false,
-        var daily: Int = 0,
+        var daily: Int = 0, //sec
         var date: Long = -1
 
 ) : Parcelable {
