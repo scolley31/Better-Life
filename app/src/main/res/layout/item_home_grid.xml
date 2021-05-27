@@ -86,10 +86,11 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@{plan.todayDone == false ? @drawable/border_circle_text_red : @drawable/border_circle_text_green}"
-                android:hint="今日未執行"
+                android:hint="未執行"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="@{plan.todayDone == false ? @string/text_todayNotDone : @string/text_todayDone}"
+                android:textAlignment="textEnd"
                 android:textColor="@{plan.todayDone == false ? @color/red_d0021b : @color/green}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

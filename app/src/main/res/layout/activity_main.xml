@@ -63,8 +63,11 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavView"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@drawable/border_line"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            app:labelVisibilityMode="labeled"
+            app:itemIconSize="@dimen/size_small"
+            android:elevation="@dimen/elevation_all"
             android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.TIMER ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -44,6 +44,7 @@ class MainActivity : BaseActivity()  {
 
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
                 return@OnNavigationItemSelectedListener true
+
             }
             R.id.navigation_other -> {
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalOtherFragment())
@@ -85,7 +86,6 @@ class MainActivity : BaseActivity()  {
     }
 
     private fun setupBottomNav() {
-
         binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         binding.bottomNavView.getChildAt(0) as BottomNavigationMenuView
 
