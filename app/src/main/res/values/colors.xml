@@ -22,12 +22,23 @@
 
     <!-- Red Series -->
     <color name="red_d0021b">#d0021b</color>
+    <color name="light_red_home">#FFDBE7</color>
+    <color name="red_progressbar">#FF8A80</color>
+
+    <!-- Green Series -->
+    <color name="green">#31BB27</color>
+    <color name="light_green_home">#D8FCE2</color>
+    <color name="green_progressbar">#B9F6CA</color>
 
     <!-- Orange Series -->
     <color name="orange_8b572a">#8b572a</color>
 
     <!-- Blue Series -->
     <color name="blue_facebook">#3b5998</color>
+    <color name="light_blue">#82B1FF</color>
+    <color name="light_blue_home">#E7EAED</color>
+    <color name="light2_blue_home">#F6F9FF</color>
+
 
     <!-- Bottom Navigation -->
     <color name="bottom_navigation_item_normal">@color/gray_999999</color>
@@ -44,6 +55,6 @@
 
     <color name="warm_grey">#999999</color>
     <color name="stylish_profile_personal_information">#3f3a3a</color>
-    <color name="green">#31BB27</color>
-    <color name="blue">#363CF4</color>
+
+
 </resources>

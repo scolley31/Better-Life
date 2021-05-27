@@ -3,9 +3,18 @@
     <string name="you_know_nothing">You know nothing</string>
 
     <string name="app_name">BetterLife</string>
-    <string name="personnal_goal">個人目標</string>
-    <string name="other_goal">他人目標</string>
+
+
+    <!--  tool bar title -->
+    <string name="personnal_goal">我的任務</string>
+    <string name="other_goal">他人任務</string>
     <string name="better_life">Better Life</string>
+
+    <!--  Home Page viewPager Title -->
+    <string name="onGoing">進行中</string>
+    <string name="completed">已完成</string>
+
+
     <string name="text_sum">累積時間 : </string>
     <string name="text_target">目標時間 : </string>
 

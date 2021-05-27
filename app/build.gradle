@@ -57,6 +57,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
+
     // MPAndroid
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 

@@ -6,6 +6,7 @@ import com.example.betterlife.MainViewMode
 import com.example.betterlife.addtask.AddTaskViewModel
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.source.PlanRepository
+import com.example.betterlife.home.HomeViewModel
 import com.example.betterlife.home.item.HomeDoneViewModel
 import com.example.betterlife.home.item.HomeItemViewModel
 import com.example.betterlife.other.OtherViewModel
@@ -25,6 +26,9 @@ class ViewModelFactory constructor(
 
                     isAssignableFrom(HomeItemViewModel::class.java) ->
                         HomeItemViewModel(repository)
+
+                    isAssignableFrom(HomeViewModel::class.java) ->
+                        HomeViewModel(repository)
 
                     isAssignableFrom(HomeDoneViewModel::class.java) ->
                         HomeDoneViewModel(repository)

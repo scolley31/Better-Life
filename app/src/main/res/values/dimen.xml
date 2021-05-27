@@ -21,7 +21,7 @@
     <dimen name="height_timerItem_tab">80dp</dimen>
 
     <!-- Catalog -->
-    <dimen name="height_catalog_tab">48dp</dimen>
+    <dimen name="height_catalog_tab">36dp</dimen>
     <dimen name="space_catalog_grid">16dp</dimen>
     <dimen name="width_catalog_item">156dp</dimen>
     <dimen name="height_catalog_item">220dp</dimen>
@@ -87,4 +87,8 @@
     <dimen name="height_logo">39dp</dimen>
     <dimen name="duration_logo_translate">-575dp</dimen>
     <dimen name="size_particle_logo">30dp</dimen>
+
+    <!-- text -->
+    <dimen name="text_home_">254dp</dimen>
+
 </resources>

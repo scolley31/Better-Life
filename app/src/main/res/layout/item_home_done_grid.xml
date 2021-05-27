@@ -119,7 +119,7 @@
                 android:layout_marginTop="16dp"
                 android:hint="任務已完成"
                 android:text="@string/text_taskDone"
-                android:textColor="@color/blue"
+                android:textColor="@color/blue_facebook"
                 app:layout_constraintStart_toStartOf="@+id/text_plan_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
 
