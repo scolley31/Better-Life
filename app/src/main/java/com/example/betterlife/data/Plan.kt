@@ -11,7 +11,6 @@ data class Plan(
         var id: String = "",
         var name: String = "",
         var category: String = "",
-        var image: String? = "",
         var createdTime: Long = -1,
         var members: List<String> = listOf(),
         var target: Int = 0, //min

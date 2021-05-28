@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.betterlife.R
+import com.example.betterlife.data.Category
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.ItemHomeDoneGridBinding
 import com.example.betterlife.databinding.ItemHomeGridBinding
@@ -50,6 +52,15 @@ class HomeDoneAdapter(val viewModel: HomeDoneViewModel,val onClickListener: OnCl
         holder.itemView.setOnClickListener {
             onClickListener.onClick(plan)
         }
+        holder.itemView.image_icon_task.setImageResource(
+            when(plan.category){
+                Category.STUDY.category -> R.drawable._28_learning
+                Category.EXERCISE.category -> R.drawable._10_training
+                Category.HABIT.category -> R.drawable._33_skill
+                Category.OTHER.category -> R.drawable._22_puzzle
+                else ->  R.drawable._28_learning
+            }
+        )
 
     }
 

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.example.betterlife.home.HomeViewModel" />
 
     </data>
 
@@ -10,25 +14,168 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager_home"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView_home"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs_home"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/Constratint_home"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_catalog_tab">
+                android:layout_height="wrap_content">
 
-            </com.google.android.material.tabs.TabLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/Constraint_myTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.viewpager.widget.ViewPager>
+                    <ProgressBar
+                        android:id="@+id/TimerProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:indeterminate="false"
+                        android:max="@{viewModel.plans.size}"
+                        android:progress="@{viewModel.taskDoneNumber}"
+                        android:progressDrawable="@drawable/circle_progress_homepage"
+                        android:secondaryProgress="100"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:progress="50" />
+
+                    <Button
+                        android:id="@+id/button_onGoingIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/border_circle_line_red"
+                        app:layout_constraintStart_toEndOf="@+id/TimerProgressBar"
+                        app:layout_constraintStart_toStartOf="@+id/button_totaIIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/button_totaIIcon" />
+
+                    <TextView
+                        android:id="@+id/text_dailytask_ongoing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:hint="5件待執行"
+                        android:text='@{String.valueOf(viewModel.plans.size-viewModel.taskDoneNumber)+" 件待執行"}'
+                        android:textColor="@color/red_d0021b"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/button_onGoingIcon"
+                        app:layout_constraintStart_toEndOf="@+id/button_onGoingIcon"
+                        app:layout_constraintTop_toTopOf="@+id/button_onGoingIcon" />
+
+                    <Button
+                        android:id="@+id/button_CompletedIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/border_circle_line_green"
+                        app:layout_constraintStart_toStartOf="@+id/button_onGoingIcon"
+                        app:layout_constraintTop_toBottomOf="@+id/button_onGoingIcon" />
+
+                    <TextView
+                        android:id="@+id/text_dailytask_completed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:hint="5件已執行"
+                        android:text='@{String.valueOf(viewModel.taskDoneNumber)+" 件已執行"}'
+                        android:textColor="@color/green"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/button_CompletedIcon"
+                        app:layout_constraintStart_toStartOf="@+id/text_dailytask_ongoing"
+                        app:layout_constraintTop_toTopOf="@+id/button_CompletedIcon" />
+
+                    <Button
+                        android:id="@+id/button_totaIIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/border_circle_line_gray2"
+                        app:layout_constraintStart_toEndOf="@+id/TimerProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/TimerProgressBar" />
+
+                    <TextView
+                        android:id="@+id/totaltask"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="今日有10件任務"
+                        android:text='@{"今日有 "+viewModel.plans.size+" 個任務"}'
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/button_totaIIcon"
+                        app:layout_constraintStart_toEndOf="@+id/button_totaIIcon"
+                        app:layout_constraintTop_toTopOf="@+id/button_totaIIcon" />
+
+                    <TextView
+                        android:id="@+id/text_daily_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="50%"
+                        android:text='@{String.valueOf(viewModel.taskPercent)+"%"}'
+                        android:textColor="@color/bottom_navigation_item_normal"
+                        android:textSize="36sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/TimerProgressBar"
+                        app:layout_constraintEnd_toEndOf="@+id/TimerProgressBar"
+                        app:layout_constraintStart_toStartOf="@+id/TimerProgressBar"
+                        app:layout_constraintTop_toTopOf="@+id/TimerProgressBar" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/Constraint_homeViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_circle_home_pager"
+                    android:minHeight="590dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Constraint_myTasks">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewpager_home"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tabs_home"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_catalog_tab">
+
+                        </com.google.android.material.tabs.TabLayout>
+
+                    </androidx.viewpager.widget.ViewPager>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

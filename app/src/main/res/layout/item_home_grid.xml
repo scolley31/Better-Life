@@ -24,7 +24,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/border_circle_line"
+            android:elevation="@dimen/elevation_all"
+            android:background="@drawable/border_circle_line_white"
             android:onClick="@{() -> viewModel.navigateTimer(plan)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,34 +38,21 @@
                 android:id="@+id/text_plan_name"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
                 android:hint="名稱"
                 android:text="@{plan.name}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_plan_category"
-                android:layout_width="100dp"
-                android:layout_height="0dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:hint="分類"
-                android:text='@{"#"+plan.category}'
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/text_plan_name"
-                app:layout_constraintStart_toStartOf="@+id/text_progress"
-                app:layout_constraintTop_toTopOf="@+id/text_plan_name"
-                app:layout_constraintVertical_bias="1.0" />
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/image_icon_task"
+                app:layout_constraintTop_toTopOf="@+id/image_icon_task" />
 
             <ProgressBar
                 android:id="@+id/plan_progress"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="24dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:max="@{plan.target}"
                 android:min="0"
                 android:progress="@{plan.progressTime}"
@@ -74,63 +62,48 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/text_time_sum"
-                app:layout_constraintTop_toBottomOf="@+id/text_time_target"
+                app:layout_constraintStart_toStartOf="@+id/image_icon_task"
+                app:layout_constraintTop_toBottomOf="@+id/image_icon_task"
                 app:layout_constraintVertical_bias="0.0"
                 tools:progress="50" />
-
-            <TextView
-                android:id="@+id/text_time_sum"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginTop="16dp"
-                android:hint="累積時間"
-                android:text='@{"累積時間: "+String.valueOf(plan.progressTime)+" 分鐘"}'
-                app:layout_constraintStart_toStartOf="@+id/text_todayDone"
-                app:layout_constraintTop_toBottomOf="@+id/text_todayDone" />
-
-            <TextView
-                android:id="@+id/text_time_target"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:hint="目標時間"
-                android:text='@{"目標時間: "+String.valueOf(plan.target)+" 分鐘"}'
-                app:layout_constraintBottom_toBottomOf="@+id/text_time_sum"
-                app:layout_constraintEnd_toEndOf="@+id/button_delete"
-                app:layout_constraintTop_toTopOf="@+id/text_time_sum" />
 
             <TextView
                 android:id="@+id/text_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{String.valueOf(((plan.progressTime*100)/plan.target))+" %"}'
                 android:hint="30%"
+                android:text='@{String.valueOf(((plan.progressTime*100)/plan.target))+" %"}'
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/plan_progress"
                 app:layout_constraintEnd_toEndOf="@+id/plan_progress"
                 app:layout_constraintStart_toStartOf="@+id/plan_progress"
                 app:layout_constraintTop_toTopOf="@+id/plan_progress" />
 
-            <ImageView
-                android:id="@+id/button_delete"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_plan_category"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_plan_category"
-                app:srcCompat="@drawable/outline_cancel_presentation_black_48" />
-
             <TextView
                 android:id="@+id/text_todayDone"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_marginTop="16dp"
-                android:textColor="@{plan.todayDone == false ? @color/red_d0021b : @color/green}"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@{plan.todayDone == false ? @drawable/border_circle_text_red : @drawable/border_circle_text_green}"
+                android:hint="未執行"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="@{plan.todayDone == false ? @string/text_todayNotDone : @string/text_todayDone}"
-                android:hint="今日未執行"
-                app:layout_constraintStart_toStartOf="@+id/text_plan_name"
-                app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
+                android:textAlignment="textEnd"
+                android:textColor="@{plan.todayDone == false ? @color/red_d0021b : @color/green}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_icon_task"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

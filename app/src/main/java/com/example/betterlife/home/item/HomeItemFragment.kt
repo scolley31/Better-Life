@@ -64,7 +64,7 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
         binding.viewModel = viewModel
 
         binding.RecyclerHome.layoutManager = LinearLayoutManager(context)
-        binding.RecyclerHome.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+//        binding.RecyclerHome.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         binding.RecyclerHome.adapter = HomeItemAdapter(viewModel, HomeItemAdapter.OnClickListener{
             viewModel.navigateTimer(it)
             Log.d("test","plan = $it")

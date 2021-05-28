@@ -24,6 +24,7 @@
             android:elevation="@dimen/elevation_all"
             android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.TIMER ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/icons_24px_drawer">
@@ -37,10 +38,10 @@
                 android:letterSpacing="0.15"
                 android:text="@{viewModel.currentFragmentType.value}"
                 android:textColor="@color/black_3f3a3a"
-                android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.TIMER ? View.GONE : View.VISIBLE}"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                tools:text="Stylish"
+                android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.TIMER ? View.GONE : View.VISIBLE}"
+                tools:text="Tasks"
                 tools:visibility="visible" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -62,8 +63,11 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavView"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@drawable/border_line"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            app:labelVisibilityMode="labeled"
+            app:itemIconSize="@dimen/size_small"
+            android:elevation="@dimen/elevation_all"
             android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.TIMER ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

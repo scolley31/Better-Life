@@ -159,55 +159,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
             <ImageView
-                android:id="@+id/icon_goal_image"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="@+id/line_goal_target"
-                app:layout_constraintTop_toBottomOf="@+id/line_goal_target"
-                app:srcCompat="@drawable/outline_image_black_18" />
-
-            <TextView
-                android:id="@+id/text_goal_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/text_goal_image"
-                app:layout_constraintBottom_toBottomOf="@+id/icon_goal_image"
-                app:layout_constraintStart_toEndOf="@+id/icon_goal_image"
-                app:layout_constraintTop_toTopOf="@+id/icon_goal_image" />
-
-            <ImageView
-                android:id="@+id/image_goal_update"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/icon_goal_image"
-                app:layout_constraintTop_toBottomOf="@+id/icon_goal_image"
-                app:srcCompat="@drawable/add_picture" />
-
-            <View
-                android:id="@+id/line_goal_image"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/bottom_navigation_item_normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_goal_update" />
-
-            <ImageView
                 android:id="@+id/icon_goal_invited"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="@+id/line_goal_image"
-                app:layout_constraintTop_toBottomOf="@+id/line_goal_image"
+                app:layout_constraintStart_toStartOf="@+id/line_goal_target"
+                app:layout_constraintTop_toBottomOf="@+id/line_goal_target"
                 app:srcCompat="@drawable/outline_group_add_black_18" />
 
             <TextView

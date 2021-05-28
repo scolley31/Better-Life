@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -25,11 +25,11 @@
         android:id="@+id/timerFragment"
         android:name="com.example.betterlife.timer.TimerFragment"
         android:label="TimerFragment"
-        tools:layout="@layout/fragment_timer" >
+        tools:layout="@layout/fragment_timer">
         <argument
             android:name="planKey"
             app:argType="com.example.betterlife.data.Plan"
-            app:nullable="false"/>
+            app:nullable="false" />
     </fragment>
     <action
         android:id="@+id/action_global_timerFragment"
@@ -38,8 +38,12 @@
         android:id="@+id/addTaskFragment"
         android:name="com.example.betterlife.addtask.AddTaskFragment"
         android:label="AddTaskFragment"
-        tools:layout="@layout/dialog_addtask"/>
+        tools:layout="@layout/dialog_addtask" />
     <action
         android:id="@+id/action_global_addTaskFragment"
         app:destination="@id/addTaskFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.betterlife.login.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>
