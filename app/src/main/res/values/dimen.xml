@@ -92,6 +92,11 @@
     <!-- text -->
     <dimen name="text_home_">254dp</dimen>
 
+    <!-- OtherPage text title -->
+    <dimen name="text_32dp">32dp</dimen>
+    <dimen name="text_24dp">24dp</dimen>
+    <dimen name="text_16dp">16dp</dimen>
+
     <!-- Global -->
     <dimen name="size_tiny">14dp</dimen>
     <dimen name="size_small">24dp</dimen>

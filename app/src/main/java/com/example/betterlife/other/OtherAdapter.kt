@@ -5,10 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.betterlife.R
+import com.example.betterlife.data.Category
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.ItemHomeGridBinding
 import com.example.betterlife.databinding.ItemOtherGridBinding
 import com.example.betterlife.home.item.HomeItemViewModel
+import kotlinx.android.synthetic.main.item_home_grid.view.*
 import kotlinx.android.synthetic.main.item_other_grid.view.*
 
 class OtherAdapter(val viewModel: OtherViewModel, val onClickListener: OnClickListener) :
@@ -53,6 +56,16 @@ class OtherAdapter(val viewModel: OtherViewModel, val onClickListener: OnClickLi
         holder.itemView.button_addOthersTask.setOnClickListener {
             viewModel.addToOtherTask(plan)
         }
+
+        holder.itemView.image_other_category.setImageResource(
+            when(plan.category){
+                Category.STUDY.category -> R.drawable._28_learning
+                Category.EXERCISE.category -> R.drawable._10_training
+                Category.HABIT.category -> R.drawable._33_skill
+                Category.OTHER.category -> R.drawable._22_puzzle
+                else ->  R.drawable._28_learning
+            }
+        )
 
     }
 
