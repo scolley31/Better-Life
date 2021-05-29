@@ -10,7 +10,12 @@
         android:id="@+id/homeFragment"
         android:name="com.example.betterlife.home.HomeFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="userIDKey"
+            app:argType="string" />
+    </fragment>
+
     <fragment
         android:id="@+id/otherFragment"
         android:name="com.example.betterlife.other.OtherFragment"

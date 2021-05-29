@@ -56,7 +56,7 @@ class LoginFragment(): Fragment() {
         viewModel.navigateToHome.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
-
+                        FirebaseAuth.getInstance().currentUser!!.uid
                 ))
                 viewModel.onSucceeded()
             }

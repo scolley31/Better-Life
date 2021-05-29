@@ -13,6 +13,7 @@ import com.example.betterlife.data.Result
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.Logger
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -120,7 +121,7 @@ class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
 
         coroutineScope.launch {
 
-                val result = repository.addToOtherTask("Scolley",plan.id)
+                val result = repository.addToOtherTask(FirebaseAuth.getInstance().currentUser!!.uid,plan.id)
                 _otherPlan.value = _otherPlan.value
 
         }

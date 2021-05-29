@@ -27,7 +27,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
     val plans: LiveData<List<Plan>>
         get() = _plans
 
-    private val _user = MutableLiveData<User>()
+    private val _user = repository.getUser(arguments)
 
     val user: LiveData<User>
         get() = _user
@@ -47,7 +47,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
     val error: LiveData<String>
         get() = _error
 
-    val singlePlanCompleted = MutableLiveData<List<Completed>>()
+    val singlePlanCompleted = MutableLiveData<List<Completed>?>()
 
     val taskDoneNumber = MutableLiveData<Int>()
 
@@ -67,21 +67,9 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-//        mockUser()
         getPlanResult()
 
     }
-
-//    private fun mockUser() {
-//        var mockUser = User()
-//        mockUser.run {
-//            this.userId = "Scolley"
-//            this.googleId = "scolley31"
-//            this.userImage = ""
-//            this.userName = "Scolley"
-//        }
-//        _user.value = mockUser
-//    }
 
     fun getPlanResult() {
 
@@ -114,11 +102,9 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
 //                }
                 }
             }
+            getCompleted()
             Log.d("test","plan = ${_plans.value}")
             _refreshStatus.value = false
-
-            getCompleted()
-
         }
     }
 
@@ -126,7 +112,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
 
         coroutineScope.launch {
             for (i in _plans.value!!.indices) {
-                var completed = repository.getCompleted(_plans.value!![i].id, user.value!!.userId)
+                var completed = repository.getCompleted(_plans.value!![i].id, arguments)
                 singlePlanCompleted.value = when(completed) {
                     is Result.Success -> {
                         _error.value = null
@@ -167,7 +153,9 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                 it.taskDone == false
             }
             _plans.value = filter
+            checkTodayDoneNumber()
             _plans.value = _plans.value
+
         }
     }
 
@@ -190,10 +178,11 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                 doneNumber += 1
         }
         taskDoneNumber.value = doneNumber
-        taskPercent.value = doneNumber*100/ totalNumber
-        Log.d("test","taskDoneNumber.value  = ${taskDoneNumber.value}")
-        Log.d("test","taskPercent.value  = ${taskPercent.value}")
-
+        if(totalNumber != 0) {
+            taskPercent.value = doneNumber * 100 / totalNumber
+//            Log.d("test", "taskDoneNumber.value  = ${taskDoneNumber.value}")
+//            Log.d("test", "taskPercent.value  = ${taskPercent.value}")
+        }
     }
 
 }

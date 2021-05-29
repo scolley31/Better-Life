@@ -13,17 +13,20 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.betterlife.NavigationDirections
 import com.example.betterlife.data.PlanStatus
+import com.example.betterlife.data.User
 import com.example.betterlife.databinding.FragmentHomeDoneBinding
 import com.example.betterlife.databinding.FragmentHomeItemBinding
 import com.example.betterlife.ext.getVmFactory
 
-class HomeDoneFragment (private val planStatus: PlanStatus) : Fragment() {
+class HomeDoneFragment (private val user: User) : Fragment() {
 
     private val viewModel by viewModels<HomeDoneViewModel> { getVmFactory() }
 
     lateinit var binding: FragmentHomeDoneBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        viewModel._user.value = user
 
         binding = FragmentHomeDoneBinding.inflate(inflater, container, false)
 

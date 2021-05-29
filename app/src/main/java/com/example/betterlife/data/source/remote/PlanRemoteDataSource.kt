@@ -17,19 +17,21 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import com.example.betterlife.data.Result
 import com.example.betterlife.data.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 
 object PlanRemoteDataSource : PlanDataSource {
 
     private const val PATH_USERS = "users"
-    private const val PATH_ARTICLES = "plan"
+    private const val PATH_PLANS = "plan"
     private const val KEY_CREATED_TIME = "createdTime"
     private const val KEY_COMPLETED_TIME = "date"
     private const val KEY_PLAN_MEMBER = "members"
     private const val KEY_PLAN_CATEGORY = "category"
     private const val KEY_PLAN_COMPLETEDLIST = "completedList"
     private const val KEY_PLAN_TASKDONE = "taskDone"
+    private const val KEY_PLAN_USERID = "user_id"
 
 
     override fun getUser(userId: String): LiveData<User> {
@@ -94,7 +96,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
     override suspend fun taskFinish(taskId: String): Result<Boolean> =
         suspendCoroutine {
-            FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskId)
+            FirebaseFirestore.getInstance().collection(PATH_PLANS).document(taskId)
                     .update(KEY_PLAN_TASKDONE,true)
                     .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
                     .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
@@ -103,7 +105,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
     override suspend fun deleteTask(taskId: String): Result<Boolean> =
         suspendCoroutine { continuation ->
-            FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskId)
+            FirebaseFirestore.getInstance().collection(PATH_PLANS).document(taskId)
                 .delete()
                 .addOnCompleteListener { addId ->
                     if (addId.isSuccessful) {
@@ -121,7 +123,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
     override suspend fun deleteUserOngoingTask(userId: String, taskId: String): Result<Boolean> =
         suspendCoroutine { continuation ->
-            FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskId)
+            FirebaseFirestore.getInstance().collection(PATH_PLANS).document(taskId)
                 .update(KEY_PLAN_MEMBER, FieldValue.arrayRemove(userId))
                 .addOnCompleteListener { addId ->
                     if (addId.isSuccessful) {
@@ -140,7 +142,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
     override suspend fun addToOtherTask(userId: String, taskId: String): Result<Boolean> =
         suspendCoroutine { continuation ->
-            FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskId)
+            FirebaseFirestore.getInstance().collection(PATH_PLANS).document(taskId)
                 .update(KEY_PLAN_MEMBER, FieldValue.arrayUnion(userId))
                 .addOnCompleteListener { addId ->
                     if (addId.isSuccessful) {
@@ -160,10 +162,10 @@ object PlanRemoteDataSource : PlanDataSource {
     override suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>> =
         suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
-                .collection(PATH_ARTICLES)
+                .collection(PATH_PLANS)
                 .document(taskID)
                 .collection(KEY_PLAN_COMPLETEDLIST)
-                .whereEqualTo("user_id",userID)
+                .whereEqualTo(KEY_PLAN_USERID,userID)
                 .orderBy(KEY_COMPLETED_TIME, Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener { task ->
@@ -191,7 +193,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
     override suspend fun getFinishedPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
-                .collection(PATH_ARTICLES)
+                .collection(PATH_PLANS)
                 .whereEqualTo(KEY_PLAN_TASKDONE,true)
                 .whereArrayContains(KEY_PLAN_MEMBER,"Scolley")
                 .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
@@ -221,8 +223,8 @@ object PlanRemoteDataSource : PlanDataSource {
 
     override suspend fun getPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
-            .collection(PATH_ARTICLES)
-            .whereArrayContains(KEY_PLAN_MEMBER,"Scolley")
+            .collection(PATH_PLANS)
+            .whereArrayContains(KEY_PLAN_MEMBER,FirebaseAuth.getInstance().currentUser!!.uid)
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener { task ->
@@ -250,7 +252,7 @@ object PlanRemoteDataSource : PlanDataSource {
     override suspend fun getOtherSelectedPlanResult(categoryID: String): Result<List<Plan>> =
         suspendCoroutine { continuation ->
             FirebaseFirestore.getInstance()
-                .collection(PATH_ARTICLES)
+                .collection(PATH_PLANS)
                 .whereEqualTo(KEY_PLAN_CATEGORY,categoryID)
                 .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
                 .get()
@@ -279,7 +281,7 @@ object PlanRemoteDataSource : PlanDataSource {
     override suspend fun getOtherPlanResult(): Result<List<Plan>> =
         suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
-            .collection(PATH_ARTICLES)
+            .collection(PATH_PLANS)
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener { task ->
@@ -309,7 +311,7 @@ object PlanRemoteDataSource : PlanDataSource {
         val liveData = MutableLiveData<List<Plan>>()
 
         FirebaseFirestore.getInstance()
-            .collection(PATH_ARTICLES)
+            .collection(PATH_PLANS)
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, exception ->
 
@@ -337,7 +339,7 @@ object PlanRemoteDataSource : PlanDataSource {
         val liveData = MutableLiveData<List<Plan>>()
 
         FirebaseFirestore.getInstance()
-            .collection(PATH_ARTICLES)
+            .collection(PATH_PLANS)
             .whereEqualTo(KEY_PLAN_CATEGORY,categoryID)
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, exception ->
@@ -366,7 +368,7 @@ object PlanRemoteDataSource : PlanDataSource {
         val liveData = MutableLiveData<List<Plan>>()
 
         FirebaseFirestore.getInstance()
-            .collection(PATH_ARTICLES)
+            .collection(PATH_PLANS)
             .whereArrayContains(KEY_PLAN_MEMBER,"Scolley")
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, exception ->
@@ -393,7 +395,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
     override suspend fun addTask(plan: Plan): Result<Boolean> =
         suspendCoroutine { continuation ->
-        val plans = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
+        val plans = FirebaseFirestore.getInstance().collection(PATH_PLANS)
         val document = plans.document()
 
         plan.id = document.id
@@ -420,7 +422,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
     override suspend fun sendCompleted(completed: Completed, taskID: String): Result<Boolean> =
         suspendCoroutine { continuation ->
-        val plans = FirebaseFirestore.getInstance().collection(PATH_ARTICLES).document(taskID)
+        val plans = FirebaseFirestore.getInstance().collection(PATH_PLANS).document(taskID)
         val subCollection = plans.collection(KEY_PLAN_COMPLETEDLIST)
         val document = subCollection.document()
 

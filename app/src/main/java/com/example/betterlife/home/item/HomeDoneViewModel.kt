@@ -42,7 +42,7 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
     val navigateToAddTask: MutableLiveData<Boolean>
         get() = _navigateToAddTask
 
-    private val _user = MutableLiveData<User>()
+    val _user = MutableLiveData<User>()
 
     val user: LiveData<User>
         get() = _user
@@ -78,27 +78,9 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-//        mockUser()
         getPlanResult()
-
-//        if (PlanApplication.instance.isLiveDataDesign()) {
-//            getLivePlanResult()
-//        } else {
-//            getPlanResult()
-//        }
-
     }
 
-//    private fun mockUser() {
-//        var mockUser = User()
-//        mockUser.run {
-//            this.userId = "Scolley"
-//            this.googleId = "scolley31"
-//            this.userImage = ""
-//            this.userName = "Scolley"
-//        }
-//        _user.value = mockUser
-//    }
 
     fun getPlanResult() {
 

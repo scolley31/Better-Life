@@ -4,16 +4,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.example.betterlife.data.Plan
 import com.example.betterlife.data.PlanStatus
+import com.example.betterlife.data.User
 import com.example.betterlife.home.item.HomeDoneFragment
 import com.example.betterlife.home.item.HomeItemFragment
 
-class HomeAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class HomeAdapter(fragmentManager: FragmentManager,val user: User) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment {
         return when (position) {
-           0 -> HomeItemFragment(PlanStatus.values()[position])
-           1 -> HomeDoneFragment(PlanStatus.values()[position])
-           else ->  HomeItemFragment(PlanStatus.values()[position])
+           0 -> HomeItemFragment(user)
+           1 -> HomeDoneFragment(user)
+           else ->  HomeItemFragment(user)
         }
     }
 

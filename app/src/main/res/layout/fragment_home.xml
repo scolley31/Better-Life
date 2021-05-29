@@ -27,7 +27,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/Constratint_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/Constraint_myTasks"
@@ -132,13 +133,13 @@
                         android:layout_height="wrap_content"
                         android:hint="50%"
                         android:text='@{String.valueOf(viewModel.taskPercent)+"%"}'
+                        android:textAlignment="center"
                         android:textColor="@color/bottom_navigation_item_normal"
                         android:textSize="36sp"
                         app:layout_constraintBottom_toBottomOf="@+id/TimerProgressBar"
                         app:layout_constraintEnd_toEndOf="@+id/TimerProgressBar"
                         app:layout_constraintStart_toStartOf="@+id/TimerProgressBar"
                         app:layout_constraintTop_toTopOf="@+id/TimerProgressBar" />
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

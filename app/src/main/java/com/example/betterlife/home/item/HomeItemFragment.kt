@@ -14,17 +14,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.betterlife.NavigationDirections
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.PlanStatus
+import com.example.betterlife.data.User
 import com.example.betterlife.databinding.FragmentHomeItemBinding
 import com.example.betterlife.ext.getVmFactory
 
 
-class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
+class HomeItemFragment(private val user: User) : Fragment() {
 
     private val viewModel by viewModels<HomeItemViewModel> { getVmFactory() }
 
     lateinit var binding: FragmentHomeItemBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        viewModel._user.value = user
+
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
 
         binding = FragmentHomeItemBinding.inflate(inflater, container, false)
 
@@ -53,9 +62,9 @@ class HomeItemFragment(private val planStatus: PlanStatus) : Fragment() {
         }
         )
 
-        viewModel.plans.observe(viewLifecycleOwner, Observer {
-            Log.i("test","plans = ${viewModel.plans.value}")
 
+        viewModel.user.observe(viewLifecycleOwner, Observer {
+            Log.i("test","user = ${viewModel.user.value}")
         }
         )
 

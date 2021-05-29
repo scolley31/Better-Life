@@ -13,12 +13,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.betterlife.databinding.FragmentHomeBinding
 import com.example.betterlife.ext.getVmFactory
 import com.example.betterlife.home.item.HomeDoneViewModel
+import com.example.betterlife.timer.TimerFragmentArgs
+import com.example.betterlife.timer.TimerViewModel
 
 class HomeFragment(): Fragment() {
 
     lateinit var binding: FragmentHomeBinding
 
-    private val viewModel by viewModels<HomeViewModel> { getVmFactory() }
+    private val viewModel by viewModels<HomeViewModel> { getVmFactory(HomeFragmentArgs.fromBundle(requireArguments()).userIDKey) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,14 +31,20 @@ class HomeFragment(): Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        binding.viewpagerHome.adapter = HomeAdapter(childFragmentManager)
-        binding.tabsHome.setupWithViewPager(binding.viewpagerHome)
+
 
         viewModel.plans.observe(viewLifecycleOwner, Observer {
             it?.let{
-                viewModel.checkTodayDoneNumber()
-                Log.d("test","plans = ${viewModel.plans.value}")
-                Log.d("test","taskDoneNumber = ${viewModel.taskDoneNumber.value}")
+//                viewModel.getCompleted()
+            }
+        }
+        )
+
+        viewModel.user.observe(viewLifecycleOwner, Observer {
+            it?.let{
+//                Log.d("user","user = ${viewModel.user.value}")
+                binding.viewpagerHome.adapter = HomeAdapter(childFragmentManager, viewModel.user.value!!)
+                binding.tabsHome.setupWithViewPager(binding.viewpagerHome)
             }
         }
         )

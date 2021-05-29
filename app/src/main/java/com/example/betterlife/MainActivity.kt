@@ -23,6 +23,7 @@ import com.example.betterlife.ext.getVmFactory
 import com.example.betterlife.util.Logger
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity()  {
@@ -42,7 +43,9 @@ class MainActivity : BaseActivity()  {
         when (item.itemId) {
             R.id.navigation_main -> {
 
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
+                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment(
+                        FirebaseAuth.getInstance().currentUser!!.uid
+                ))
                 return@OnNavigationItemSelectedListener true
 
             }

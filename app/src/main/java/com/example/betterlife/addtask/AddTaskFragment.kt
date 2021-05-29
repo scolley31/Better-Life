@@ -21,6 +21,7 @@ import com.example.betterlife.R
 import com.example.betterlife.databinding.DialogAddtaskBinding
 import com.example.betterlife.ext.getVmFactory
 import com.example.betterlife.home.item.HomeItemViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AddTaskFragment(): AppCompatDialogFragment() {
@@ -70,7 +71,9 @@ class AddTaskFragment(): AppCompatDialogFragment() {
         viewModel.navigateToHome.observe(viewLifecycleOwner, Observer {
             Log.i("test","navigateToHome = ${viewModel.navigateToHome.value}")
             it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
+                        FirebaseAuth.getInstance().currentUser!!.uid
+                ))
             }
         }
         )

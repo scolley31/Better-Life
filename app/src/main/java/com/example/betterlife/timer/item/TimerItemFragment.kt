@@ -14,6 +14,7 @@ import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.FragmentTimerItemBinding
 import com.example.betterlife.ext.getVmFactory
 import com.example.betterlife.util.PrefUtil
+import com.google.firebase.auth.FirebaseAuth
 
 class TimerItemFragment(private val plan: Plan) : Fragment() {
 
@@ -48,7 +49,9 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
 
         viewModel.navigateToHome.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment())
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
+                        FirebaseAuth.getInstance().currentUser!!.uid
+                ))
             }
         })
 
