@@ -53,6 +53,10 @@ class LoginFragment(): Fragment() {
             viewModel.findUser(it, true)
         }
 
+        binding.signInButton.setOnClickListener {
+            viewModel.loginGoogle()
+        }
+
         viewModel.navigateToHome.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(

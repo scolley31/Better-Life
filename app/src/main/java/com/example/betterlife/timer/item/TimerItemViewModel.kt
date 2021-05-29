@@ -13,6 +13,7 @@ import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.Logger
 import com.example.betterlife.util.TimeConverters
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -93,7 +94,7 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
     fun checkTaskDone() {
 
         coroutineScope.launch {
-            var completed = repository.getCompleted(_timer.value!!.id, "Scolley")
+            var completed = repository.getCompleted(_timer.value!!.id, FirebaseAuth.getInstance().currentUser!!.uid)
             var completedList = when (completed) {
                 is Result.Success -> {
                     _error.value = null
@@ -136,10 +137,8 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
         coroutineScope.launch {
 
-
-
             val newCompleted = Completed(
-                    user_id = "Scolley",
+                    user_id = FirebaseAuth.getInstance().currentUser!!.uid,
                     daily = dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1),
                     completed = completed.value!!,
                     date = Calendar.getInstance().timeInMillis

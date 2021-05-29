@@ -39,11 +39,6 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
     val navigateToTimer: MutableLiveData<Plan?>
         get() = _navigateToTimer
 
-    private val _navigateToAddTask = MutableLiveData<Boolean>()
-
-    val navigateToAddTask: MutableLiveData<Boolean>
-        get() = _navigateToAddTask
-
     val _user = MutableLiveData<User>()
 
     val user: LiveData<User>
@@ -142,11 +137,11 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 //                }
             }
         }
-            Log.d("test","plan = ${_plans.value}")
             _refreshStatus.value = false
-
+            getCompleted()
         }
     }
+
 
     fun getCompleted(){
 
@@ -188,7 +183,11 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                         _plans.value!![i].taskDone = true
                     }
                 }
+
+
             }
+
+
             val filter = _plans.value!!.filter {
                 it.taskDone == false
             }
@@ -196,6 +195,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
             _plans.value = _plans.value
         }
     }
+
 
     fun checkTodayDone(j: Int,i : Int) {
 
@@ -211,12 +211,10 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         _navigateToTimer.value = plan
     }
 
+
     fun deleteNavigateTimer() {
         _navigateToTimer.value = null
     }
 
-    fun navigateAddTask () {
-        _navigateToAddTask.value = true
-    }
 
 }

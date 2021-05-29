@@ -33,7 +33,6 @@
             android:id="@+id/sign_in_button"
             android:layout_width="127dp"
             android:layout_height="wrap_content"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/text_login"
             app:layout_constraintStart_toStartOf="@+id/text_login"
@@ -47,7 +46,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
-            android:onClick="@{()->viewModel.loginGoogle()}"
             android:text="@string/text_login"
             android:textColor="@color/gray_999999"
             android:textSize="@dimen/text_16dp"

@@ -7,14 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.betterlife.PlanApplication
 import com.example.betterlife.R
-import com.example.betterlife.data.Completed
-import com.example.betterlife.data.Plan
-import com.example.betterlife.data.Rank
-import com.example.betterlife.data.Result
+import com.example.betterlife.data.*
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.TimeConverters
 import com.github.mikephil.charting.data.BarEntry
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -87,7 +85,6 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
         coroutineScope.launch {
 
             for (i in info.value!!.members.indices) {
-
                 var oneRank = repository.getCompleted(info.value!!.id, info.value!!.members[i])
                 var oneRankToCount : List<Completed>? = when(oneRank) {
                     is Result.Success -> {
@@ -112,6 +109,30 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                     }
                 }
 
+                var user = repository.findUser(info.value!!.members[i])
+                var userIDToName : User? = when(user) {
+                    is Result.Success -> {
+                        _error.value = null
+                        _status.value = LoadApiStatus.DONE
+                        user.data
+                    }
+                    is Result.Fail -> {
+                        _error.value = user.error
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                    is Result.Error -> {
+                        _error.value = user.exception.toString()
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                    else -> {
+                        _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                        _status.value = LoadApiStatus.ERROR
+                        null
+                    }
+                }
+
                 var sum = 0
 
                 if (oneRankToCount != null) {
@@ -120,15 +141,16 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                     }
                 }
 
+
                 rankTmp.run {
-                    add(Rank(info.value!!.members[i],sum/60))
+                    add(Rank(userIDToName!!.userName,sum/60))
                 }
-                Log.d("test","rankTmp = $rankTmp")
+//                Log.d("test","rankTmp = $rankTmp")
             }
 
             var rankTmpForSort = mutableListOf<Rank>()
             rankTmpForSort = sortToRank(rankTmp)
-            Log.d("test","rankTmpForSort = $rankTmpForSort")
+//            Log.d("test","rankTmpForSort = $rankTmpForSort")
             _rank.value = rankTmpForSort
 
         }
@@ -136,13 +158,13 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
 
     fun sortToRank (rankList : MutableList<Rank>): MutableList<Rank> {
         for (i in 0 until rankList.size-1) {
-            Log.d("test","rankList.size = ${rankList.size}")
-            Log.d("test","i = $i")
+//            Log.d("test","rankList.size = ${rankList.size}")
+//            Log.d("test","i = $i")
             var num = i
 
                 for (j in (num+1) .. rankList.size-1) {
-                    Log.d("test","j = $j")
-                    Log.d("test","i = $i")
+//                    Log.d("test","j = $j")
+//                    Log.d("test","i = $i")
                     if (rankList[j].totalTime > rankList[i].totalTime) {
                         var tmpTotalTime = rankList[i].totalTime
                         var tmpName = rankList[i].user_id
@@ -162,7 +184,7 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
 
         coroutineScope.launch {
 
-            var completed = repository.getCompleted(_info.value!!.id, "Scolley")
+            var completed = repository.getCompleted(_info.value!!.id, FirebaseAuth.getInstance().currentUser!!.uid)
             _completedTest.value = when(completed) {
                 is Result.Success -> {
                     _error.value = null
@@ -211,9 +233,9 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
             forPrintChat.value = true
 
 
-            Log.d("test","xTitle = $xTitle")
-            Log.d("test","label = $label")
-            Log.d("test","entries = $entries")
+//            Log.d("test","xTitle = $xTitle")
+//            Log.d("test","label = $label")
+//            Log.d("test","entries = $entries")
         }
     }
 

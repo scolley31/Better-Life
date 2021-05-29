@@ -47,6 +47,11 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
     val error: LiveData<String>
         get() = _error
 
+    private val _navigateToAddTask = MutableLiveData<Boolean>()
+
+    val navigateToAddTask: MutableLiveData<Boolean>
+        get() = _navigateToAddTask
+
     val singlePlanCompleted = MutableLiveData<List<Completed>?>()
 
     val taskDoneNumber = MutableLiveData<Int>()
@@ -183,6 +188,10 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
 //            Log.d("test", "taskDoneNumber.value  = ${taskDoneNumber.value}")
 //            Log.d("test", "taskPercent.value  = ${taskPercent.value}")
         }
+    }
+
+    fun navigateAddTask () {
+        _navigateToAddTask.value = true
     }
 
 }

@@ -28,10 +28,10 @@ class TimerFragment(): Fragment() {
         Log.d("test", "argement = ${viewModel.plan.value}")
 
         val view1: View = layoutInflater.inflate(R.layout.customtab, null)
-        view1.findViewById<View>(R.id.icon).setBackgroundResource(R.drawable.outline_alarm_add_black_48)
+        view1.findViewById<View>(R.id.icon).setBackgroundResource(R.drawable._21_stopwatch)
 
         val view2: View = layoutInflater.inflate(R.layout.customtab, null)
-        view2.findViewById<View>(R.id.icon).setBackgroundResource(R.drawable.outline_pending_actions_black_48)
+        view2.findViewById<View>(R.id.icon).setBackgroundResource(R.drawable._38_presentation)
 
         viewModel.plan.observe(viewLifecycleOwner, Observer {
             it?.let {

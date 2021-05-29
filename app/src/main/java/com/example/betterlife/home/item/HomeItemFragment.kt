@@ -54,15 +54,6 @@ class HomeItemFragment(private val user: User) : Fragment() {
         }
         )
 
-        viewModel.navigateToAddTask.observe(viewLifecycleOwner, Observer {
-            Log.i("test","navigateToAddTask = ${viewModel.navigateToAddTask.value}")
-            it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalAddTaskFragment())
-            }
-        }
-        )
-
-
         viewModel.user.observe(viewLifecycleOwner, Observer {
             Log.i("test","user = ${viewModel.user.value}")
         }
