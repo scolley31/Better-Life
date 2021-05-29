@@ -7,6 +7,7 @@ enum class CurrentFragmentType(val value: String) {
 
     HOME(getString(R.string.personnal_goal)),
     OTHER(getString(R.string.other_goal)),
-    TIMER(" ")
+    TIMER(" "),
+    LOGIN("")
 
 }

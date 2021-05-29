@@ -20,7 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 
-class HomeViewModel(private val repository: PlanRepository):ViewModel() {
+class HomeViewModel(private val repository: PlanRepository, private val arguments: String):ViewModel() {
 
     private val _plans = MutableLiveData<List<Plan>>()
 
@@ -67,21 +67,21 @@ class HomeViewModel(private val repository: PlanRepository):ViewModel() {
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-        mockUser()
+//        mockUser()
         getPlanResult()
 
     }
 
-    private fun mockUser() {
-        var mockUser = User()
-        mockUser.run {
-            this.userId = "Scolley"
-            this.google_id = "scolley31"
-            this.userImage = ""
-            this.userName = "Scolley"
-        }
-        _user.value = mockUser
-    }
+//    private fun mockUser() {
+//        var mockUser = User()
+//        mockUser.run {
+//            this.userId = "Scolley"
+//            this.googleId = "scolley31"
+//            this.userImage = ""
+//            this.userName = "Scolley"
+//        }
+//        _user.value = mockUser
+//    }
 
     fun getPlanResult() {
 

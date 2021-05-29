@@ -1,8 +1,10 @@
 package com.example.betterlife
 
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.betterlife.data.CurrentFragmentType
 import com.example.betterlife.data.Plan
 import com.example.betterlife.home.item.HomeDoneAdapter
 import com.example.betterlife.home.item.HomeItemAdapter
@@ -29,5 +31,27 @@ fun bindRecyclerViewWithPlan(recyclerView: RecyclerView, plan: List<Plan>?) {
                 }
             }
     }
+
+@BindingAdapter("toolbarVisibility")
+fun bindToolbarVisibility(view: View, fragment: CurrentFragmentType) {
+    view.visibility =
+            when (fragment) {
+                CurrentFragmentType.LOGIN -> View.GONE
+                CurrentFragmentType.TIMER -> View.GONE
+
+                else -> View.VISIBLE
+            }
+}
+
+@BindingAdapter("bottomNavVisibility")
+fun bindBottomNavVisibility(view: View, fragment: CurrentFragmentType) {
+    view.visibility =
+            when (fragment) {
+                CurrentFragmentType.LOGIN -> View.GONE
+                CurrentFragmentType.TIMER -> View.GONE
+
+                else -> View.VISIBLE
+            }
+}
 
 

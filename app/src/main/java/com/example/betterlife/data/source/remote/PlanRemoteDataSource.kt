@@ -3,6 +3,7 @@ package com.example.betterlife.data.source.remote
 import android.content.ContentValues.TAG
 import android.icu.util.Calendar
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.betterlife.PlanApplication
 import com.example.betterlife.PlanApplication.Companion.instance
@@ -15,11 +16,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import com.example.betterlife.data.Result
+import com.example.betterlife.data.User
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 
 object PlanRemoteDataSource : PlanDataSource {
 
+    private const val PATH_USERS = "users"
     private const val PATH_ARTICLES = "plan"
     private const val KEY_CREATED_TIME = "createdTime"
     private const val KEY_COMPLETED_TIME = "date"
@@ -27,6 +30,67 @@ object PlanRemoteDataSource : PlanDataSource {
     private const val KEY_PLAN_CATEGORY = "category"
     private const val KEY_PLAN_COMPLETEDLIST = "completedList"
     private const val KEY_PLAN_TASKDONE = "taskDone"
+
+
+    override fun getUser(userId: String): LiveData<User> {
+        val user = MutableLiveData<User>()
+        FirebaseFirestore.getInstance().collection(PATH_USERS).document(userId)
+                .addSnapshotListener { snapshot, e ->
+                    if (e != null) {
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
+                        return@addSnapshotListener
+                    }
+
+                    if (snapshot != null && snapshot.exists()) {
+                        user.value = snapshot.toObject(User::class.java)!!
+
+                    } else {
+                        Logger.d("Current data: null")
+                    }
+                }
+
+        return user
+    }
+
+    override suspend fun findUser(firebaseUserId: String): Result<User?> =
+            suspendCoroutine { continuation ->
+                FirebaseFirestore.getInstance().collection(PATH_USERS).document(firebaseUserId)
+                        .get()
+                        .addOnCompleteListener { findUser ->
+                            if (findUser.isSuccessful) {
+                                findUser.result?.let { documentU ->
+                                    val user = documentU.toObject(User::class.java)
+                                    continuation.resume(Result.Success(user))
+                                }
+                            } else {
+                                findUser.exception?.let {
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(Result.Fail(instance.getString(R.string.you_know_nothing)))
+                            }
+                        }
+            }
+
+
+    override suspend fun createUser(user: User): Result<Boolean> =
+            suspendCoroutine { continuation ->
+                FirebaseFirestore.getInstance().collection(PATH_USERS).document(user.userId).set(user)
+                        .addOnCompleteListener { addUser ->
+                            if (addUser.isSuccessful) {
+                                continuation.resume(Result.Success(true))
+                            } else {
+                                addUser.exception?.let {
+
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                }
+                                continuation.resume(Result.Fail(instance.getString(R.string.you_know_nothing)))
+                            }
+                        }
+            }
+
 
     override suspend fun taskFinish(taskId: String): Result<Boolean> =
         suspendCoroutine {

@@ -93,6 +93,7 @@
     <dimen name="text_home_">254dp</dimen>
 
     <!-- OtherPage text title -->
+    <dimen name="text_40dp">32dp</dimen>
     <dimen name="text_32dp">32dp</dimen>
     <dimen name="text_24dp">24dp</dimen>
     <dimen name="text_16dp">16dp</dimen>

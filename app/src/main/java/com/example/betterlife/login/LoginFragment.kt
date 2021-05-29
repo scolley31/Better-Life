@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.betterlife.NavigationDirections
 import com.example.betterlife.R
 import com.example.betterlife.databinding.FragmentLoginBinding
 import com.example.betterlife.ext.getVmFactory
@@ -27,24 +30,14 @@ class LoginFragment(): Fragment() {
 
     lateinit var binding: FragmentLoginBinding
 
-    private lateinit var auth: FirebaseAuth
-
     private lateinit var googleSignInClient: GoogleSignInClient
 
-    private val viewModel by viewModels<LoginViewModel> { getVmFactory() }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        auth = Firebase.auth
-
-        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+    companion object {
+        internal const val TAG = "GoogleActivity"
+        private const val RC_SIGN_IN = 9001
     }
+
+    private val viewModel by viewModels<LoginViewModel> { getVmFactory() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,38 +46,37 @@ class LoginFragment(): Fragment() {
     ): View? {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        FirebaseAuth.getInstance().currentUser?.let {
+            viewModel.findUser(it, true)
+        }
 
-        binding.signInButton.setOnClickListener { onClick(binding.signInButton) }
+        viewModel.navigateToHome.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
 
+                ))
+                viewModel.onSucceeded()
+            }
+        })
 
+        viewModel.loginAttempt.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                            .requestIdToken(getString(R.string.default_web_client_id))
+                            .requestEmail()
+                            .build()
+                    googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+                    val signInIntent = googleSignInClient.signInIntent
+                    startActivityForResult(signInIntent, RC_SIGN_IN)
+                    viewModel.afterLogin()
+            }
+        })
 
         return binding.root
     }
-
-    fun onClick(v: View) {
-        when (v.id) {
-            R.id.sign_in_button -> signIn()
-        }
-    }
-
-    // [START signin]
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-    // [END signin]
-
-    // [START on_start_check_user]
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
-    }
-    // [END on_start_check_user]
 
     // [START onactivityresult]
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -103,17 +95,6 @@ class LoginFragment(): Fragment() {
                 Log.w(TAG, "Google sign in failed", e)
             }
         }
-    }
-
-    // [END onactivityresult]
-
-    private fun updateUI(user: FirebaseUser?) {
-
-    }
-
-    companion object {
-        internal const val TAG = "GoogleActivity"
-        private const val RC_SIGN_IN = 9001
     }
 
 }

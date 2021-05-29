@@ -97,6 +97,7 @@ class MainActivity : BaseActivity()  {
                 R.id.homeFragment -> CurrentFragmentType.HOME
                 R.id.otherFragment -> CurrentFragmentType.OTHER
                 R.id.timerFragment -> CurrentFragmentType.TIMER
+                R.id.loginFragment -> CurrentFragmentType.LOGIN
 
                 else -> viewModel.currentFragmentType.value
             }

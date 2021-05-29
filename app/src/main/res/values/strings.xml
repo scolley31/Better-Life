@@ -38,7 +38,11 @@
     <string name="text_enough">今天就先這樣吧!</string>
     <string name="text_done">終於完成了!</string>
 
-    今天就先這樣吧
+
+    <!--Login-->
+    <string name="login_success">登入成功</string>
+    <string name="login_name_unknown">無名氏</string>
+
     <string-array name="category_array">
         <item>學習</item>
         <item>運動</item>
@@ -63,5 +67,7 @@
     <string name="text_todayNotDone">未執行</string>
     <string name="text_todayDone">已執行</string>
     <string name="text_taskDone">任務已完成</string>
+    <string name="text_login_title">Better Life</string>
+    <string name="text_login">Task Management</string>
 
 </resources>

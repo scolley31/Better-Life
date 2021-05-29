@@ -8,8 +8,8 @@ data class User(
 
         var userId: String = "",
         var userName: String = "",
-        var userImage: String = "",
-        var google_id: String = ""
+        var userImage: String = ""
+
 
 ): Parcelable
 

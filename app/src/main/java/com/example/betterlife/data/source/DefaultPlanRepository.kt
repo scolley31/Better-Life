@@ -1,14 +1,24 @@
 package com.example.betterlife.data.source
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.betterlife.data.Completed
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.Result
+import com.example.betterlife.data.User
 
 class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
                              private val localDataSource: PlanDataSource
 
 ) : PlanRepository {
+
+    override suspend fun findUser(firebaseUserId: String): Result<User?>  {
+        return remoteDataSource.findUser(firebaseUserId)
+    }
+
+    override suspend fun createUser(user: User): Result<Boolean>  {
+        return remoteDataSource.createUser(user)
+    }
 
     override suspend fun taskFinish(taskId: String): Result<Boolean>  {
         return remoteDataSource.taskFinish(taskId)
@@ -64,6 +74,10 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
 
     override fun getLiveOtherSelectedPlanResult(categoryID: String): MutableLiveData<List<Plan>> {
         return remoteDataSource.getLiveOtherSelectedPlanResult(categoryID)
+    }
+
+    override fun getUser(userId: String): LiveData<User> {
+        return remoteDataSource.getUser(userId)
     }
 
 }

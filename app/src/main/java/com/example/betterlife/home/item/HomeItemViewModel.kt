@@ -80,7 +80,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
-        mockUser()
+//        mockUser()
         getPlanResult()
 
 //        if (PlanApplication.instance.isLiveDataDesign()) {
@@ -91,16 +91,16 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
     }
 
-    private fun mockUser() {
-        var mockUser = User()
-        mockUser.run {
-            this.userId = "Scolley"
-            this.google_id = "scolley31"
-            this.userImage = ""
-            this.userName = "Scolley"
-        }
-        _user.value = mockUser
-    }
+//    private fun mockUser() {
+//        var mockUser = User()
+//        mockUser.run {
+//            this.userId = "Scolley"
+//            this.googleId = "scolley31"
+//            this.userImage = ""
+//            this.userName = "Scolley"
+//        }
+//        _user.value = mockUser
+//    }
 
     fun getLivePlanResult() {
         livePlans = repository.getLivePlanResult()
