@@ -29,7 +29,7 @@
     <string name="text_goal">目標名稱</string>
     <string name="text_goal_category">目標分類</string>
     <string name="text_goal_image">目標圖像</string>
-    <string name="text_goal_target">目標時間</string>
+    <string name="text_goal_target">目標設定</string>
     <string name="button_addTask">創建</string>
     <string name="text_goal_invited">邀請朋友</string>
     <string name="text_goal_target_daily">每日目標</string>
@@ -69,5 +69,11 @@
     <string name="text_taskDone">任務已完成</string>
     <string name="text_login_title">Better Life</string>
     <string name="text_login">Task Management</string>
+    <string name="text_target_total">總目標</string>
+    <string name="text_selectDate">設定截止時間</string>
+    <string name="text_selectTime">設定總達成時間</string>
+
+
+
 
 </resources>

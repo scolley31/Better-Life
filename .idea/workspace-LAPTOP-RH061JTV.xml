@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="237935c5-a4fd-4515-ae4c-7bd557cfc57c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betterlife/data/Plan.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betterlife/data/Plan.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_addtask.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_addtask.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_timer_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_timer_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="android" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build setup" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="cleanup" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="help" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="install" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="android" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="cleanup" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="help" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="install" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BetterLife" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="navigationResourceFile" />
+        <option value="valueResourceFile" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Data Class" />
+        <option value="Kotlin Object" />
+        <option value="Kotlin Enum" />
+        <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1sQI7K9FaXqiBw650MGPZwdK4XC" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_4_XL_API_30" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-05-29T20:01:10.204Z" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="android-custom-viewC:/Users/Scolley31/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED" value="RecyclerView" />
+    <property name="android-custom-viewC:/Users/Scolley31/.gradle/caches/modules-2/files-2.1/androidx.viewpager/viewpager/1.0.0/db045f92188b9d247d5f556866f8861ab68528f0/viewpager-1.0.0-sources.jar!/androidx/viewpager/widget/ViewPager.java_SELECTED" value="ViewPager" />
+    <property name="android-custom-viewC:/Users/Scolley31/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.1.0/45d3ce505f744a595313d5eb84efd3ca3c8d2d04/MPAndroidChart-v3.1.0-sources.jar!/com/github/mikephil/charting/charts/BarLineChartBase.java_SELECTED" value="BarLineChartBase" />
+    <property name="android-custom-viewC:/Users/Scolley31/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.3.0/b42a5159ef2c670d26ce08246ec5aaf8f92e5a42/material-1.3.0-sources.jar!/com/google/android/material/tabs/TabLayout.java_SELECTED" value="TabLayout" />
+    <property name="android-custom-viewC:/Users/Scolley31/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_SELECTED" value="View" />
+    <property name="android-custom-viewC:/Users/Scolley31/AppData/Local/Android/Sdk/sources/android-30/android/view/ViewGroup.java_SELECTED" value="ViewGroup" />
+    <property name="android-custom-viewC:/Users/Scolley31/AppData/Local/Android/Sdk/sources/android-30/android/widget/ImageView.java_SELECTED" value="ImageView" />
+    <property name="android-custom-viewC:/Users/Scolley31/AppData/Local/Android/Sdk/sources/android-30/android/widget/Switch.java_SELECTED" value="Switch" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../coworks/Stylish-Android-Kotlin/app" />
+    <property name="multi-representation-previewC:/Users/Scolley31/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_selected" value="Custom views" />
+    <property name="multi-representation-previewC:/Users/Scolley31/.gradle/caches/modules-2/files-2.1/androidx.viewpager/viewpager/1.0.0/db045f92188b9d247d5f556866f8861ab68528f0/viewpager-1.0.0-sources.jar!/androidx/viewpager/widget/ViewPager.java_selected" value="Custom views" />
+    <property name="multi-representation-previewC:/Users/Scolley31/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.1.0/45d3ce505f744a595313d5eb84efd3ca3c8d2d04/MPAndroidChart-v3.1.0-sources.jar!/com/github/mikephil/charting/charts/BarLineChartBase.java_selected" value="Custom views" />
+    <property name="multi-representation-previewC:/Users/Scolley31/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.3.0/b42a5159ef2c670d26ce08246ec5aaf8f92e5a42/material-1.3.0-sources.jar!/com/google/android/material/tabs/TabLayout.java_selected" value="Custom views" />
+    <property name="multi-representation-previewC:/Users/Scolley31/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_selected" value="Custom views" />
+    <property name="multi-representation-previewC:/Users/Scolley31/AppData/Local/Android/Sdk/sources/android-30/android/view/ViewGroup.java_selected" value="Custom views" />
+    <property name="multi-representation-previewC:/Users/Scolley31/AppData/Local/Android/Sdk/sources/android-30/android/widget/ImageView.java_selected" value="Custom views" />
+    <property name="multi-representation-previewC:/Users/Scolley31/AppData/Local/Android/Sdk/sources/android-30/android/widget/Switch.java_selected" value="Custom views" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.example.betterlife.data.Source" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.betterlife" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Android App.app">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="BetterLife.app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="App [signingReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="signingReport" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.App [signingReport]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="237935c5-a4fd-4515-ae4c-7bd557cfc57c" name="Default Changelist" comment="" />
+      <created>1620798217463</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1620798217463</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="495" y="22" key="#Auto_Import" timestamp="1620812108417">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="495" y="22" key="#Auto_Import/0.0.1536.824@0.0.1536.824" timestamp="1620812108417" />
+    <state x="2175" y="549" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1622136033879">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="153" y="323" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.824/1920.0.1920.1160@0.0.1536.824" timestamp="1620875082388" />
+    <state x="2175" y="549" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622136033879" />
+    <state x="2945" y="560" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1622136044450">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="2945" y="560" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622136044449" />
+    <state x="433" y="99" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620806247503">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="433" y="99" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1620806247503" />
+    <state x="495" y="165" width="796" height="493" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1620875300141">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="495" y="165" width="796" height="493" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1536.824/1920.0.1920.1160@0.0.1536.824" timestamp="1620875300141" />
+    <state x="2075" y="158" width="2250" height="1084" key="AVDManager" timestamp="1621873938174">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="2075" y="158" width="2250" height="1084" key="AVDManager/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1621873938174" />
+    <state x="93" y="93" width="1350" height="638" key="AVDManager/0.0.1536.824@0.0.1536.824" timestamp="1620893476537" />
+    <state x="2777" y="446" key="AndroidCreateResourceDirectoryDialog" timestamp="1622039938845">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="2777" y="446" key="AndroidCreateResourceDirectoryDialog/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622039938845" />
+    <state x="2725" y="404" key="AndroidCreateResourceFileDialog" timestamp="1622135186712">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="483" y="238" key="AndroidCreateResourceFileDialog/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621163090373" />
+    <state x="2725" y="404" key="AndroidCreateResourceFileDialog/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622135186712" />
+    <state x="483" y="238" key="AndroidCreateResourceFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1620926680555" />
+    <state x="574" y="156" key="AndroidCreateXmlResourceDialog" timestamp="1622377768690">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="574" y="156" key="AndroidCreateXmlResourceDialog/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621149198057" />
+    <state x="2877" y="265" key="AndroidCreateXmlResourceDialog/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622208150209" />
+    <state x="574" y="156" key="AndroidCreateXmlResourceDialog/0.0.1536.824@0.0.1536.824" timestamp="1622377768690" />
+    <state x="2802" y="396" key="Downloadable.Font.Dialog.Size" timestamp="1622039965520">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="2802" y="396" key="Downloadable.Font.Dialog.Size/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622039965520" />
+    <state x="2777" y="274" width="868" height="607" key="FileChooserDialogImpl" timestamp="1622373487000">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="514" y="161" key="FileChooserDialogImpl/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621164942786" />
+    <state x="2777" y="274" width="868" height="607" key="FileChooserDialogImpl/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622373487000" />
+    <state x="514" y="161" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1621001449619" />
+    <state width="1466" height="-47" key="GridCell.Tab.0.bottom" timestamp="1622376965975">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1481" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1160@0.0.1536.824" timestamp="1620884060622" />
+    <state width="2504" height="308" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622311475354" />
+    <state width="1466" height="-47" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1622376965975" />
+    <state width="1466" height="-47" key="GridCell.Tab.0.center" timestamp="1622376965975">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1481" height="212" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1160@0.0.1536.824" timestamp="1620884060622" />
+    <state width="2504" height="308" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622311475354" />
+    <state width="1466" height="-47" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1622376965975" />
+    <state width="1466" height="-47" key="GridCell.Tab.0.left" timestamp="1622376965975">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1481" height="212" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1160@0.0.1536.824" timestamp="1620884060622" />
+    <state width="2504" height="308" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622311475353" />
+    <state width="1466" height="-47" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1622376965975" />
+    <state width="1466" height="-47" key="GridCell.Tab.0.right" timestamp="1622376965975">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1481" height="212" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1160@0.0.1536.824" timestamp="1620884060622" />
+    <state width="2504" height="308" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622311475354" />
+    <state width="1466" height="-47" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1622376965975" />
+    <state x="2503" y="87" key="NewModule_or_Project.wizard" timestamp="1621787673248">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="2503" y="87" key="NewModule_or_Project.wizard/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1621787673248" />
+    <state x="350" y="51" key="NewModule_or_Project.wizard/0.0.1536.824@0.0.1536.824" timestamp="1620799723651" />
+    <state x="0" y="712" width="1550" height="170" key="dock-window-1" timestamp="1622377840356">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="2267" y="83" width="1149" height="618" maximized="true" key="dock-window-1/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621139343705" />
+    <state x="0" y="0" width="1550" height="923" key="dock-window-1/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622373578289" />
+    <state x="0" y="712" width="1550" height="170" key="dock-window-1/0.0.1536.824@0.0.1536.824" timestamp="1622377840356" />
+    <state x="-6" y="0" width="781" height="845" key="dock-window-2" timestamp="1622284852208">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="-6" y="0" width="1546" height="830" key="dock-window-2/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621429581557" />
+    <state x="-6" y="0" width="781" height="845" key="dock-window-2/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622284852208" />
+    <state x="0" y="0" width="1550" height="923" key="dock-window-3" timestamp="1622301435441">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="1972" y="0" width="1149" height="610" maximized="true" key="dock-window-3/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621162834725" />
+    <state x="0" y="0" width="1550" height="923" key="dock-window-3/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622301435441" />
+    <state x="0" y="219" width="1550" height="587" key="dock-window-4" timestamp="1621525304524">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="2197" y="47" width="1149" height="610" maximized="true" key="dock-window-4/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621162834725" />
+    <state x="0" y="219" width="1550" height="587" key="dock-window-4/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1621525304524" />
+    <state x="2388" y="0" width="1162" height="1407" maximized="true" key="dock-window-5" timestamp="1621608179015">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="2388" y="0" width="1162" height="1407" maximized="true" key="dock-window-5/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621608179015" />
+    <state x="1920" y="158" width="1162" height="535" maximized="true" key="dock-window-6" timestamp="1621670625059">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1920" y="158" width="1162" height="535" maximized="true" key="dock-window-6/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621610079289" />
+    <state x="1920" y="158" width="1162" height="535" maximized="true" key="dock-window-6/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1621670625059" />
+    <state x="-427" y="20" width="1550" height="923" key="dock-window-7" timestamp="1621772201650">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="-427" y="20" width="1550" height="923" key="dock-window-7/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1621772201650" />
+    <state x="572" y="145" key="refactoring.ChangeSignatureDialog" timestamp="1621097818506">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="572" y="145" key="refactoring.ChangeSignatureDialog/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621097818506" />
+    <state x="572" y="145" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1621001379493" />
+    <state x="2771" y="326" key="run.anything.popup" timestamp="1622363616571">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="2771" y="326" key="run.anything.popup/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622363616571" />
+    <state x="2498" y="0" width="1400" height="1397" key="search.everywhere.popup" timestamp="1622211905840">
+      <screen x="1920" y="0" width="2560" height="1400" />
+    </state>
+    <state x="347" y="0" width="840" height="822" key="search.everywhere.popup/0.0.1536.824/1920.0.2560.1400@0.0.1536.824" timestamp="1621139530077" />
+    <state x="2498" y="0" width="1400" height="1397" key="search.everywhere.popup/0.0.1536.824/1920.0.2560.1400@1920.0.2560.1400" timestamp="1622211905840" />
+    <state x="347" y="-1" width="840" height="1034" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1620977662642" />
+  </component>
+</project>

@@ -17,8 +17,18 @@ data class Plan(
         var dailyTarget: Int = 0, //min
         var progressTime: Int = 0, // min
         var taskDone: Boolean = false, //whether a history task or not
-        var todayDone: Boolean = false //whether finish the task today
-//        var completedList: List<Completed> = listOf()
+        var todayDone: Boolean = false, //whether finish the task today
+        var group: Boolean = false //whether is a group
+
+): Parcelable {
+
+}
+
+@Parcelize
+data class Groups(
+
+        var id: String = "",
+        var members: List<String> = listOf()
 
 ): Parcelable {
 
@@ -34,8 +44,6 @@ data class Completed(
         var date: Long = -1
 
 ) : Parcelable {
-
-
 
 }
 
