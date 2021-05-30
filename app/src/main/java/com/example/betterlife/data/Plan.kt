@@ -18,7 +18,8 @@ data class Plan(
         var progressTime: Int = 0, // min
         var taskDone: Boolean = false, //whether a history task or not
         var todayDone: Boolean = false, //whether finish the task today
-        var group: Boolean = false //whether is a group
+        var group: Boolean = false, //whether is a group
+        var dueDate: Long = 0
 
 ): Parcelable {
 

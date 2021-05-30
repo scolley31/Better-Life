@@ -369,7 +369,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
         FirebaseFirestore.getInstance()
             .collection(PATH_PLANS)
-            .whereArrayContains(KEY_PLAN_MEMBER,"Scolley")
+            .whereArrayContains(KEY_PLAN_MEMBER,FirebaseAuth.getInstance().currentUser!!.uid)
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, exception ->
 

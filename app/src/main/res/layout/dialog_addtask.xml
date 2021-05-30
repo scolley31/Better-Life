@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="viewModel"
             type="com.example.betterlife.addtask.AddTaskViewModel" />
+
 
     </data>
 
@@ -18,9 +20,8 @@
             android:id="@+id/constraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/border_circle_line_white"
+            android:background="@drawable/border_circle_line_white_nopadding"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <ImageView
                     android:id="@+id/icon_goal_name"
@@ -51,6 +52,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/text_goal"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_16dp"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_goal_name"
                     app:layout_constraintStart_toEndOf="@+id/icon_goal_name"
                     app:layout_constraintTop_toTopOf="@+id/icon_goal_name" />
@@ -82,7 +86,9 @@
                     android:id="@+id/line_goal_name"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@color/bottom_navigation_item_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -96,8 +102,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/constraint_goalName"
-                tools:visibility="gone">
+                app:layout_constraintTop_toBottomOf="@id/constraint_goalName">
 
                 <ImageView
                     android:id="@+id/icon_goal_category"
@@ -115,6 +120,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/text_goal_category"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_16dp"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_goal_category"
                     app:layout_constraintStart_toEndOf="@+id/icon_goal_category"
                     app:layout_constraintTop_toTopOf="@+id/icon_goal_category" />
@@ -123,7 +131,9 @@
                     android:id="@+id/line_goal_category"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@color/bottom_navigation_item_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +155,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraint_goalCategory">
 
@@ -165,6 +174,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
                     android:hint="60分鐘"
+                    android:textColor="@color/black"
                     android:text='@{String.valueOf(viewModel.dailyTarget)+" 分鐘"}'
                     app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_daily"
                     app:layout_constraintStart_toEndOf="@+id/text_goal_target_daily"
@@ -176,6 +186,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/text_goal_target"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_16dp"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_goal_target"
                     app:layout_constraintStart_toEndOf="@+id/icon_goal_target"
                     app:layout_constraintTop_toTopOf="@+id/icon_goal_target" />
@@ -187,9 +200,13 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:backgroundTint="#8C9EFF"
                     android:max="120"
                     android:min="0"
                     android:progress="@={viewModel.dailyTarget}"
+                    android:progressBackgroundTint="#82B1FF"
+                    android:scrollbarThumbHorizontal="@color/black"
+                    android:scrollbarThumbVertical="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -200,9 +217,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:textColor="@color/black"
                     android:text="@string/text_goal_target_daily"
                     app:layout_constraintStart_toStartOf="@+id/icon_goal_target"
                     app:layout_constraintTop_toBottomOf="@+id/icon_goal_target" />
+
+                <DatePicker
+                    android:id="@+id/end_date"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/border_line_duedata"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    android:fadeScrollbars="true"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/radioGroup"
+                    app:layout_constraintTop_toTopOf="@+id/radioGroup"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:visibility="gone" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_totalTimeST"
@@ -210,16 +247,23 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/radioGroup"
                     app:layout_constraintTop_toTopOf="@+id/radioGroup"
                     tools:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="53dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="10dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_total"
+                        app:layout_constraintStart_toEndOf="@+id/text_goal_target_total"
+                        app:layout_constraintTop_toTopOf="@+id/text_goal_target_total">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/text_goal_targetTime"
@@ -234,15 +278,26 @@
                         android:id="@+id/text_goal_target_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/text_goal_target_total" />
+                        android:layout_marginStart="16dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+                        android:text="@string/text_goal_target_total"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/text_goal_daily"
-                        android:layout_width="28dp"
+                        android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:layout_marginStart="16dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
                         android:text="@string/text_minute"
-                        tools:layout_editor_absoluteX="119dp"
-                        tools:layout_editor_absoluteY="141dp" />
+                        app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_total"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
+                        app:layout_constraintTop_toTopOf="@+id/text_goal_target_total" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -251,6 +306,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:textColor="@color/black"
                     android:hint="總目標"
                     android:text="@string/text_target_total"
                     app:layout_constraintStart_toStartOf="@+id/text_goal_target_daily"
@@ -260,7 +316,9 @@
                     android:id="@+id/line_goal_target"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@color/bottom_navigation_item_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -271,19 +329,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:checkedButton="@={viewModel.selectedTypeRadio}"
                     app:layout_constraintStart_toStartOf="@+id/text_targetTotal"
                     app:layout_constraintTop_toBottomOf="@+id/text_targetTotal">
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/radio_enddate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14dp"
                         android:text="@string/text_selectDate" />
 
                     <RadioButton
-                        android:id="@+id/radioButton3"
+                        android:id="@+id/radio_totaltime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:textSize="14dp"
                         android:text="@string/text_selectTime" />
                 </RadioGroup>
 
@@ -313,6 +375,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/text_goal_invited"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_goal_invited"
                     app:layout_constraintStart_toEndOf="@+id/icon_goal_invited"
                     app:layout_constraintTop_toTopOf="@+id/icon_goal_invited" />
@@ -333,7 +398,7 @@
             <Button
                 android:id="@+id/button_addtask"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="42dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"

@@ -23,6 +23,7 @@ import com.example.betterlife.ext.getVmFactory
 import com.example.betterlife.home.item.HomeItemViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
 
 class AddTaskFragment(): AppCompatDialogFragment() {
 
@@ -68,6 +69,34 @@ class AddTaskFragment(): AppCompatDialogFragment() {
             }
         }
 
+        binding.endDate.apply {
+            minDate = System.currentTimeMillis()
+            setOnDateChangedListener { _, year, month, date ->
+                val format = SimpleDateFormat(getString(R.string.diary_record_date))
+                viewModel.dueDate.value = format.parse("$date/${month + 1}/$year").time
+            }
+        }
+
+        viewModel.selectedTypeRadio.observe (viewLifecycleOwner, Observer {
+            Log.i("test", "selectedTypeRadio = ${viewModel.selectedTypeRadio.value}")
+            it?.let {
+                when (viewModel.selectedTypeRadio.value) {
+                    R.id.radio_enddate -> {
+                        binding.constraintTotalTimeST.visibility = View.INVISIBLE
+                        binding.endDate.visibility = View.VISIBLE
+                        viewModel.target.value = 0
+                    }
+                    R.id.radio_totaltime -> {
+                        binding.constraintTotalTimeST.visibility = View.VISIBLE
+                        binding.endDate.visibility = View.INVISIBLE
+                        viewModel.dueDate.value = -1
+                    }
+                    else -> ""
+                }
+            }
+        }
+        )
+
         viewModel.navigateToHome.observe(viewLifecycleOwner, Observer {
             Log.i("test","navigateToHome = ${viewModel.navigateToHome.value}")
             it?.let {
@@ -75,6 +104,11 @@ class AddTaskFragment(): AppCompatDialogFragment() {
                         FirebaseAuth.getInstance().currentUser!!.uid
                 ))
             }
+        }
+        )
+
+        viewModel.dueDate.observe(viewLifecycleOwner, Observer {
+            Log.i("test","dueDate = ${viewModel.dueDate.value}")
         }
         )
 
