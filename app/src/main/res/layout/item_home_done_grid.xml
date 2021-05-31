@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
+        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="java.util.Locale"/>
         <variable
             name="plan"
             type="com.example.betterlife.data.Plan" />
@@ -68,6 +71,23 @@
                 tools:progress="50" />
 
             <TextView
+                android:id="@+id/text_isGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="16dp"
+                android:hint="合作"
+                android:textColor="@color/black"
+                android:background="@drawable/border_circle_text_black"
+                android:text="@string/text_isGroup"
+                android:textAlignment="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:visibility="@{plan.group == true ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_todayDone"
+                app:layout_constraintEnd_toStartOf="@+id/text_todayDone"
+                app:layout_constraintTop_toTopOf="@+id/text_todayDone" />
+
+            <TextView
                 android:id="@+id/text_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,6 +124,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/text_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="總目標100分鐘"
+                android:textColor="@color/gray_646464"
+                android:text='@{"目標 "+String.valueOf(plan.target)+" 分鐘"}'
+                android:textSize="12sp"
+                android:visibility="@{plan.dueDate == -1 ? View.VISIBLE : View.GONE }"
+                app:layout_constraintStart_toStartOf="@+id/text_plan_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_plan_name"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/text_dueData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/gray_646464"
+                android:visibility="@{plan.dueDate == -1 ? View.GONE : View.VISIBLE }"
+                android:text='@{TimeConverters.timestampToDate(plan.createdTime, Locale.TAIWAN)+" ~ "+TimeConverters.timestampToDate(plan.dueDate, Locale.TAIWAN)}'
+                android:hint="yyyy-MM-dd  ~  yyyy-MM-dd"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/text_plan_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

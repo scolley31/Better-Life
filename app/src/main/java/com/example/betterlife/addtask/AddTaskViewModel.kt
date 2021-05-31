@@ -244,7 +244,6 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
-                    navigateToHomeAfterSend(true)
                 }
                 is Result.Fail -> {
                     _error.value = result.error
@@ -259,9 +258,8 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
                     _status.value = LoadApiStatus.ERROR
                 }
             }
-
             }
-
+            navigateToHomeAfterSend(true)
         }
     }
 

@@ -18,6 +18,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.example.betterlife.data.Result
 import com.example.betterlife.util.TimeConverters
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
@@ -112,7 +113,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
             _status.value = LoadApiStatus.LOADING
             val result = repository.getPlanResult()
-            Log.d("test","result = $result")
+//            Log.d("test","result = $result")
 
             _plans.value = when (result) {
                 is Result.Success -> {
@@ -201,10 +202,15 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
         val today = TimeConverters.timestampToDate(Calendar.getInstance().timeInMillis, Locale.TAIWAN)
         val completedDay = TimeConverters.timestampToDate(singlePlanCompleted.value!![j].date, Locale.TAIWAN)
-
-        if (completedDay == today) {
+        val completedUser = singlePlanCompleted.value!![j].user_id
+        Log.d("test1","completedUser = $completedUser")
+        Log.d("test1","FirebaseAuth.getInstance().currentUser!!.uid = ${FirebaseAuth.getInstance().currentUser!!.uid}")
+        if (completedDay == today && completedUser == FirebaseAuth.getInstance().currentUser!!.uid) {
             _plans.value!![i].todayDone = true
         }
+        Log.d("test1","_plans.value!![i].todayDone = ${_plans.value!![i].todayDone}")
+        Log.d("test1","_plans.value!![i] = ${_plans.value!![i]}")
+
     }
 
     fun navigateTimer(plan: Plan) {

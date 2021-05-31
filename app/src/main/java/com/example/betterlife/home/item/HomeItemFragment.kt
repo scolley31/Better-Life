@@ -67,7 +67,7 @@ class HomeItemFragment(private val user: User) : Fragment() {
 //        binding.RecyclerHome.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         binding.RecyclerHome.adapter = HomeItemAdapter(viewModel, HomeItemAdapter.OnClickListener{
             viewModel.navigateTimer(it)
-            Log.d("test","plan = $it")
+//            Log.d("test","plan = $it")
         })
 
 
