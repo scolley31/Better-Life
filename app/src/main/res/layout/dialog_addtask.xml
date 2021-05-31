@@ -41,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/outline_add_task_black_18" />
@@ -79,7 +79,7 @@
                         android:layout_marginEnd="16dp"
                         android:hint="想做什麼呢?"
                         android:text="@={viewModel.name}"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/text_16dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <View
@@ -236,10 +236,11 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/radioGroup"
                     app:layout_constraintTop_toTopOf="@+id/radioGroup"
-                    app:layout_constraintVertical_bias="1.0"
-                    tools:visibility="gone" />
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:visibility="visible" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_totalTimeST"
@@ -253,7 +254,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/radioGroup"
                     app:layout_constraintTop_toTopOf="@+id/radioGroup"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout3"
@@ -279,9 +280,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:textSize="14dp"
-                        android:textColor="@color/black"
                         android:text="@string/text_goal_target_total"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -291,9 +292,9 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="16dp"
-                        android:textSize="14dp"
-                        android:textColor="@color/black"
                         android:text="@string/text_minute"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_goal_target_total"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
@@ -354,7 +355,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_goalGroup"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraint_goalSetup">
@@ -375,12 +376,50 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:text="@string/text_goal_invited"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_16dp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_goal_invited"
                     app:layout_constraintStart_toEndOf="@+id/icon_goal_invited"
                     app:layout_constraintTop_toTopOf="@+id/icon_goal_invited" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:hint="請輸入人名!"
+                    android:text="@={viewModel.partner}"
+                    android:textSize="@dimen/text_16dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_goal_invite"
+                    app:layout_constraintStart_toEndOf="@+id/isGroup"
+                    app:layout_constraintTop_toTopOf="@+id/text_goal_invite"
+                    tools:visibility="visible" />
+
+                <Switch
+                    android:id="@+id/isGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_goal_invite"
+                    app:layout_constraintStart_toEndOf="@+id/text_goal_invite"
+                    app:layout_constraintTop_toTopOf="@+id/text_goal_invite" />
+
+                <View
+                    android:id="@+id/line_isGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/bottom_navigation_item_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_goal_invited" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
@@ -403,8 +442,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:background='@{viewModel.name != "" &amp; viewModel.dailyTarget != 0  &amp; viewModel.target != 0 &amp; viewModel.category != null ? @drawable/border_circle_line_black : @drawable/border_circle_line_gray }'
-                android:clickable='@{viewModel.name != "" &amp; viewModel.dailyTarget != 0  &amp; viewModel.target != 0 &amp; viewModel.category != null  ? true : false }'
+                android:background='@{viewModel.name != "" &amp; viewModel.dailyTarget != 0  &amp; viewModel.selectedTypeRadio != 0 &amp; viewModel.category != null ? @drawable/border_circle_line_black : @drawable/border_circle_line_gray }'
+                android:clickable='@{viewModel.name != "" &amp; viewModel.dailyTarget != 0  &amp; viewModel.selectedTypeRadio != null &amp; viewModel.category != null  ? true : false }'
                 android:onClick="@{() -> viewModel.addTask()}"
                 android:text="@string/button_addTask"
                 android:textColor="@color/white"

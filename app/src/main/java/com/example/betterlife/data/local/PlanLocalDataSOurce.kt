@@ -3,10 +3,7 @@ package com.example.betterlife.data.local
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.betterlife.data.Completed
-import com.example.betterlife.data.Plan
-import com.example.betterlife.data.Result
-import com.example.betterlife.data.User
+import com.example.betterlife.data.*
 import com.example.betterlife.data.source.PlanDataSource
 
 class PlanLocalDataSource(val context: Context) : PlanDataSource {
@@ -27,6 +24,10 @@ class PlanLocalDataSource(val context: Context) : PlanDataSource {
 //            else -> Result.Fail("You have to add $id info in local data source")
 //        }
 //    }
+
+    override suspend fun findAllUser(): Result<List<User?>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override suspend fun findUser(firebaseUserId: String): Result<User?> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -84,7 +85,11 @@ class PlanLocalDataSource(val context: Context) : PlanDataSource {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun addTask(plan: Plan): com.example.betterlife.data.Result<Boolean> {
+    override suspend fun addTask(plan: Plan): com.example.betterlife.data.Result<String> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun addGroup(group: Groups, taskID: String): Result<Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

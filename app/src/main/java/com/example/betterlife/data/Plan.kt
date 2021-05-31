@@ -29,7 +29,7 @@ data class Plan(
 data class Groups(
 
         var id: String = "",
-        var members: List<String> = listOf()
+        var membersID: List<String> = listOf()
 
 ): Parcelable {
 
