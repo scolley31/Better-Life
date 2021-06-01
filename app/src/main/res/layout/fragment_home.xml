@@ -87,8 +87,8 @@
                         android:layout_height="0dp"
                         android:layout_marginStart="10dp"
                         android:gravity="center"
-                        android:hint="5件待執行"
-                        android:text='@{String.valueOf(viewModel.plans.size-viewModel.taskDoneNumber)+" 件待執行"}'
+                        android:hint="5件未執行"
+                        android:text='@{String.valueOf(viewModel.plans.size-viewModel.taskDoneNumber)+" 件未執行"}'
                         android:textColor="@color/red_d0021b"
                         android:textSize="16dp"
                         app:layout_constraintBottom_toBottomOf="@+id/button_onGoingIcon"

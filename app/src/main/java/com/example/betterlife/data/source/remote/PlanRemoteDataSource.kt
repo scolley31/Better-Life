@@ -30,8 +30,10 @@ object PlanRemoteDataSource : PlanDataSource {
     private const val KEY_PLAN_GROUPS = "groups"
     private const val KEY_PLAN_TASKDONE = "taskDone"
     private const val KEY_PLAN_USERID = "user_id"
+    private const val KEY_PLAN_GROUP = "group"
     private const val KEY_USER_ID = "userID"
     private const val KEY_USER_NAME = "userName"
+    private const val KEY_PLAN_GROUP_MEMBER = "membersID"
 
 
 
@@ -219,6 +221,37 @@ object PlanRemoteDataSource : PlanDataSource {
     }
 
 
+    override suspend fun getGroup(taskID: String, userID:String): Result<List<Groups>> =
+            suspendCoroutine { continuation ->
+                FirebaseFirestore.getInstance()
+                        .collection(PATH_PLANS)
+                        .document(taskID)
+                        .collection(KEY_PLAN_GROUPS)
+                        .whereArrayContains(KEY_PLAN_GROUP_MEMBER,userID)
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val list = mutableListOf<Groups>()
+                                for (document in task.result!!) {
+                                    Logger.d(document.id + " => " + document.data)
+
+                                    val groups = document.toObject(Groups::class.java)
+                                    list.add(groups)
+                                }
+                                continuation.resume(Result.Success(list))
+                            } else {
+                                task.exception?.let {
+
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                            }
+                        }
+            }
+
+
     override suspend fun getFinishedPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
                 .collection(PATH_PLANS)
@@ -275,6 +308,35 @@ object PlanRemoteDataSource : PlanDataSource {
                     continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
                 }
             }
+    }
+
+    override suspend fun getGroupPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+                .collection(PATH_PLANS)
+                .whereArrayContains(KEY_PLAN_MEMBER,FirebaseAuth.getInstance().currentUser!!.uid)
+                .whereEqualTo(KEY_PLAN_GROUP, true)
+                .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Plan>()
+                        for (document in task.result!!) {
+                            Logger.d(document.id + " getGroupPlanResult=> " + document.data)
+
+                            val article = document.toObject(Plan::class.java)
+                            list.add(article)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
     }
 
     override suspend fun getOtherSelectedPlanResult(categoryID: String): Result<List<Plan>> =

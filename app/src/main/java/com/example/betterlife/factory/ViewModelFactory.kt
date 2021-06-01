@@ -9,6 +9,7 @@ import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.home.HomeViewModel
 import com.example.betterlife.home.item.HomeDoneViewModel
 import com.example.betterlife.home.item.HomeItemViewModel
+import com.example.betterlife.home.item.HomeTeamViewModel
 import com.example.betterlife.other.OtherViewModel
 import com.example.betterlife.timer.item.TimerInfoViewModel
 import com.example.betterlife.timer.item.TimerItemViewModel
@@ -32,6 +33,9 @@ class ViewModelFactory constructor(
 
                     isAssignableFrom(HomeDoneViewModel::class.java) ->
                         HomeDoneViewModel(repository)
+
+                    isAssignableFrom(HomeTeamViewModel::class.java) ->
+                        HomeTeamViewModel(repository)
 
                     isAssignableFrom(TimerItemViewModel::class.java) ->
                         TimerItemViewModel(repository)

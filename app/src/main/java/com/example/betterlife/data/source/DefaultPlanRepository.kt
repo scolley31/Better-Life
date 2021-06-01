@@ -53,12 +53,20 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
         return remoteDataSource.getCompleted(taskID, userID)
     }
 
+    override suspend fun getGroup(taskID: String, userID:String): Result<List<Groups>> {
+        return remoteDataSource.getGroup(taskID, userID)
+    }
+
     override suspend fun getFinishedPlanResult(): Result<List<Plan>> {
         return remoteDataSource.getFinishedPlanResult()
     }
 
     override suspend fun getPlanResult(): Result<List<Plan>> {
         return remoteDataSource.getPlanResult()
+    }
+
+    override suspend fun getGroupPlanResult(): Result<List<Plan>> {
+        return remoteDataSource.getGroupPlanResult()
     }
 
     override suspend fun getOtherPlanResult(): Result<List<Plan>> {

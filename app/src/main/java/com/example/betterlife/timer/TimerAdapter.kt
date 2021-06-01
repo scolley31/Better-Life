@@ -8,6 +8,7 @@ import com.example.betterlife.R
 import com.example.betterlife.data.Plan
 import com.example.betterlife.timer.item.TimerInfoFragment
 import com.example.betterlife.timer.item.TimerItemFragment
+import com.example.betterlife.timer.item.TimerTeamFragment
 
 
 class TimerAdapter(fragmentManager: FragmentManager, val plan: Plan) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -15,6 +16,11 @@ class TimerAdapter(fragmentManager: FragmentManager, val plan: Plan) : FragmentS
         return when (position) {
             0 -> TimerItemFragment(plan)
             1 -> TimerInfoFragment(plan)
+//            1 -> if (plan.group) {
+//                TimerTeamFragment(plan)
+//            } else {
+//                TimerInfoFragment(plan)
+//            }
             else -> TimerItemFragment(plan)
         }
     }

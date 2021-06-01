@@ -28,6 +28,10 @@ interface PlanDataSource {
 
     suspend fun getCompleted(taskID: String, userID:String): Result<List<Completed>>
 
+    suspend fun getGroup(taskID: String, userID:String): Result<List<Groups>>
+
+    suspend fun getGroupPlanResult(): Result<List<Plan>>
+
     suspend fun getPlanResult(): Result<List<Plan>>
 
     suspend fun getFinishedPlanResult(): Result<List<Plan>>

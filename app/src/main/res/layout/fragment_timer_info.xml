@@ -61,12 +61,12 @@
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="32dp"
                         android:layout_marginEnd="32dp"
+                        android:textColor="@color/black"
                         android:fontFamily="@font/noto_sans"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="標題"
                         android:letterSpacing="0.15"
                         android:text="@{viewModel.info.name}"
-                        android:textColor="@color/black_3f3a3a"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -81,6 +81,7 @@
                         android:letterSpacing="0.15"
                         android:text="@string/text_sum"
                         android:textSize="14sp"
+                        android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="@+id/text_timer_title"
                         app:layout_constraintTop_toBottomOf="@+id/text_timer_title" />
 
@@ -91,6 +92,7 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="0 分鐘"
                         android:letterSpacing="0.15"
+                        android:textColor="@color/black"
                         android:text='@{String.valueOf(viewModel.info.progressTime)+" 分鐘"}'
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text_timer_sumText"
@@ -102,6 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginTop="16dp"
+                        android:textColor="@color/black"
                         android:gravity="center_horizontal|center_vertical"
                         android:letterSpacing="0.15"
                         android:text="@string/text_target"
@@ -115,6 +118,7 @@
                         android:layout_height="30dp"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="0 分鐘"
+                        android:textColor="@color/black"
                         android:letterSpacing="0.15"
                         android:text='@{String.valueOf(viewModel.info.target)+" 分鐘"}'
                         android:textSize="14sp"
@@ -181,10 +185,11 @@
                         android:id="@+id/text_timer_dailyText"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="32dp"
                         android:gravity="center_horizontal|center_vertical"
                         android:letterSpacing="0.15"
                         android:text="@string/text_timer_targetText"
+                        android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/progressBar"
                         app:layout_constraintTop_toBottomOf="@+id/line_timer_1" />
@@ -193,11 +198,12 @@
                         android:id="@+id/text_timer_daily"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="32dp"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="0 分鐘"
                         android:letterSpacing="0.15"
                         android:text='@{String.valueOf(viewModel.averageDailyTime)+" 分鐘"}'
+                        android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/progressBar"
                         app:layout_constraintTop_toBottomOf="@+id/line_timer_1" />
@@ -211,6 +217,7 @@
                         android:letterSpacing="0.15"
                         android:text="@string/text_timer_dailyTargetText"
                         android:textSize="14sp"
+                        android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="@+id/text_timer_dailyText"
                         app:layout_constraintTop_toBottomOf="@+id/text_timer_dailyText" />
 
@@ -224,6 +231,7 @@
                         android:letterSpacing="0.15"
                         android:text='@{String.valueOf(viewModel.info.dailyTarget)+" 分鐘"}'
                         android:textSize="14sp"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="@+id/text_timer_daily"
                         app:layout_constraintTop_toBottomOf="@+id/text_timer_daily" />
 
@@ -237,6 +245,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="32dp"
                         android:background="@color/bottom_navigation_item_normal"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"

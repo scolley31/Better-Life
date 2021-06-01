@@ -4,6 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View"/>
+        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="java.util.Locale"/>
         <variable
             name="otherPlan"
             type="com.example.betterlife.data.Plan" />
@@ -37,6 +40,7 @@
                 android:layout_marginEnd="16dp"
                 android:hint="計畫名稱"
                 android:text="@{otherPlan.name}"
+                android:textColor="@color/black"
                 android:textSize="@dimen/text_16dp"
                 app:layout_constraintEnd_toStartOf="@+id/image_other_category"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,33 +48,64 @@
 
 
             <TextView
+                android:id="@+id/text_daily"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:hint="每日目標"
+                android:text='@{"每日 "+String.valueOf(otherPlan.dailyTarget)+" 分鐘"}'
+                android:textColor="@color/gray_646464"
+                android:textSize="@dimen/text_12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_other_title" />
+
+            <TextView
                 android:id="@+id/text_other_target"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
                 android:hint="計畫目標"
                 android:text='@{"目標 : "+String.valueOf(otherPlan.target)+" 分鐘"}'
-                app:layout_constraintStart_toStartOf="@+id/text_other_title"
-                app:layout_constraintTop_toBottomOf="@+id/text_other_title" />
+                android:textColor="@color/gray_646464"
+                android:textSize="@dimen/text_12dp"
+                android:visibility="@{otherPlan.dueDate == -1 ? View.VISIBLE : View.GONE }"
+                app:layout_constraintStart_toStartOf="@+id/text_daily"
+                app:layout_constraintTop_toBottomOf="@+id/text_daily" />
+
+            <TextView
+                android:id="@+id/text_other_duedate"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:hint="日期"
+                android:text='@{TimeConverters.timestampToDate(otherPlan.createdTime, Locale.TAIWAN)+" ~ "+TimeConverters.timestampToDate(otherPlan.dueDate, Locale.TAIWAN)}'
+                android:textColor="@color/gray_646464"
+                android:textSize="@dimen/text_12dp"
+                android:visibility="@{otherPlan.dueDate == -1 ? View.GONE : View.VISIBLE }"
+                app:layout_constraintStart_toStartOf="@+id/text_daily"
+                app:layout_constraintTop_toBottomOf="@+id/text_daily" />
 
             <TextView
                 android:id="@+id/text_other_members"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginBottom="8dp"
                 android:hint="參加人數"
                 android:text='@{"參加人數 : "+String.valueOf(otherPlan.members.size)+ " 人"}'
+                android:textColor="@color/gray_646464"
+                android:textSize="@dimen/text_12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/text_other_target"
-                app:layout_constraintTop_toBottomOf="@+id/text_other_target" />
+                app:layout_constraintTop_toBottomOf="@+id/text_daily" />
 
             <ImageView
                 android:id="@+id/button_addOthersTask"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/outline_add_circle_outline_black_18" />

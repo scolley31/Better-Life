@@ -11,7 +11,8 @@
     <string name="better_life">Better Life</string>
 
     <!--  Home Page viewPager Title -->
-    <string name="onGoing">進行中</string>
+    <string name="SingleWork">個人</string>
+    <string name="Teamwork">合作</string>
     <string name="completed">已完成</string>
 
 

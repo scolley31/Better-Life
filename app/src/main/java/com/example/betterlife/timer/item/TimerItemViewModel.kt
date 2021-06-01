@@ -151,7 +151,6 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
                     checkTaskDone()
-                    navigateToHome()
                 }
                 is Result.Fail -> {
                     _error.value = result.error
@@ -166,6 +165,7 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
                     _status.value = LoadApiStatus.ERROR
                 }
             }
+            navigateToHome()
         }
     }
 
