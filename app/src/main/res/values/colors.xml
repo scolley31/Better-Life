@@ -7,6 +7,7 @@
 
     <!-- White Series -->
     <color name="white">#ffffff</color>
+    <color name="white_f5f6f8">#f5f6f8</color>
 
     <!-- Black Series -->
     <color name="black">#000000</color>

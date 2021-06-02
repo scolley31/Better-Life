@@ -42,7 +42,7 @@
                 android:id="@+id/Constratint_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF">
+                android:background="@color/white">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/Constraint_myTasks"
@@ -162,6 +162,7 @@
                     android:id="@+id/Constraint_homeViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:elevation="8dp"
                     android:background="@drawable/border_circle_home_pager"
                     android:minHeight="590dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -184,7 +185,10 @@
                         <com.google.android.material.tabs.TabLayout
                             android:id="@+id/tabs_home"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/height_catalog_tab">
+                            android:layout_height="@dimen/height_catalog_tab"
+                            app:tabIndicator="@drawable/tab_selected"
+                            app:tabIndicatorHeight="0dp">
+
 
                         </com.google.android.material.tabs.TabLayout>
 

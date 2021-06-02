@@ -36,8 +36,7 @@ class HomeTeamFragment(private val user: User) : Fragment() {
 
         viewModel.plans.observe(viewLifecycleOwner, Observer {
             it?.let{
-                Log.i("HomeTeamFragment","planInFragment = ${viewModel.plans.value}")
-                viewModel.getCompletedAndGroup()
+//                Log.i("HomeTeamFragment","planInFragment = ${viewModel.plans.value}")
                 viewModel.setShowData()
             }
         }
@@ -58,13 +57,13 @@ class HomeTeamFragment(private val user: User) : Fragment() {
 
         viewModel.partnerPlanCompleted.observe(viewLifecycleOwner, Observer {
             it?.let{
-                Log.i("HomeTeamFragment","partnerPlanCompleted = ${viewModel.partnerPlanCompleted.value}")
+//                Log.i("HomeTeamFragment","partnerPlanCompleted = ${viewModel.partnerPlanCompleted.value}")
             }
         }
         )
 
         viewModel.navigateToTimer.observe(viewLifecycleOwner, Observer {
-            Log.i("HomeTeamFragment","navigateToTimer = ${viewModel.navigateToTimer.value}")
+//            Log.i("HomeTeamFragment","navigateToTimer = ${viewModel.navigateToTimer.value}")
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalTimerFragment(it))
                 viewModel.deleteNavigateTimer()
@@ -73,7 +72,7 @@ class HomeTeamFragment(private val user: User) : Fragment() {
         )
 
         viewModel.user.observe(viewLifecycleOwner, Observer {
-            Log.i("HomeTeamFragment","user = ${viewModel.user.value}")
+//            Log.i("HomeTeamFragment","user = ${viewModel.user.value}")
         }
         )
 

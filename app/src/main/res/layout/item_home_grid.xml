@@ -39,12 +39,14 @@
 
             <TextView
                 android:id="@+id/text_plan_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:hint="名稱"
                 android:text="@{plan.name}"
                 android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/text_todayDone"
                 app:layout_constraintStart_toEndOf="@+id/image_icon_task"
                 app:layout_constraintTop_toTopOf="@+id/image_icon_task" />
 
@@ -98,23 +100,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_isGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginEnd="16dp"
-                android:hint="合作"
-                android:textColor="@color/black"
-                android:background="@drawable/border_circle_text_black"
-                android:text="@string/text_isGroup"
-                android:textAlignment="center"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:visibility="@{plan.group == true ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="@+id/text_todayDone"
-                app:layout_constraintEnd_toStartOf="@+id/text_todayDone"
-                app:layout_constraintTop_toTopOf="@+id/text_todayDone" />
-
             <ImageView
                 android:id="@+id/image_icon_task"
                 android:layout_width="50dp"
@@ -141,14 +126,16 @@
 
             <TextView
                 android:id="@+id/text_dueData"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/gray_646464"
-                android:visibility="@{plan.dueDate == -1 ? View.GONE : View.VISIBLE }"
-                android:text='@{TimeConverters.timestampToDate(plan.createdTime, Locale.TAIWAN)+" ~ "+TimeConverters.timestampToDate(plan.dueDate, Locale.TAIWAN)}'
                 android:hint="yyyy-MM-dd  ~  yyyy-MM-dd"
+                android:text='@{TimeConverters.timestampToDate(plan.createdTime, Locale.TAIWAN)+" ~ "+TimeConverters.timestampToDate(plan.dueDate, Locale.TAIWAN)}'
+                android:textColor="@color/gray_646464"
                 android:textSize="12sp"
+                android:visibility="@{plan.dueDate == -1 ? View.GONE : View.VISIBLE }"
+                app:layout_constraintBottom_toBottomOf="@+id/image_icon_task"
+                app:layout_constraintEnd_toEndOf="@+id/text_todayDone"
                 app:layout_constraintStart_toStartOf="@+id/text_plan_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
 

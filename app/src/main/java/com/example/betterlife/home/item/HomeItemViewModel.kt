@@ -178,7 +178,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
                     -1L  -> singleTarget(i)
                     else -> singleDueData(i)
                 }
-                Log.d("test","_plans.value!![i] = ${_plans.value!![i]}")
+//                Log.d("test","_plans.value!![i] = ${_plans.value!![i]}")
 
             }
 
@@ -216,8 +216,8 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
             }
             checkTodayDone(j,i)
         }
-        Log.d("test","totalCompletedDay = $totalCompletedDay")
-        Log.d("test","completedDay = $completedDay")
+//        Log.d("test","totalCompletedDay = $totalCompletedDay")
+//        Log.d("test","completedDay = $completedDay")
 
         _plans.value!![i].progressTime = completedDay
         _plans.value!![i].target = when(totalCompletedDay) {
@@ -227,12 +227,12 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
         val today = Calendar.getInstance().timeInMillis
         val dueDate = _plans.value!![i].dueDate
-        Log.d("test","today = $today")
-        Log.d("test","dueDate = $dueDate")
+//        Log.d("test","today = $today")
+//        Log.d("test","dueDate = $dueDate")
         if (dueDate <= today) {
             _plans.value!![i].taskDone = true
         }
-        Log.d("test","_plans.value!![i].taskDone = ${_plans.value!![i].taskDone}")
+//        Log.d("test","_plans.value!![i].taskDone = ${_plans.value!![i].taskDone}")
 
     }
 
