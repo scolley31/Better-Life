@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.betterlife.NavigationDirections
 import com.example.betterlife.data.User
-import com.example.betterlife.databinding.FragmentHomeItemBinding
 import com.example.betterlife.databinding.FragmentHomeTeamBinding
 import com.example.betterlife.ext.getVmFactory
 
@@ -65,7 +64,7 @@ class HomeTeamFragment(private val user: User) : Fragment() {
         viewModel.navigateToTimer.observe(viewLifecycleOwner, Observer {
 //            Log.i("HomeTeamFragment","navigateToTimer = ${viewModel.navigateToTimer.value}")
             it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalTimerFragment(it))
+                findNavController().navigate(NavigationDirections.actionGlobalTimerFragment(null,it))
                 viewModel.deleteNavigateTimer()
             }
         }
@@ -83,7 +82,7 @@ class HomeTeamFragment(private val user: User) : Fragment() {
         binding.RecyclerHome.layoutManager = LinearLayoutManager(context)
 //        binding.RecyclerHome.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         binding.RecyclerHome.adapter = HomeTeamAdapter(viewModel, HomeTeamAdapter.OnClickListener{
-//            viewModel.navigateTimer(it)
+            viewModel.navigateTimer(it)
 //            Log.d("test","plan = $it")
         })
 

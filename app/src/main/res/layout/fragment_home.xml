@@ -186,8 +186,7 @@
                             android:id="@+id/tabs_home"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/height_catalog_tab"
-                            app:tabIndicator="@drawable/tab_selected"
-                            app:tabIndicatorHeight="0dp">
+                            app:tabIndicatorFullWidth="false">
 
 
                         </com.google.android.material.tabs.TabLayout>

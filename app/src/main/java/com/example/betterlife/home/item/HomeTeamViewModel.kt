@@ -1,7 +1,6 @@
 package com.example.betterlife.home.item
 
 import android.util.Log
-import androidx.constraintlayout.widget.Group
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -45,9 +44,9 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
     val allDaily: LiveData<List<Int>?>
         get() = _allDaily
 
-    private val _navigateToTimer = MutableLiveData<Plan?>()
+    private val _navigateToTimer = MutableLiveData<PlanForShow?>()
 
-    val navigateToTimer: MutableLiveData<Plan?>
+    val navigateToTimer: MutableLiveData<PlanForShow?>
         get() = _navigateToTimer
 
     val _user = MutableLiveData<User>()
@@ -337,7 +336,7 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
 
         var completedDayOne : Int = 0
         var completedDayTwo : Int = 0
-        var totalCompletedDay: Long = (_plans.value!![i].dueDate - _plans.value!![i].createdTime) / ONE_DAY_MILLI_SECOND
+        var totalCompletedDay: Long = (_plans.value!![i].dueDate - _plans.value!![i].createdTime)*2 / ONE_DAY_MILLI_SECOND
 
         for (j in ownPlanCompleted.value!!.indices){
             if (ownPlanCompleted.value!![j].completed){
@@ -433,7 +432,7 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
 
     }
 
-    fun navigateTimer(plan: Plan) {
+    fun navigateTimer(plan: PlanForShow?) {
         _navigateToTimer.value = plan
     }
 

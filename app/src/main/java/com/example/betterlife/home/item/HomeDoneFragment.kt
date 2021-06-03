@@ -41,7 +41,7 @@ class HomeDoneFragment (private val user: User) : Fragment() {
         viewModel.navigateToTimer.observe(viewLifecycleOwner, Observer {
             Log.i("test","navigateToTimer = ${viewModel.navigateToTimer.value}")
             it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalTimerFragment(it))
+                findNavController().navigate(NavigationDirections.actionGlobalTimerFragment(it,null))
                 viewModel.deleteNavigateTimer()
             }
         }

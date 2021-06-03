@@ -35,7 +35,11 @@
         <argument
             android:name="planKey"
             app:argType="com.example.betterlife.data.Plan"
-            app:nullable="false" />
+            app:nullable="true" />
+        <argument
+            android:name="planTeam"
+            app:argType="com.example.betterlife.data.PlanForShow"
+            app:nullable="true" />
     </fragment>
     <action
         android:id="@+id/action_global_timerFragment"
