@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
         <variable
             name="viewModel"
             type="com.example.betterlife.home.item.HomeItemViewModel" />
@@ -13,6 +15,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_noitem_icon"
+            android:layout_width="50dp"
+            android:layout_height="75dp"
+            android:visibility="@{viewModel.plans.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.35000002"
+            app:srcCompat="@drawable/_15_list" />
+
+        <TextView
+            android:id="@+id/text_noitem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/text_noitem"
+            android:textSize="14sp"
+            android:visibility="@{viewModel.plans.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="@+id/image_noitem_icon"
+            app:layout_constraintStart_toStartOf="@+id/image_noitem_icon"
+            app:layout_constraintTop_toBottomOf="@+id/image_noitem_icon" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Recycler_home"
