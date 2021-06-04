@@ -96,7 +96,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
             _plans.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
-                    _status.value = LoadApiStatus.DONE
+//                    _status.value = LoadApiStatus.DONE
                     result.data
                 }
                 is Result.Fail -> {
@@ -126,6 +126,8 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
 
         coroutineScope.launch {
 
+            _status.value = LoadApiStatus.LOADING
+
             for (i in _plans.value!!.indices) {
 
                 if (_plans.value!![i].group){
@@ -134,7 +136,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                     _groups.value = when (group) {
                         is Result.Success -> {
                             _error.value = null
-                            _status.value = LoadApiStatus.DONE
+//                            _status.value = LoadApiStatus.DONE
                             group.data
 
                         }
@@ -162,7 +164,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                         ownPlanCompleted.value = when (completedOne) {
                             is Result.Success -> {
                                 _error.value = null
-                                _status.value = LoadApiStatus.DONE
+//                                _status.value = LoadApiStatus.DONE
                                 completedOne.data
                             }
                             is Result.Fail -> {
@@ -187,7 +189,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                         partnerPlanCompleted.value = when (completedTwo) {
                             is Result.Success -> {
                                 _error.value = null
-                                _status.value = LoadApiStatus.DONE
+//                                _status.value = LoadApiStatus.DONE
                                 completedTwo.data
                             }
                             is Result.Fail -> {
@@ -213,7 +215,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                         ownPlanCompleted.value = when (completedOne) {
                             is Result.Success -> {
                                 _error.value = null
-                                _status.value = LoadApiStatus.DONE
+//                                _status.value = LoadApiStatus.DONE
                                 completedOne.data
                             }
                             is Result.Fail -> {
@@ -238,7 +240,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                         partnerPlanCompleted.value = when (completedTwo) {
                             is Result.Success -> {
                                 _error.value = null
-                                _status.value = LoadApiStatus.DONE
+//                                _status.value = LoadApiStatus.DONE
                                 completedTwo.data
                             }
                             is Result.Fail -> {
@@ -265,7 +267,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                     singlePlanCompleted.value = when(completed) {
                         is Result.Success -> {
                             _error.value = null
-                            _status.value = LoadApiStatus.DONE
+//                            _status.value = LoadApiStatus.DONE
                             completed.data
                         }
                         is Result.Fail -> {
@@ -306,6 +308,8 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
             _plans.value = filter
             checkTodayDoneNumber()
             _plans.value = _plans.value
+
+            _status.value = LoadApiStatus.DONE
 
         }
     }

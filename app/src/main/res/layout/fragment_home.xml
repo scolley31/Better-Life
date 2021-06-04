@@ -4,6 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View" />
+        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+
         <variable
             name="viewModel"
             type="com.example.betterlife.home.HomeViewModel" />
@@ -14,6 +17,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="8dp"
+            android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            tools:visibility="invisible" />
+
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/button_addTask"
             android:layout_width="wrap_content"
@@ -21,6 +41,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:onClick="@{() -> viewModel.navigateAddTask()}"
+            android:visibility="@{viewModel.status == LoadApiStatus.DONE ? View.VISIBLE : View.GONE}"
             android:clickable="true"
             android:elevation="3dp"
             app:backgroundTint="@color/gray_f0f0f0"
@@ -33,6 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fillViewport="true"
+            android:visibility="@{viewModel.status == LoadApiStatus.DONE ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

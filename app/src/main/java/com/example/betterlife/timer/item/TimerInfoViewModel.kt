@@ -81,12 +81,14 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
 
         coroutineScope.launch {
 
+            _status.value = LoadApiStatus.LOADING
+
             for (i in info.value!!.members.indices) {
                 var oneRank = repository.getCompleted(info.value!!.id, info.value!!.members[i])
                 var oneRankToCount : List<Completed>? = when(oneRank) {
                     is Result.Success -> {
                         _error.value = null
-                        _status.value = LoadApiStatus.DONE
+//                        _status.value = LoadApiStatus.DONE
                         oneRank.data
                     }
                     is Result.Fail -> {
@@ -110,7 +112,7 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                 var userIDToName : User? = when(user) {
                     is Result.Success -> {
                         _error.value = null
-                        _status.value = LoadApiStatus.DONE
+//                        _status.value = LoadApiStatus.DONE
                         user.data
                     }
                     is Result.Fail -> {
@@ -131,16 +133,24 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                 }
 
                 var sum = 0
+                var completedCount = 0
 
                 if (oneRankToCount != null) {
                     for ( j in oneRankToCount.indices) {
                         sum += oneRankToCount[j].daily
                     }
+                    for ( j in oneRankToCount.indices) {
+                        if(oneRankToCount[j].completed) {
+                            completedCount += 1
+                        }
+                    }
                 }
 
 
+
+
                 rankTmp.run {
-                    add(Rank(userIDToName!!.userId,userIDToName!!.userName,sum/60,userIDToName.userImage))
+                    add(Rank(userIDToName!!.userId,userIDToName!!.userName,sum/60,completedCount*100/ info.value!!.target,userIDToName.userImage))
                 }
 //                Log.d("test","rankTmp = $rankTmp")
             }
@@ -149,6 +159,8 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
             rankTmpForSort = sortToRank(rankTmp)
 //            Log.d("test","rankTmpForSort = $rankTmpForSort")
             _rank.value = rankTmpForSort
+
+            _status.value = LoadApiStatus.DONE
 
         }
     }
@@ -189,6 +201,8 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
     fun getCompletedForChart() {
 
         coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
 
             var completed = repository.getCompleted(_info.value!!.id, FirebaseAuth.getInstance().currentUser!!.uid)
             _completedTest.value = when(completed) {

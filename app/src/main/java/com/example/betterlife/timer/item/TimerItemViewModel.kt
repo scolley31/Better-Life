@@ -93,6 +93,8 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
     fun checkTaskDone() {
 
+        _status.value = LoadApiStatus.LOADING
+
         coroutineScope.launch {
             var completed = repository.getCompleted(_timer.value!!.id, FirebaseAuth.getInstance().currentUser!!.uid)
             var completedList = when (completed) {
@@ -136,6 +138,8 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
     fun sendCompleted() {
 
         coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
 
             val newCompleted = Completed(
                     user_id = FirebaseAuth.getInstance().currentUser!!.uid,

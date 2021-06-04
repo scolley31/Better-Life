@@ -4,15 +4,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
+        <import type="com.example.betterlife.newwork.LoadApiStatus" />
         <import type="com.google.firebase.auth.FirebaseAuth"/>
         <import type="android.view.View"/>
         <import type="com.example.betterlife.util.TimeConverters"/>
         <import type="java.util.Locale"/>
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
-
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.item.TimerInfoDateViewModel" />
+            type="com.example.betterlife.timer.team.TimerTeamDateViewModel" />
 
     </data>
 
@@ -105,8 +105,7 @@
                         android:elevation="@dimen/elevation_all"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_timer_title"
-                        tools:visibility="gone">
+                        app:layout_constraintTop_toBottomOf="@+id/text_timer_title">
 
                         <TextView
                             android:id="@+id/text_timer_sumText"
@@ -160,7 +159,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:hint="0 分鐘"
                             android:letterSpacing="0.15"
-                            android:text='@{viewModel.info.progressTime+"天 / "+ viewModel.info.target+ "天"}'
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="@+id/text_timer_sum"
@@ -178,7 +177,7 @@
                             android:layout_marginBottom="16dp"
                             android:max="@{viewModel.info.target}"
                             android:min="0"
-                            android:progress="@{viewModel.info.progressTime}"
+                            android:progress="50"
                             android:progressDrawable="@drawable/custom_progress_bar_horizontal"
                             android:secondaryProgress="100"
                             android:visibility="visible"
@@ -195,7 +194,8 @@
                             android:layout_height="0dp"
                             android:gravity="center"
                             android:hint="50%"
-                            android:text='@{String.valueOf(((viewModel.info.progressTime*100)/viewModel.info.target))+" %"}'
+                            android:text="
+ "
                             android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="@+id/progressBar"
                             app:layout_constraintEnd_toEndOf="@+id/progressBar"
@@ -219,8 +219,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/Constraint_total"
-                        tools:visibility="gone">
+                        app:layout_constraintTop_toBottomOf="@+id/Constraint_total">
 
                         <TextView
                             android:id="@+id/text_timer_dailyText"
@@ -403,14 +402,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[0] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"完成 "+viewModel.rank[0].targetRate + " %"}'
+                                android:text='@{"累積 "+viewModel.rank[0].totalTime + " 分鐘"}'
                                 android:textColor="@{viewModel.rank[0].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_1_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_1_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_1_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_1_user_name"
-                                tools:text="完成 50 %" />
+                                tools:text="累計100分鐘" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -486,14 +485,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[1] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"完成 "+viewModel.rank[1].targetRate + " %"}'
+                                android:text='@{"累積 "+viewModel.rank[1].totalTime + " 分鐘"}'
                                 android:textColor="@{viewModel.rank[1].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_2_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_2_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_2_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_2_user_name"
-                                tools:text="完成 50 %" />
+                                tools:text="累計100分鐘" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -570,14 +569,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[2] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"完成 "+viewModel.rank[2].targetRate + " %"}'
+                                android:text='@{"累積 "+viewModel.rank[2].totalTime + " 分鐘"}'
                                 android:textColor="@{viewModel.rank[2].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_3_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_3_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_3_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_3_user_name"
-                                tools:text="完成 50 %" />
+                                tools:text="累計100分鐘" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -655,14 +654,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[3] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"完成 "+viewModel.rank[3].targetRate + " %"}'
+                                android:text='@{"累積 "+viewModel.rank[3].totalTime + " 分鐘"}'
                                 android:textColor="@{viewModel.rank[3].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_4_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_4_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_4_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_4_user_name"
-                                tools:text="完成 50 %" />
+                                tools:text="累計100分鐘" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -740,14 +739,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[4] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"完成 "+viewModel.rank[4].targetRate + " %"}'
+                                android:text='@{"累積 "+viewModel.rank[4].totalTime + " 分鐘"}'
                                 android:textColor="@{viewModel.rank[4].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_5_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_5_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_5_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_5_user_name"
-                                tools:text="完成 50 %" />
+                                tools:text="累計100分鐘" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView

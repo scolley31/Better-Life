@@ -1,6 +1,7 @@
 package com.example.betterlife.timer.team
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,22 +11,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.betterlife.NavigationDirections
 import com.example.betterlife.R
-import com.example.betterlife.data.Plan
 import com.example.betterlife.data.PlanForShow
-import com.example.betterlife.databinding.FragmentTimerInfoBinding
+import com.example.betterlife.databinding.FragmentTimeTeamItemBinding
 import com.example.betterlife.databinding.FragmentTimerTeamBinding
+import com.example.betterlife.databinding.FragmentTimerTeamDateBinding
 import com.example.betterlife.ext.getVmFactory
-import com.example.betterlife.timer.item.TimerInfoViewModel
+import com.example.betterlife.timer.item.TimerStatus
+import com.example.betterlife.util.PrefUtil
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.auth.FirebaseAuth
 
-class TimerTeamFragment(private val plan: PlanForShow):Fragment() {
+class TimerTeamDateFragment (private val plan: PlanForShow):Fragment() {
 
-    lateinit var binding: FragmentTimerTeamBinding
+    lateinit var binding: FragmentTimerTeamDateBinding
     private val viewModel by viewModels<TimerTeamDateViewModel> { getVmFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +40,7 @@ class TimerTeamFragment(private val plan: PlanForShow):Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        binding = FragmentTimerTeamBinding.inflate(inflater, container, false)
+        binding = FragmentTimerTeamDateBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 

@@ -1,5 +1,6 @@
-package com.example.betterlife.timer.item
+package com.example.betterlife.timer.team
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,8 @@ import com.example.betterlife.R
 import com.example.betterlife.data.*
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
+import com.example.betterlife.timer.item.TimerStatus
+import com.example.betterlife.util.Logger
 import com.example.betterlife.util.TimeConverters
 import com.github.mikephil.charting.data.BarEntry
 import com.google.firebase.auth.FirebaseAuth
@@ -17,11 +20,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 
-class TimerInfoDateViewModel (private val repository: PlanRepository): ViewModel() {
+class TimerTeamDateViewModel (private val repository: PlanRepository): ViewModel() {
 
-    val _info = MutableLiveData<Plan>()
+    val _info = MutableLiveData<PlanForShow>()
 
-    val info: LiveData<Plan>
+    val info: LiveData<PlanForShow>
         get() = _info
 
     private val _completedTest = MutableLiveData<List<Completed>>()
@@ -88,7 +91,6 @@ class TimerInfoDateViewModel (private val repository: PlanRepository): ViewModel
                 var oneRankToCount : List<Completed>? = when(oneRank) {
                     is Result.Success -> {
                         _error.value = null
-//                        _status.value = LoadApiStatus.DONE
                         oneRank.data
                     }
                     is Result.Fail -> {
@@ -112,7 +114,7 @@ class TimerInfoDateViewModel (private val repository: PlanRepository): ViewModel
                 var userIDToName : User? = when(user) {
                     is Result.Success -> {
                         _error.value = null
-//                        _status.value = LoadApiStatus.DONE
+                        _status.value = LoadApiStatus.DONE
                         user.data
                     }
                     is Result.Fail -> {
@@ -179,20 +181,17 @@ class TimerInfoDateViewModel (private val repository: PlanRepository): ViewModel
                     var tmpID = rankList[i].user_id
                     var tmpName = rankList[i].userName
                     var tmpImage = rankList[i].userImage
-                    var tmpCompletedCount = rankList[i].targetRate
 
 
                     rankList[i].totalTime = rankList[j].totalTime
                     rankList[i].user_id = rankList[j].user_id
                     rankList[i].userName = rankList[j].userName
                     rankList[i].userImage = rankList[j].userImage
-                    rankList[i].targetRate = rankList[j].targetRate
 
                     rankList[j].totalTime = tmpTotalTime
                     rankList[j].user_id = tmpID
                     rankList[j].userName = tmpName
                     rankList[j].userImage = tmpImage
-                    rankList[j].targetRate = tmpCompletedCount
                 }
             }
 
