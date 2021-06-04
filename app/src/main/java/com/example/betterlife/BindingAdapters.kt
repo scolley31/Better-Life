@@ -2,6 +2,7 @@ package com.example.betterlife
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -14,6 +15,7 @@ import com.example.betterlife.data.PlanForShow
 import com.example.betterlife.home.item.HomeDoneAdapter
 import com.example.betterlife.home.item.HomeItemAdapter
 import com.example.betterlife.home.item.HomeTeamAdapter
+import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.other.OtherAdapter
 
 @BindingAdapter("plans")
@@ -62,6 +64,16 @@ fun bindToolbarVisibility(view: View, fragment: CurrentFragmentType) {
                 else -> View.VISIBLE
             }
 }
+
+
+@BindingAdapter("setupApiStatus")
+fun bindApiStatus(view: ProgressBar, status: LoadApiStatus?) {
+    when (status) {
+        LoadApiStatus.LOADING -> view.visibility = View.VISIBLE
+        LoadApiStatus.DONE, LoadApiStatus.ERROR -> view.visibility = View.GONE
+    }
+}
+
 
 @BindingAdapter("bottomNavVisibility")
 fun bindBottomNavVisibility(view: View, fragment: CurrentFragmentType) {

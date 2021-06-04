@@ -120,7 +120,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
             _plans.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
-                    _status.value = LoadApiStatus.DONE
+//                    _status.value = LoadApiStatus.DONE
                     result.data
                 }
                 is Result.Fail -> {
@@ -149,12 +149,15 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
     fun getCompleted(){
 
         coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
             for (i in _plans.value!!.indices) {
                 var completed = repository.getCompleted(_plans.value!![i].id, user.value!!.userId)
                 singlePlanCompleted.value = when(completed) {
                     is Result.Success -> {
                         _error.value = null
-                        _status.value = LoadApiStatus.DONE
+//                        _status.value = LoadApiStatus.DONE
                         completed.data
                     }
                     is Result.Fail -> {
@@ -188,6 +191,8 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
             _plans.value = filter
             _plans.value = _plans.value
+
+            _status.value = LoadApiStatus.DONE
         }
     }
 

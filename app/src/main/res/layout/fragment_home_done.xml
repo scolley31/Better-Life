@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.view.View" />
+        <import type="com.example.betterlife.newwork.LoadApiStatus" />
         <variable
             name="viewModel"
             type="com.example.betterlife.home.item.HomeDoneViewModel" />
@@ -15,24 +16,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Recycler_home_done"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            android:theme="@style/ProgressTheme"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:plans="@{viewModel.plans}" />
+            app:layout_constraintVertical_bias="0.39"
+            app:setupApiStatus="@{viewModel.status}" />
 
         <ImageView
             android:id="@+id/image_noitem_icon"
             android:layout_width="50dp"
             android:layout_height="75dp"
-            android:visibility="@{viewModel.plans.size() == 0 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.plans.size() == 0 &amp; viewModel.status == LoadApiStatus.DONE? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,10 +48,24 @@
             android:gravity="center"
             android:text="@string/text_noitem"
             android:textSize="14sp"
-            android:visibility="@{viewModel.plans.size() == 0 ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.plans.size() == 0 &amp; viewModel.status == LoadApiStatus.DONE? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/image_noitem_icon"
             app:layout_constraintStart_toStartOf="@+id/image_noitem_icon"
             app:layout_constraintTop_toBottomOf="@+id/image_noitem_icon" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Recycler_home_done"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:plans="@{viewModel.plans}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
