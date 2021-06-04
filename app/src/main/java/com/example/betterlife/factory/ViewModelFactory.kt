@@ -6,13 +6,14 @@ import com.example.betterlife.MainViewMode
 import com.example.betterlife.addtask.AddTaskViewModel
 import com.example.betterlife.login.LoginViewModel
 import com.example.betterlife.data.source.PlanRepository
-import com.example.betterlife.home.HomeViewModel
 import com.example.betterlife.home.item.HomeDoneViewModel
 import com.example.betterlife.home.item.HomeItemViewModel
 import com.example.betterlife.home.item.HomeTeamViewModel
 import com.example.betterlife.other.OtherViewModel
+import com.example.betterlife.timer.item.TimerInfoDateViewModel
 import com.example.betterlife.timer.item.TimerInfoViewModel
 import com.example.betterlife.timer.item.TimerItemViewModel
+import com.example.betterlife.timer.team.TimerTeamItemViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
@@ -42,6 +43,12 @@ class ViewModelFactory constructor(
 
                     isAssignableFrom(TimerInfoViewModel::class.java) ->
                         TimerInfoViewModel(repository)
+
+                    isAssignableFrom(TimerInfoDateViewModel::class.java) ->
+                        TimerInfoDateViewModel(repository)
+
+                    isAssignableFrom(TimerTeamItemViewModel::class.java) ->
+                        TimerTeamItemViewModel(repository)
 
                     isAssignableFrom(AddTaskViewModel::class.java) ->
                         AddTaskViewModel(repository)

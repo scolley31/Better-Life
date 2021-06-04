@@ -18,6 +18,7 @@ fun Fragment.getVmFactory(plan: Plan?, planTeam: PlanForShow?): PlanViewModelFac
     return PlanViewModelFactory(repository, plan, planTeam)
 }
 
+
 fun Fragment.getVmFactory(userId: String): UserViewModelFactory {
     val repository = (requireContext().applicationContext as PlanApplication).repository
     return UserViewModelFactory(repository, userId)

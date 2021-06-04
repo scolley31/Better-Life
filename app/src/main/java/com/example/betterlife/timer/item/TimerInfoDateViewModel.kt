@@ -17,7 +17,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 
-class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
+class TimerInfoDateViewModel (private val repository: PlanRepository): ViewModel() {
 
     val _info = MutableLiveData<Plan>()
 
@@ -159,27 +159,27 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
 //            Log.d("test","i = $i")
             var num = i
 
-                for (j in (num+1) .. rankList.size-1) {
+            for (j in (num+1) .. rankList.size-1) {
 //                    Log.d("test","j = $j")
 //                    Log.d("test","i = $i")
-                    if (rankList[j].totalTime > rankList[i].totalTime) {
-                        var tmpTotalTime = rankList[i].totalTime
-                        var tmpID = rankList[i].user_id
-                        var tmpName = rankList[i].userName
-                        var tmpImage = rankList[i].userImage
+                if (rankList[j].totalTime > rankList[i].totalTime) {
+                    var tmpTotalTime = rankList[i].totalTime
+                    var tmpID = rankList[i].user_id
+                    var tmpName = rankList[i].userName
+                    var tmpImage = rankList[i].userImage
 
 
-                        rankList[i].totalTime = rankList[j].totalTime
-                        rankList[i].user_id = rankList[j].user_id
-                        rankList[i].userName = rankList[j].userName
-                        rankList[i].userImage = rankList[j].userImage
+                    rankList[i].totalTime = rankList[j].totalTime
+                    rankList[i].user_id = rankList[j].user_id
+                    rankList[i].userName = rankList[j].userName
+                    rankList[i].userImage = rankList[j].userImage
 
-                        rankList[j].totalTime = tmpTotalTime
-                        rankList[j].user_id = tmpID
-                        rankList[j].userName = tmpName
-                        rankList[j].userImage = tmpImage
-                    }
+                    rankList[j].totalTime = tmpTotalTime
+                    rankList[j].user_id = tmpID
+                    rankList[j].userName = tmpName
+                    rankList[j].userImage = tmpImage
                 }
+            }
 
         }
         return rankList
@@ -228,7 +228,7 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                 })
 
 
-                 entries.add(BarEntry(i.toFloat(), completedTest.value!![i].daily/60.toFloat()))
+                entries.add(BarEntry(i.toFloat(), completedTest.value!![i].daily/60.toFloat()))
 
                 sum += completedTest.value!![i].daily/60
                 number += 1

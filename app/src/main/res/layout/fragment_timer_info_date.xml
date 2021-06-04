@@ -6,9 +6,11 @@
     <data>
         <import type="com.google.firebase.auth.FirebaseAuth"/>
         <import type="android.view.View"/>
+        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="java.util.Locale"/>
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.item.TimerInfoViewModel" />
+            type="com.example.betterlife.timer.item.TimerInfoDateViewModel" />
 
     </data>
 
@@ -55,7 +57,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <TextView
                         android:id="@+id/text_timer_title"
@@ -96,7 +98,7 @@
                             android:layout_marginTop="16dp"
                             android:gravity="center_horizontal|center_vertical"
                             android:letterSpacing="0.15"
-                            android:text="@string/text_sum"
+                            android:text="@string/text_duedata"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +113,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:hint="0 分鐘"
                             android:letterSpacing="0.15"
-                            android:text='@{String.valueOf(viewModel.info.progressTime)+" 分鐘"}'
+                            android:text='@{TimeConverters.timestampToDate(viewModel.info.dueDate, Locale.TAIWAN)}'
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +127,7 @@
                             android:layout_marginTop="16dp"
                             android:gravity="center_horizontal|center_vertical"
                             android:letterSpacing="0.15"
-                            android:text="@string/text_target"
+                            android:text="@string/text_totalday"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +142,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:hint="0 分鐘"
                             android:letterSpacing="0.15"
-                            android:text='@{String.valueOf(viewModel.info.target)+" 分鐘"}'
+                            android:text='@{viewModel.info.progressTime+"天 / "+ viewModel.info.target+ "天"}'
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             app:layout_constraintEnd_toEndOf="@+id/text_timer_sum"
@@ -183,6 +185,7 @@
                             app:layout_constraintTop_toTopOf="@+id/progressBar"
                             app:layout_constraintVertical_bias="0.0"
                             tools:visibility="visible" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout

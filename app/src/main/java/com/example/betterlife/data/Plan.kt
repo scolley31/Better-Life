@@ -73,7 +73,9 @@ data class Completed(
 @Parcelize
 data class Rank(
         var user_id: String = "",
-        var totalTime: Int = 0
+        var userName: String = "",
+        var totalTime: Int = 0,
+        var userImage: String = ""
 ) : Parcelable
 
 

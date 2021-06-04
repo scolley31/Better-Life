@@ -53,7 +53,15 @@ class TimerFragment(): Fragment() {
             it?.let {
 
                 Log.d("test", "planIntimer team = ${viewModel.planTeam.value}")
+                binding.viewpagerTimer.let {
+                    binding.tabsTimer.setupWithViewPager(it)
+                    it.adapter = TimerTeamAdapter(childFragmentManager, viewModel.planTeam.value)
+                    it.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(binding.tabsTimer))
 
+                    binding.tabsTimer.getTabAt(0)!!.setCustomView(view1)
+                    binding.tabsTimer.getTabAt(1)!!.setCustomView(view2)
+
+                }
 
                 }
             }

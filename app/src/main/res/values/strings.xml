@@ -64,7 +64,7 @@
     <string name="diary_select_date">d/M/yyyy</string>
     <string name="text_timer_targetText">每日平均時間 :</string>
     <string name="text_timer_dailyTargetText">每日目標時間 :</string>
-    <string name="text_rank">排行榜</string>
+    <string name="text_rank">累計排名</string>
     <string name="text_rank_nothing">從缺</string>
 
     <string name="text_todayNotDone">未執行</string>
@@ -75,8 +75,8 @@
     <string name="text_target_total">目標完成條件</string>
     <string name="text_selectDate">截止日期</string>
     <string name="text_selectTime">總達成時間</string>
-
-
+    <string name="text_duedata">截止日期 : </string>
+    <string name="text_totalday">達標天數 / 總天數</string>
 
 
 </resources>
