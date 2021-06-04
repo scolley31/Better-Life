@@ -8,15 +8,12 @@ import androidx.lifecycle.MutableLiveData
 import com.example.betterlife.PlanApplication
 import com.example.betterlife.PlanApplication.Companion.instance
 import com.example.betterlife.R
-import com.example.betterlife.data.Completed
-import com.example.betterlife.data.Plan
+import com.example.betterlife.data.*
 import com.example.betterlife.data.source.PlanDataSource
 import com.example.betterlife.util.Logger
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import com.example.betterlife.data.Result
-import com.example.betterlife.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
@@ -30,8 +27,14 @@ object PlanRemoteDataSource : PlanDataSource {
     private const val KEY_PLAN_MEMBER = "members"
     private const val KEY_PLAN_CATEGORY = "category"
     private const val KEY_PLAN_COMPLETEDLIST = "completedList"
+    private const val KEY_PLAN_GROUPS = "groups"
     private const val KEY_PLAN_TASKDONE = "taskDone"
     private const val KEY_PLAN_USERID = "user_id"
+    private const val KEY_PLAN_GROUP = "group"
+    private const val KEY_USER_ID = "userID"
+    private const val KEY_USER_NAME = "userName"
+    private const val KEY_PLAN_GROUP_MEMBER = "membersID"
+
 
 
     override fun getUser(userId: String): LiveData<User> {
@@ -53,6 +56,33 @@ object PlanRemoteDataSource : PlanDataSource {
 
         return user
     }
+
+    override suspend fun findAllUser(): Result<List<User?>> =
+            suspendCoroutine { continuation ->
+                FirebaseFirestore.getInstance()
+                        .collection(PATH_USERS)
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val list = mutableListOf<User>()
+                                for (document in task.result!!) {
+                                    Logger.d(document.id + " => " + document.data)
+
+                                    val completed = document.toObject(User::class.java)
+                                    list.add(completed)
+                                }
+                                continuation.resume(Result.Success(list))
+                            } else {
+                                task.exception?.let {
+
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                            }
+                        }
+            }
 
     override suspend fun findUser(firebaseUserId: String): Result<User?> =
             suspendCoroutine { continuation ->
@@ -191,6 +221,37 @@ object PlanRemoteDataSource : PlanDataSource {
     }
 
 
+    override suspend fun getGroup(taskID: String, userID:String): Result<List<Groups>> =
+            suspendCoroutine { continuation ->
+                FirebaseFirestore.getInstance()
+                        .collection(PATH_PLANS)
+                        .document(taskID)
+                        .collection(KEY_PLAN_GROUPS)
+                        .whereArrayContains(KEY_PLAN_GROUP_MEMBER,userID)
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val list = mutableListOf<Groups>()
+                                for (document in task.result!!) {
+                                    Logger.d(document.id + " => " + document.data)
+
+                                    val groups = document.toObject(Groups::class.java)
+                                    list.add(groups)
+                                }
+                                continuation.resume(Result.Success(list))
+                            } else {
+                                task.exception?.let {
+
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                            }
+                        }
+            }
+
+
     override suspend fun getFinishedPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
                 .collection(PATH_PLANS)
@@ -247,6 +308,35 @@ object PlanRemoteDataSource : PlanDataSource {
                     continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
                 }
             }
+    }
+
+    override suspend fun getGroupPlanResult(): Result<List<Plan>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+                .collection(PATH_PLANS)
+                .whereArrayContains(KEY_PLAN_MEMBER,FirebaseAuth.getInstance().currentUser!!.uid)
+                .whereEqualTo(KEY_PLAN_GROUP, true)
+                .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Plan>()
+                        for (document in task.result!!) {
+                            Logger.d(document.id + " getGroupPlanResult=> " + document.data)
+
+                            val article = document.toObject(Plan::class.java)
+                            list.add(article)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
     }
 
     override suspend fun getOtherSelectedPlanResult(categoryID: String): Result<List<Plan>> =
@@ -369,7 +459,7 @@ object PlanRemoteDataSource : PlanDataSource {
 
         FirebaseFirestore.getInstance()
             .collection(PATH_PLANS)
-            .whereArrayContains(KEY_PLAN_MEMBER,"Scolley")
+            .whereArrayContains(KEY_PLAN_MEMBER,FirebaseAuth.getInstance().currentUser!!.uid)
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, exception ->
 
@@ -393,7 +483,7 @@ object PlanRemoteDataSource : PlanDataSource {
     }
 
 
-    override suspend fun addTask(plan: Plan): Result<Boolean> =
+    override suspend fun addTask(plan: Plan): Result<String> =
         suspendCoroutine { continuation ->
         val plans = FirebaseFirestore.getInstance().collection(PATH_PLANS)
         val document = plans.document()
@@ -407,7 +497,7 @@ object PlanRemoteDataSource : PlanDataSource {
                 if (task.isSuccessful) {
                     Logger.i("Publish: $plan")
 
-                    continuation.resume(Result.Success(true))
+                    continuation.resume(Result.Success(plan.id))
                 } else {
                     task.exception?.let {
 
@@ -445,5 +535,31 @@ object PlanRemoteDataSource : PlanDataSource {
                     }
                 }
     }
+
+    override suspend fun addGroup(group: Groups, taskID: String): Result<Boolean> =
+            suspendCoroutine { continuation ->
+                val plans = FirebaseFirestore.getInstance().collection(PATH_PLANS).document(taskID)
+                val subCollection = plans.collection(KEY_PLAN_GROUPS)
+                val document = subCollection.document()
+
+                group.id = document.id
+
+                document.set(group)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Logger.i("Publish: $group")
+
+                                continuation.resume(Result.Success(true))
+                            } else {
+                                task.exception?.let {
+
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(Result.Fail(PlanApplication.instance.getString(R.string.you_know_nothing)))
+                            }
+                        }
+            }
 
 }

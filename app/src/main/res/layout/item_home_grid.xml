@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
+        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="java.util.Locale"/>
         <variable
             name="plan"
             type="com.example.betterlife.data.Plan" />
@@ -36,12 +39,14 @@
 
             <TextView
                 android:id="@+id/text_plan_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:hint="名稱"
                 android:text="@{plan.name}"
                 android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/text_todayDone"
                 app:layout_constraintStart_toEndOf="@+id/image_icon_task"
                 app:layout_constraintTop_toTopOf="@+id/image_icon_task" />
 
@@ -104,6 +109,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/text_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="總目標100分鐘"
+                android:textColor="@color/gray_646464"
+                android:text='@{"目標 "+String.valueOf(plan.target)+" 分鐘"}'
+                android:textSize="12sp"
+                android:visibility="@{plan.dueDate == -1 ? View.VISIBLE : View.GONE }"
+                app:layout_constraintStart_toStartOf="@+id/text_plan_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_plan_name"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/text_dueData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="yyyy-MM-dd  ~  yyyy-MM-dd"
+                android:text='@{TimeConverters.timestampToDate(plan.createdTime, Locale.TAIWAN)+" ~ "+TimeConverters.timestampToDate(plan.dueDate, Locale.TAIWAN)}'
+                android:textColor="@color/gray_646464"
+                android:textSize="12sp"
+                android:visibility="@{plan.dueDate == -1 ? View.GONE : View.VISIBLE }"
+                app:layout_constraintBottom_toBottomOf="@+id/image_icon_task"
+                app:layout_constraintEnd_toEndOf="@+id/text_todayDone"
+                app:layout_constraintStart_toStartOf="@+id/text_plan_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_plan_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

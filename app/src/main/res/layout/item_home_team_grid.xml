@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="java.util.Locale"/>
+        <variable
+            name="plan"
+            type="com.example.betterlife.data.PlanForShow" />
+        <variable
+            name="viewModel"
+            type="com.example.betterlife.home.item.HomeTeamViewModel"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="@{() -> viewModel.navigateTimer(plan)}"
+            android:elevation="@dimen/elevation_all"
+            android:background="@drawable/border_circle_line_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/text_plan_name"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="名稱"
+                android:text="@{plan.name}"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/text_blueOwn"
+                app:layout_constraintStart_toEndOf="@+id/image_icon_task"
+                app:layout_constraintTop_toTopOf="@+id/image_icon_task" />
+
+            <ProgressBar
+                android:id="@+id/plan_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:max="@{plan.target}"
+                android:min="0"
+                android:progress="@{plan.progressTimeTotal}"
+                android:progressDrawable="@drawable/custom_progress_bar_horizontal_black"
+                android:secondaryProgress="100"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/image_icon_task"
+                app:layout_constraintTop_toBottomOf="@+id/image_icon_task"
+                app:layout_constraintVertical_bias="0.0"
+                tools:progress="50" />
+
+            <ProgressBar
+                android:id="@+id/plan_progressForTeam"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="1dp"
+                android:max="@{plan.target}"
+                android:min="0"
+                android:progress="@{plan.progressTimeOwn}"
+                android:progressDrawable="@drawable/custom_progress_bar_horizontal_blue"
+                android:secondaryProgress="0"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/image_icon_task"
+                app:layout_constraintTop_toBottomOf="@+id/image_icon_task"
+                app:layout_constraintVertical_bias="0.0"
+                tools:progress="50" />
+
+            <TextView
+                android:id="@+id/text_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                android:hint="30%"
+                android:text='@{String.valueOf(((plan.progressTimeTotal*100)/plan.target))+" %"}'
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/plan_progress"
+                app:layout_constraintEnd_toEndOf="@+id/plan_progress"
+                app:layout_constraintStart_toStartOf="@+id/plan_progress"
+                app:layout_constraintTop_toTopOf="@+id/plan_progress" />
+
+            <TextView
+                android:id="@+id/text_todayDone"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@{plan.todayDone == false ? @drawable/border_circle_text_red : @drawable/border_circle_text_green}"
+                android:hint="未執行"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@{plan.todayDone == false ? @string/text_todayNotDone : @string/text_todayDone}"
+                android:textAlignment="textEnd"
+                android:textColor="@{plan.todayDone == false ? @color/red_d0021b : @color/green}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_isGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_circle_text_blue"
+                android:gravity="center"
+                android:hint="合作"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/text_isGroup"
+                android:textAlignment="gravity"
+                android:textColor="@color/dark_blue"
+                android:visibility="@{plan.group == true ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/text_todayDone"
+                app:layout_constraintEnd_toStartOf="@+id/text_todayDone"
+                app:layout_constraintTop_toTopOf="@+id/text_todayDone" />
+
+            <TextView
+                android:id="@+id/text_blueOwn"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_circle_text_black"
+                android:hint="我"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/text_own"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/text_isGroup"
+                app:layout_constraintEnd_toStartOf="@+id/text_isGroup"
+                app:layout_constraintTop_toTopOf="@+id/text_isGroup" />
+
+            <ImageView
+                android:id="@+id/image_icon_task"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/text_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="總目標100分鐘"
+                android:textColor="@color/gray_646464"
+                android:text='@{"目標 "+String.valueOf(plan.target)+" 分鐘"}'
+                android:textSize="12sp"
+                android:visibility="@{plan.dueDate == -1 ? View.VISIBLE : View.GONE }"
+                app:layout_constraintStart_toStartOf="@+id/text_plan_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_plan_name"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/text_dueData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="yyyy-MM-dd  ~  yyyy-MM-dd"
+                android:text='@{TimeConverters.timestampToDate(plan.createdTime, Locale.TAIWAN)+" ~ "+TimeConverters.timestampToDate(plan.dueDate, Locale.TAIWAN)}'
+                android:textColor="@color/gray_646464"
+                android:textSize="12sp"
+                android:visibility="@{plan.dueDate == -1 ? View.GONE : View.VISIBLE }"
+                app:layout_constraintBottom_toBottomOf="@+id/image_icon_task"
+                app:layout_constraintEnd_toEndOf="@+id/text_todayDone"
+                app:layout_constraintStart_toStartOf="@+id/text_plan_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -10,6 +10,5 @@ data class User(
         var userName: String = "",
         var userImage: String = ""
 
-
 ): Parcelable
 

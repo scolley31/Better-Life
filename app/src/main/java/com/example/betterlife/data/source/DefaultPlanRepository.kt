@@ -2,15 +2,16 @@ package com.example.betterlife.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.betterlife.data.Completed
-import com.example.betterlife.data.Plan
-import com.example.betterlife.data.Result
-import com.example.betterlife.data.User
+import com.example.betterlife.data.*
 
 class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
                              private val localDataSource: PlanDataSource
 
 ) : PlanRepository {
+
+    override suspend fun findAllUser(): Result<List<User?>>   {
+        return remoteDataSource.findAllUser()
+    }
 
     override suspend fun findUser(firebaseUserId: String): Result<User?>  {
         return remoteDataSource.findUser(firebaseUserId)
@@ -36,8 +37,12 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
         return remoteDataSource.deleteTask(taskId)
     }
 
-    override suspend fun addTask(plan: Plan): Result<Boolean> {
+    override suspend fun addTask(plan: Plan): Result<String> {
         return remoteDataSource.addTask(plan)
+    }
+
+    override suspend fun addGroup(group: Groups, taskID: String): Result<Boolean> {
+        return remoteDataSource.addGroup(group,taskID)
     }
 
     override suspend fun sendCompleted(completed: Completed, taskID: String): Result<Boolean> {
@@ -48,12 +53,20 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
         return remoteDataSource.getCompleted(taskID, userID)
     }
 
+    override suspend fun getGroup(taskID: String, userID:String): Result<List<Groups>> {
+        return remoteDataSource.getGroup(taskID, userID)
+    }
+
     override suspend fun getFinishedPlanResult(): Result<List<Plan>> {
         return remoteDataSource.getFinishedPlanResult()
     }
 
     override suspend fun getPlanResult(): Result<List<Plan>> {
         return remoteDataSource.getPlanResult()
+    }
+
+    override suspend fun getGroupPlanResult(): Result<List<Plan>> {
+        return remoteDataSource.getGroupPlanResult()
     }
 
     override suspend fun getOtherPlanResult(): Result<List<Plan>> {

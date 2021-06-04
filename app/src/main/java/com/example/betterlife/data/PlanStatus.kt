@@ -5,6 +5,7 @@ import com.example.betterlife.util.Util.getString
 
 enum class PlanStatus(val value: String) {
 
-    Ongoing (getString(R.string.onGoing)),
+    SingleWork (getString(R.string.SingleWork)),
+    Teamwork (getString(R.string.Teamwork)),
     Success(getString(R.string.completed))
 }

@@ -1,7 +1,5 @@
 package com.example.betterlife.timer.item
 
-import android.util.Log
-import android.widget.Switch
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +15,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
 class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
@@ -84,12 +81,14 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
 
         coroutineScope.launch {
 
+            _status.value = LoadApiStatus.LOADING
+
             for (i in info.value!!.members.indices) {
                 var oneRank = repository.getCompleted(info.value!!.id, info.value!!.members[i])
                 var oneRankToCount : List<Completed>? = when(oneRank) {
                     is Result.Success -> {
                         _error.value = null
-                        _status.value = LoadApiStatus.DONE
+//                        _status.value = LoadApiStatus.DONE
                         oneRank.data
                     }
                     is Result.Fail -> {
@@ -113,7 +112,7 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                 var userIDToName : User? = when(user) {
                     is Result.Success -> {
                         _error.value = null
-                        _status.value = LoadApiStatus.DONE
+//                        _status.value = LoadApiStatus.DONE
                         user.data
                     }
                     is Result.Fail -> {
@@ -134,16 +133,24 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
                 }
 
                 var sum = 0
+                var completedCount = 0
 
                 if (oneRankToCount != null) {
                     for ( j in oneRankToCount.indices) {
                         sum += oneRankToCount[j].daily
                     }
+                    for ( j in oneRankToCount.indices) {
+                        if(oneRankToCount[j].completed) {
+                            completedCount += 1
+                        }
+                    }
                 }
 
 
+
+
                 rankTmp.run {
-                    add(Rank(userIDToName!!.userName,sum/60))
+                    add(Rank(userIDToName!!.userId,userIDToName!!.userName,sum/60,completedCount*100/ info.value!!.target,userIDToName.userImage))
                 }
 //                Log.d("test","rankTmp = $rankTmp")
             }
@@ -152,6 +159,8 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
             rankTmpForSort = sortToRank(rankTmp)
 //            Log.d("test","rankTmpForSort = $rankTmpForSort")
             _rank.value = rankTmpForSort
+
+            _status.value = LoadApiStatus.DONE
 
         }
     }
@@ -167,11 +176,20 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
 //                    Log.d("test","i = $i")
                     if (rankList[j].totalTime > rankList[i].totalTime) {
                         var tmpTotalTime = rankList[i].totalTime
-                        var tmpName = rankList[i].user_id
+                        var tmpID = rankList[i].user_id
+                        var tmpName = rankList[i].userName
+                        var tmpImage = rankList[i].userImage
+
+
                         rankList[i].totalTime = rankList[j].totalTime
                         rankList[i].user_id = rankList[j].user_id
+                        rankList[i].userName = rankList[j].userName
+                        rankList[i].userImage = rankList[j].userImage
+
                         rankList[j].totalTime = tmpTotalTime
-                        rankList[j].user_id = tmpName
+                        rankList[j].user_id = tmpID
+                        rankList[j].userName = tmpName
+                        rankList[j].userImage = tmpImage
                     }
                 }
 
@@ -183,6 +201,8 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
     fun getCompletedForChart() {
 
         coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
 
             var completed = repository.getCompleted(_info.value!!.id, FirebaseAuth.getInstance().currentUser!!.uid)
             _completedTest.value = when(completed) {

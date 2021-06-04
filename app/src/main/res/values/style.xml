@@ -40,4 +40,8 @@
         <item name="android:maxHeight">20dip</item>
     </style>
 
+    <style name="AppTheme.NumberPicker">
+        <item name="colorControlNormal">@color/black_3f3a3a</item>
+    </style>
+
 </resources>

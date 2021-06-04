@@ -17,8 +17,41 @@ data class Plan(
         var dailyTarget: Int = 0, //min
         var progressTime: Int = 0, // min
         var taskDone: Boolean = false, //whether a history task or not
-        var todayDone: Boolean = false //whether finish the task today
-//        var completedList: List<Completed> = listOf()
+        var todayDone: Boolean = false, //whether finish the task today
+        var group: Boolean = false, //whether is a group
+        var dueDate: Long = 0
+
+): Parcelable {
+
+}
+
+@Parcelize
+data class PlanForShow(
+
+        var id: String = "",
+        var name: String = "",
+        var category: String = "",
+        var createdTime: Long = -1,
+        var members: List<String> = listOf(),
+        var target: Int = 0, //min
+        var dailyTarget: Int = 0, //min
+        var progressTimeOwn: Int = 0, // min
+        var progressTimePartner: Int = 0, // min
+        var progressTimeTotal: Int = 0, // m
+        var taskDone: Boolean = false, //whether a history task or not
+        var todayDone: Boolean = false, //whether finish the task today
+        var group: Boolean = false, //whether is a group
+        var dueDate: Long = 0
+
+): Parcelable {
+
+}
+
+@Parcelize
+data class Groups(
+
+        var id: String = "",
+        var membersID: List<String> = listOf()
 
 ): Parcelable {
 
@@ -35,14 +68,15 @@ data class Completed(
 
 ) : Parcelable {
 
-
-
 }
 
 @Parcelize
 data class Rank(
         var user_id: String = "",
-        var totalTime: Int = 0
+        var userName: String = "",
+        var totalTime: Int = 0,
+        var targetRate: Int = 0,
+        var userImage: String = ""
 ) : Parcelable
 
 

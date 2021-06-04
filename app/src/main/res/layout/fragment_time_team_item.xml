@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.betterlife.timer.team.TimerTeamItemViewModel" />
+        <variable
+            name="TimeStatus"
+            type="com.example.betterlife.timer.item.TimerStatus" />
+
+        <import type="android.view.View" />
+        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="8dp"
+            android:visibility="@{viewModel.status == LoadApiStatus.LOADING ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            tools:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/TimerProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="385dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="16dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/circle_progress"
+            android:max="@{viewModel.timer.dailyTarget*60}"
+            android:progress="@{(viewModel.timer.dailyTarget*60) - viewModel.dailyTaskRemained}"
+            android:secondaryProgress="100"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:progress="50" />
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:elevation="3dp"
+            android:onClick="@{() -> viewModel.leaveTimer()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icons_44px_back01" />
+
+        <TextView
+            android:id="@+id/Timer"
+            android:layout_width="241dp"
+            android:layout_height="110dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="00:00"
+            android:textAlignment="center"
+            android:textSize="70sp"
+            app:layout_constraintBottom_toBottomOf="@+id/TimerProgressBar"
+            app:layout_constraintEnd_toEndOf="@+id/TimerProgressBar"
+            app:layout_constraintStart_toStartOf="@+id/TimerProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/TimerProgressBar"
+            app:layout_constraintVertical_bias="0.447" />
+
+        <Button
+            android:id="@+id/begin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/outline_play_circle_outline_black_18"
+            android:visibility="@{viewModel.timeStatus == TimeStatus.Stopped ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="@+id/Timer"
+            app:layout_constraintStart_toStartOf="@+id/Timer"
+            app:layout_constraintTop_toBottomOf="@+id/Timer" />
+
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/outline_pause_circle_black_18"
+            android:enabled="false"
+            app:layout_constraintBottom_toBottomOf="@+id/begin"
+            app:layout_constraintEnd_toEndOf="@+id/begin"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/begin"
+            app:layout_constraintTop_toTopOf="@+id/begin"
+            app:layout_constraintVertical_bias="0.0"
+            android:visibility="@{viewModel.timeStatus == TimeStatus.Stopped ? View.INVISIBLE : View.VISIBLE}"/>
+
+        <Button
+            android:id="@+id/button_sendDaily"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@{viewModel.timer.todayDone == true ? @drawable/border_circle_line_gray : @drawable/border_circle_blue}"
+            android:text="@{viewModel.completed == false &amp; viewModel.timer.todayDone == false ? @string/text_enough : @string/text_done}"
+            android:onClick="@{() -> viewModel.sendCompleted()}"
+            android:clickable="@{viewModel.timer.todayDone == true ? false : true}"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

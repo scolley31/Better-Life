@@ -74,7 +74,8 @@ class LoginViewModel(private val repository: PlanRepository) : ViewModel() {
                         val newUser = User(
                                 userId = firebaseUser.uid,
                                 userName = firebaseUser.displayName
-                                        ?: getString(R.string.login_name_unknown)
+                                        ?: getString(R.string.login_name_unknown),
+                                userImage = firebaseUser.photoUrl.toString()
 
                         )
                         createUser(newUser, firstLogin)

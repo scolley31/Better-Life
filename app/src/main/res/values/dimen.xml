@@ -18,7 +18,7 @@
     <!-- TimerViewPager -->
     <dimen name="height_timer_tab">60dp</dimen>
 
-    <dimen name="height_timerItem_tab">80dp</dimen>
+    <dimen name="height_timerItem_tab">48dp</dimen>
 
     <!-- Catalog -->
     <dimen name="height_catalog_tab">36dp</dimen>
@@ -97,6 +97,8 @@
     <dimen name="text_32dp">32dp</dimen>
     <dimen name="text_24dp">24dp</dimen>
     <dimen name="text_16dp">16dp</dimen>
+    <dimen name="text_14dp">16dp</dimen>
+    <dimen name="text_12dp">12dp</dimen>
 
     <!-- Global -->
     <dimen name="size_tiny">14dp</dimen>

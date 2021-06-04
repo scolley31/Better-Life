@@ -48,7 +48,7 @@ class HomeItemFragment(private val user: User) : Fragment() {
         viewModel.navigateToTimer.observe(viewLifecycleOwner, Observer {
             Log.i("test","navigateToTimer = ${viewModel.navigateToTimer.value}")
             it?.let {
-                findNavController().navigate(NavigationDirections.actionGlobalTimerFragment(it))
+                findNavController().navigate(NavigationDirections.actionGlobalTimerFragment(it,null))
                 viewModel.deleteNavigateTimer()
             }
         }
@@ -67,7 +67,7 @@ class HomeItemFragment(private val user: User) : Fragment() {
 //        binding.RecyclerHome.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         binding.RecyclerHome.adapter = HomeItemAdapter(viewModel, HomeItemAdapter.OnClickListener{
             viewModel.navigateTimer(it)
-            Log.d("test","plan = $it")
+//            Log.d("test","plan = $it")
         })
 
 

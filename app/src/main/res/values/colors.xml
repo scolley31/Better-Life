@@ -7,6 +7,7 @@
 
     <!-- White Series -->
     <color name="white">#ffffff</color>
+    <color name="white_f5f6f8">#f5f6f8</color>
 
     <!-- Black Series -->
     <color name="black">#000000</color>
@@ -24,6 +25,7 @@
 
     <!-- Red Series -->
     <color name="red_d0021b">#d0021b</color>
+    <color name="red_heart_c73e3a">#c73e3a</color>
     <color name="light_red_home">#FFDBE7</color>
     <color name="red_progressbar">#FF8A80</color>
 
