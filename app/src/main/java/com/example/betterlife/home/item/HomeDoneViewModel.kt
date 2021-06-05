@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.betterlife.PlanApplication
 import com.example.betterlife.R
-import com.example.betterlife.data.Completed
-import com.example.betterlife.data.Plan
-import com.example.betterlife.data.Result
-import com.example.betterlife.data.User
+import com.example.betterlife.data.*
 import com.example.betterlife.data.source.PlanRepository
 import com.example.betterlife.newwork.LoadApiStatus
 import com.example.betterlife.util.Logger
@@ -69,6 +66,20 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
 
     val singlePlanCompleted = MutableLiveData<List<Completed>>()
 
+    val ownPlanCompleted = MutableLiveData<List<Completed>>()
+
+    val partnerPlanCompleted = MutableLiveData<List<Completed>>()
+
+    private val _plansForShow = MutableLiveData<List<PlanForShow>>()
+
+    val plansForShow: LiveData<List<PlanForShow>>
+        get() = _plansForShow
+
+    private val _groups = MutableLiveData<List<Groups>>()
+
+    val groups: LiveData<List<Groups>>
+        get() = _groups
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -98,7 +109,7 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
             _plans.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
-                    _status.value = LoadApiStatus.DONE
+//                    _status.value = LoadApiStatus.DONE
                     result.data
                 }
                 is Result.Fail -> {
@@ -123,6 +134,7 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
 
             getCompleted()
 
+
         }
     }
 
@@ -130,35 +142,174 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
 
         coroutineScope.launch {
             for (i in _plans.value!!.indices) {
-                var completed = repository.getCompleted(_plans.value!![i].id, user.value!!.userId)
-                singlePlanCompleted.value = when(completed) {
-                    is Result.Success -> {
-                        _error.value = null
-                        _status.value = LoadApiStatus.DONE
-                        completed.data
-                    }
-                    is Result.Fail -> {
-                        _error.value = completed.error
-                        _status.value = LoadApiStatus.ERROR
-                        null
-                    }
-                    is Result.Error -> {
-                        _error.value = completed.exception.toString()
-                        _status.value = LoadApiStatus.ERROR
-                        null
-                    }
-                    else -> {
-                        _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
-                        _status.value = LoadApiStatus.ERROR
-                        null
-                    }
-                }
-                when (_plans.value!![i].dueDate) {
-                    -1L  -> singleTarget(i)
-                    else -> singleDueData(i)
-                }
-                Log.d("test","_plans.value!![i] = ${_plans.value!![i]}")
 
+                if (_plans.value!![i].group) {
+
+                    var group = repository.getGroup(_plans.value!![i].id, user.value!!.userId)
+                    Log.d("group","group = $group")
+                    _groups.value = when (group) {
+                        is Result.Success -> {
+                            _error.value = null
+//                            _status.value = LoadApiStatus.DONE
+                            group.data
+
+                        }
+                        is Result.Fail -> {
+                            _error.value = group.error
+                            _status.value = LoadApiStatus.ERROR
+                            null
+                        }
+                        is Result.Error -> {
+                            _error.value = group.exception.toString()
+                            _status.value = LoadApiStatus.ERROR
+                            null
+                        }
+                        else -> {
+                            _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                            _status.value = LoadApiStatus.ERROR
+                            null
+                        }
+                    }
+
+                    if ( _groups.value!![0].membersID[0] == user.value!!.userId) {
+
+                        var completedOne = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[0])
+//                    Log.d("group","completedOne = $completedOne"+ "i = $i")
+                        ownPlanCompleted.value = when (completedOne) {
+                            is Result.Success -> {
+                                _error.value = null
+//                                _status.value = LoadApiStatus.DONE
+                                completedOne.data
+                            }
+                            is Result.Fail -> {
+                                _error.value = completedOne.error
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                            is Result.Error -> {
+                                _error.value = completedOne.exception.toString()
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                            else -> {
+                                _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                        }
+
+                        var completedTwo = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[1])
+//                Log.d("group","completedTwo = $completedTwo"+ "i = $i")
+                        partnerPlanCompleted.value = when (completedTwo) {
+                            is Result.Success -> {
+                                _error.value = null
+//                                _status.value = LoadApiStatus.DONE
+                                completedTwo.data
+                            }
+                            is Result.Fail -> {
+                                _error.value = completedTwo.error
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                            is Result.Error -> {
+                                _error.value = completedTwo.exception.toString()
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                            else -> {
+                                _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                        }
+                    } else {
+
+                        var completedOne = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[1])
+//                    Log.d("group","completedOne = $completedOne"+ "i = $i")
+                        ownPlanCompleted.value = when (completedOne) {
+                            is Result.Success -> {
+                                _error.value = null
+//                                _status.value = LoadApiStatus.DONE
+                                completedOne.data
+                            }
+                            is Result.Fail -> {
+                                _error.value = completedOne.error
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                            is Result.Error -> {
+                                _error.value = completedOne.exception.toString()
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                            else -> {
+                                _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                        }
+
+                        var completedTwo = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[0])
+//                Log.d("group","completedTwo = $completedTwo"+ "i = $i")
+                        partnerPlanCompleted.value = when (completedTwo) {
+                            is Result.Success -> {
+                                _error.value = null
+//                                _status.value = LoadApiStatus.DONE
+                                completedTwo.data
+                            }
+                            is Result.Fail -> {
+                                _error.value = completedTwo.error
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                            is Result.Error -> {
+                                _error.value = completedTwo.exception.toString()
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                            else -> {
+                                _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                                _status.value = LoadApiStatus.ERROR
+                                null
+                            }
+                        }
+                    }
+
+                    when (_plans.value!![i].dueDate) {
+                        -1L -> teamTarget(i)
+                        else -> teamDueData(i)
+                    }
+
+                } else {
+                    var completed = repository.getCompleted(_plans.value!![i].id, user.value!!.userId)
+                    singlePlanCompleted.value = when (completed) {
+                        is Result.Success -> {
+                            _error.value = null
+//                            _status.value = LoadApiStatus.DONE
+                            completed.data
+                        }
+                        is Result.Fail -> {
+                            _error.value = completed.error
+                            _status.value = LoadApiStatus.ERROR
+                            null
+                        }
+                        is Result.Error -> {
+                            _error.value = completed.exception.toString()
+                            _status.value = LoadApiStatus.ERROR
+                            null
+                        }
+                        else -> {
+                            _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                            _status.value = LoadApiStatus.ERROR
+                            null
+                        }
+                    }
+                    when (_plans.value!![i].dueDate) {
+                        -1L -> singleTarget(i)
+                        else -> singleDueData(i)
+                    }
+                    Log.d("test", "_plans.value!![i] = ${_plans.value!![i]}")
+                }
             }
 
             val filter = _plans.value!!.filter {
@@ -167,7 +318,11 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
 
             _plans.value = filter
             _plans.value = _plans.value
+
+            _status.value = LoadApiStatus.DONE
+
         }
+
     }
 
     fun singleTarget(i: Int) {
@@ -212,6 +367,72 @@ class HomeDoneViewModel (private val repository: PlanRepository): ViewModel() {
         }
 //        Log.d("test","_plans.value!![i].taskDone = ${_plans.value!![i].taskDone}")
 
+    }
+
+    fun teamTarget(i: Int) {
+        var sumOne : Int = 0
+        for (j in ownPlanCompleted.value!!.indices){
+            sumOne += ownPlanCompleted.value!![j].daily
+        }
+        Log.d("HomeTeamFragment","sumOne = $sumOne")
+        var sumtwo : Int = 0
+        for (k in partnerPlanCompleted.value!!.indices){
+            sumtwo += partnerPlanCompleted.value!![k].daily
+        }
+        Log.d("HomeTeamFragment","sumTwo = $sumtwo")
+        var sum = sumOne + sumtwo
+
+//        _plansForShow.value!![i].progressTimeOwn = sumOne/60
+//        _plansForShow.value!![i].progressTimePartner = sumtwo/60
+//        _plansForShow.value!![i].progressTimeTotal = sum/60
+        _plans.value!![i].progressTime = sum/60
+
+        if (sum >= _plans.value!![i].target*60) {
+            _plans.value!![i].taskDone = true
+//            _plansForShow.value!![i].taskDone = true
+        }
+    }
+
+    fun teamDueData(i: Int) {
+
+        var completedDayOne : Int = 0
+        var completedDayTwo : Int = 0
+        var totalCompletedDay: Long = (_plans.value!![i].dueDate - _plans.value!![i].createdTime)*2 / ONE_DAY_MILLI_SECOND
+
+        for (j in ownPlanCompleted.value!!.indices){
+            if (ownPlanCompleted.value!![j].completed){
+                completedDayOne++
+            }
+        }
+
+        for (j in partnerPlanCompleted.value!!.indices){
+            if (partnerPlanCompleted.value!![j].completed){
+                completedDayTwo++
+            }
+        }
+
+//        _plansForShow.value!![i].progressTimeOwn = completedDayOne
+//        _plansForShow.value!![i].progressTimePartner = completedDayTwo
+//        _plansForShow.value!![i].progressTimeTotal = completedDayOne + completedDayTwo
+        _plans.value!![i].progressTime = completedDayOne + completedDayTwo
+
+//        _plansForShow.value!![i].target = when(totalCompletedDay) {
+//            0L -> 1
+//            else -> totalCompletedDay.toInt()
+//        }
+
+        _plans.value!![i].target = when(totalCompletedDay) {
+            0L -> 1
+            else -> totalCompletedDay.toInt()
+        }
+
+        val today = Calendar.getInstance().timeInMillis
+        val dueDate = _plans.value!![i].dueDate
+
+        if (dueDate <= today) {
+            _plans.value!![i].taskDone = true
+//            _plansForShow.value!![i].taskDone = true
+        }
     }
 
     fun checkTodayDone(j: Int,i : Int) {

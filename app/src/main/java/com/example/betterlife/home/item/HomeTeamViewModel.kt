@@ -97,7 +97,7 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
 
             _status.value = LoadApiStatus.LOADING
             val result = repository.getGroupPlanResult()
-            Log.d("test","getGroupPlanResult = $result")
+            Log.d("group","getGroupPlanResult = $result")
 
             _plans.value = when (result) {
                 is Result.Success -> {
@@ -163,7 +163,7 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
                 if ( _groups.value!![0].membersID[0] == user.value!!.userId) {
 
                     var completedOne = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[0])
-//                    Log.d("group","completedOne = $completedOne"+ "i = $i")
+                    Log.d("group","completedOne = $completedOne"+ "i = $i")
                     ownPlanCompleted.value = when (completedOne) {
                         is Result.Success -> {
                             _error.value = null
@@ -188,7 +188,7 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
                     }
 
                     var completedTwo = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[1])
-//                Log.d("group","completedTwo = $completedTwo"+ "i = $i")
+                Log.d("group","completedTwo = $completedTwo"+ "i = $i")
                     partnerPlanCompleted.value = when (completedTwo) {
                         is Result.Success -> {
                             _error.value = null
@@ -214,7 +214,7 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
                 } else {
 
                     var completedOne = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[1])
-//                    Log.d("group","completedOne = $completedOne"+ "i = $i")
+                    Log.d("group","completedOne = $completedOne"+ "i = $i")
                     ownPlanCompleted.value = when (completedOne) {
                         is Result.Success -> {
                             _error.value = null
@@ -239,7 +239,7 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
                     }
 
                     var completedTwo = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[0])
-//                Log.d("group","completedTwo = $completedTwo"+ "i = $i")
+                Log.d("group","completedTwo = $completedTwo"+ "i = $i")
                     partnerPlanCompleted.value = when (completedTwo) {
                         is Result.Success -> {
                             _error.value = null
@@ -268,20 +268,19 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
                         -1L -> teamTarget(i)
                         else -> teamDueData(i)
                     }
-
-
-                val filterPlan = _plans.value!!.filter {
-                    it.taskDone == false
-                }
-
-                val filterPlanForShow = _plansForShow.value!!.filter {
-                    it.taskDone == false
-                }
-//
-                _plans.value = filterPlan
-
-                _plansForShow.value = filterPlanForShow
             }
+
+            val filterPlan = _plans.value!!.filter {
+                it.taskDone == false
+            }
+
+            val filterPlanForShow = _plansForShow.value!!.filter {
+                it.taskDone == false
+            }
+//
+            _plans.value = filterPlan
+
+            _plansForShow.value = filterPlanForShow
         }
     }
 

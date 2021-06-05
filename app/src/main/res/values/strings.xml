@@ -4,6 +4,9 @@
 
     <string name="app_name">BetterLife</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 
     <!--  tool bar title -->
     <string name="personnal_goal">我的任務</string>

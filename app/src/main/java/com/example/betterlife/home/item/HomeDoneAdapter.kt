@@ -49,9 +49,9 @@ class HomeDoneAdapter(val viewModel: HomeDoneViewModel,val onClickListener: OnCl
     override fun onBindViewHolder(holder: PlanViewHolder, position: Int) {
         val plan = getItem(position)
         holder.bind(getItem(position), viewModel)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(plan)
-        }
+//        holder.itemView.setOnClickListener {
+//            onClickListener.onClick(plan)
+//        }
         holder.itemView.image_icon_task.setImageResource(
             when(plan.category){
                 Category.STUDY.category -> R.drawable._28_learning

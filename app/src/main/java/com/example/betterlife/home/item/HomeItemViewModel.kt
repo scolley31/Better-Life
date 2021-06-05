@@ -186,7 +186,7 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
             }
 
             val filter = _plans.value!!.filter {
-                it.taskDone == false && it.group == false
+                !it.taskDone && !it.group
             }
 
             _plans.value = filter
@@ -232,8 +232,8 @@ class HomeItemViewModel(private val repository: PlanRepository):ViewModel() {
 
         val today = Calendar.getInstance().timeInMillis
         val dueDate = _plans.value!![i].dueDate
-//        Log.d("test","today = $today")
-//        Log.d("test","dueDate = $dueDate")
+        Log.d("today","today = $today")
+        Log.d("today","dueDate = $dueDate")
         if (dueDate <= today) {
             _plans.value!![i].taskDone = true
         }

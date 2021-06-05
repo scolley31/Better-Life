@@ -8,18 +8,25 @@ import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.example.betterlife.data.CurrentFragmentType
 import com.example.betterlife.databinding.ActivityMainBinding
+import com.example.betterlife.databinding.NavHeaderDrawerBinding
 import com.example.betterlife.ext.getVmFactory
+import com.example.betterlife.login.UserManager
 import com.example.betterlife.util.Logger
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,6 +36,7 @@ import kotlinx.coroutines.launch
 class MainActivity : BaseActivity()  {
 
     val viewModel by viewModels<MainViewMode>(){ getVmFactory() }
+
 
     private val statusBarHeight: Int
         get() {
@@ -77,6 +85,7 @@ class MainActivity : BaseActivity()  {
         setupToolbar()
         setupBottomNav()
         setupNavController()
+        setUpDrawer()
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
@@ -86,6 +95,27 @@ class MainActivity : BaseActivity()  {
         }
 
         return super.onCreateView(name, context, attrs)
+    }
+
+
+    /**
+     * Set up [androidx.drawerlayout.widget.DrawerLayout] with [androidx.appcompat.widget.Toolbar]
+     */
+    private fun setUpDrawer(){
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        NavigationUI.setupWithNavController(binding.drawerNavView, navController)
+        binding.drawerLayout.fitsSystemWindows = true
+        binding.drawerLayout.clipToPadding = false
+
+        val bindingNavHeader = NavHeaderDrawerBinding.inflate(
+                LayoutInflater.from(this), binding.drawerLayout, false
+        )
+
+        bindingNavHeader.lifecycleOwner = this
+        bindingNavHeader.viewModel = viewModel
+        binding.drawerNavView.addHeaderView(bindingNavHeader.root)
+
+
     }
 
     private fun setupBottomNav() {
