@@ -82,5 +82,8 @@
     <string name="text_totalday">達標天數 / 總天數</string>
     <string name="text_noitem">無任務</string>
 
+    <string name="radio_count_target">達成每日目標</string>
+    <string name="radio_count_noLimit">不限制時間</string>
+
 
 </resources>

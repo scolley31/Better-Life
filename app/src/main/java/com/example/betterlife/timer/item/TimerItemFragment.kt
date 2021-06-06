@@ -2,14 +2,17 @@ package com.example.betterlife.timer.item
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.betterlife.NavigationDirections
+import com.example.betterlife.R
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.FragmentTimerItemBinding
 import com.example.betterlife.ext.getVmFactory
@@ -21,6 +24,8 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
     private val viewModel by viewModels<TimerItemViewModel> { getVmFactory() }
     lateinit var binding: FragmentTimerItemBinding
     private lateinit var timer: CountDownTimer
+    lateinit var runnable: Runnable
+    private var handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -75,23 +80,50 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
             Log.d("test", "completed = ${viewModel.completed.value}")
         })
 
+        viewModel.selectedTypeRadio.observe (viewLifecycleOwner, Observer {
+            it?.let {
+                when (viewModel.selectedTypeRadio.value) {
+                    R.id.radio_count_target -> {
+                        viewModel.dailyTaskRemained.value = plan.dailyTarget.times(60)
+                        updateCountdownUI()
+                    }
+                    R.id.radio_count_noLimit -> {
+                        viewModel.dailyTaskRemained.value = 0
+                        updateCountdownUI()
+                    }
+                    else -> {
+                        viewModel.dailyTaskRemained.value = plan.dailyTarget.times(60)
+                        updateCountdownUI()
+                    }
+                }
+            }
+        }
+        )
+
 
         binding.begin.setOnClickListener {
-            viewModel.timeStatus.value=  TimerStatus.Running
-            startTimer()
+        viewModel.timeStatus.value=  TimerStatus.Running
+            when(viewModel.selectedTypeRadio.value) {
+                R.id.radio_count_target -> startTimer()
+                R.id.radio_count_noLimit -> timeNumberGo()
+            }
+
             updateButtons()
         }
 
         binding.stop.setOnClickListener {
             viewModel.timeStatus.value =  TimerStatus.Stopped
-            timer.cancel()
+            when(viewModel.selectedTypeRadio.value) {
+                R.id.radio_count_target ->  timer.cancel()
+                R.id.radio_count_noLimit -> endTimming()
+            }
             updateButtons()
         }
-
         updateCountdownUI()
 
         return binding.root
     }
+
 
     private fun updateButtons(){
         when (viewModel.timeStatus.value) {
@@ -107,6 +139,23 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
             }
         }
     }
+
+
+    fun timeNumberGo() {
+        runnable = Runnable {
+            viewModel.dailyTaskRemained.value = viewModel.dailyTaskRemained.value?.plus(1)
+
+            handler.postDelayed(runnable, 1000)
+            updateCountdownUI()
+        }
+        handler.postDelayed(runnable, 1000)
+    }
+
+    fun endTimming() {
+
+        handler.removeCallbacks(runnable)
+    }
+
 
     private fun startTimer(){
         viewModel.timeStatus.value = TimerStatus.Running

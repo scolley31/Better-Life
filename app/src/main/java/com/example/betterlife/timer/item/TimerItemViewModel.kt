@@ -1,5 +1,6 @@
 package com.example.betterlife.timer.item
 
+import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,6 +28,8 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
     val timer: LiveData<Plan>
         get() = _timer
+
+    val selectedTypeRadio = MutableLiveData<Int>()
 
 //    private val _completedInfo = MutableLiveData<Completed>()
 //
@@ -81,6 +84,7 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
         Logger.i("------------------------------------")
         timeStatus.value = TimerStatus.Stopped
         completed.value = false
+        selectedTypeRadio.value = R.id.radio_count_target
     }
 
     fun navigateToHome() {
@@ -134,7 +138,6 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
     }
 
 
-
     fun sendCompleted() {
 
         coroutineScope.launch {
@@ -143,7 +146,10 @@ class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {
 
             val newCompleted = Completed(
                     user_id = FirebaseAuth.getInstance().currentUser!!.uid,
-                    daily = dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1),
+                    daily = when(selectedTypeRadio.value){
+                        R.id.radio_count_target -> dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1)
+                        R.id.radio_count_noLimit -> dailyTaskRemained.value!!
+                        else -> dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1)},
                     completed = completed.value!!,
                     date = Calendar.getInstance().timeInMillis
             )

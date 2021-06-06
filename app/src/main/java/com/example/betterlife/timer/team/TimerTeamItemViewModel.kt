@@ -27,6 +27,8 @@ class TimerTeamItemViewModel(private val repository: PlanRepository): ViewModel(
     val timer: LiveData<PlanForShow>
         get() = _timer
 
+    val selectedTypeRadio = MutableLiveData<Int>()
+
 //    private val _completedInfo = MutableLiveData<Completed>()
 //
 //    val completedInfo: LiveData<Completed>
@@ -80,6 +82,7 @@ class TimerTeamItemViewModel(private val repository: PlanRepository): ViewModel(
         Logger.i("------------------------------------")
         timeStatus.value = TimerStatus.Stopped
         completed.value = false
+        selectedTypeRadio.value = R.id.radio_count_target
     }
 
     fun navigateToHome() {
@@ -143,7 +146,10 @@ class TimerTeamItemViewModel(private val repository: PlanRepository): ViewModel(
 
             val newCompleted = Completed(
                 user_id = FirebaseAuth.getInstance().currentUser!!.uid,
-                daily = dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1),
+                    daily = when(selectedTypeRadio.value){
+                        R.id.radio_count_target -> dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1)
+                        R.id.radio_count_noLimit -> dailyTaskRemained.value!!
+                        else -> dailyTaskTarget.value!!.minus(dailyTaskRemained.value!!).plus(1)},
                 completed = completed.value!!,
                 date = Calendar.getInstance().timeInMillis
             )
