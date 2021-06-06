@@ -185,6 +185,7 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
                             _status.value = LoadApiStatus.ERROR
                             null
                         }
+
                     }
 
                     var completedTwo = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[1])
@@ -211,6 +212,10 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
                             null
                         }
                     }
+
+                    _plansForShow.value!![i].ownerID = _groups.value!![0].membersID[0]
+                    _plansForShow.value!![i].partnerID = _groups.value!![0].membersID[1]
+
                 } else {
 
                     var completedOne = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[1])
@@ -262,6 +267,10 @@ class HomeTeamViewModel(private val repository: PlanRepository): ViewModel() {
                             null
                         }
                     }
+
+                    _plansForShow.value!![i].ownerID = _groups.value!![0].membersID[1]
+                    _plansForShow.value!![i].partnerID = _groups.value!![0].membersID[0]
+
                 }
 
                     when (_plans.value!![i].dueDate) {

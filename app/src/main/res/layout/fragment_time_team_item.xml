@@ -24,11 +24,11 @@
             android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="72dp"
             android:checkedButton="@={viewModel.selectedTypeRadio}"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/TimerProgressBar"
+            app:layout_constraintStart_toStartOf="@+id/TimerProgressBar"
             app:layout_constraintTop_toTopOf="parent">
 
             <RadioButton
@@ -37,16 +37,16 @@
                 android:layout_height="wrap_content"
                 android:clickable="@{viewModel.timeStatus == TimeStatus.Running ? false : true }"
                 android:text="@string/radio_count_target"
-                android:textSize="14dp" />
+                android:textSize="@dimen/text_16dp" />
 
             <RadioButton
                 android:id="@+id/radio_count_noLimit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="@{viewModel.timeStatus == TimeStatus.Running ? false : true }"
                 android:layout_marginLeft="16dp"
+                android:clickable="@{viewModel.timeStatus == TimeStatus.Running ? false : true }"
                 android:text="@string/radio_count_noLimit"
-                android:textSize="14dp" />
+                android:textSize="@dimen/text_16dp" />
         </RadioGroup>
 
 
@@ -74,9 +74,9 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:indeterminate="false"
-            android:progressDrawable="@drawable/circle_progress"
             android:max="@{viewModel.timer.dailyTarget*60}"
             android:progress="@{(viewModel.timer.dailyTarget*60) - viewModel.dailyTaskRemained}"
+            android:progressDrawable="@drawable/circle_progress"
             android:secondaryProgress="100"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"

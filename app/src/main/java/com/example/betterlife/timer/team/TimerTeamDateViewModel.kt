@@ -67,6 +67,10 @@ class TimerTeamDateViewModel (private val repository: PlanRepository): ViewModel
 
     val forPrintChat = MutableLiveData<Boolean>()
 
+    var personnelUsers = MutableLiveData<User>()
+
+    var partnerUsers = MutableLiveData<User>()
+
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -76,6 +80,59 @@ class TimerTeamDateViewModel (private val repository: PlanRepository): ViewModel
 
     init {
         getCompletedForChart()
+    }
+
+    fun getUser() {
+        coroutineScope.launch {
+            val owner = repository.findUser(info.value!!.ownerID)
+            personnelUsers.value = when (owner) {
+                is Result.Success -> {
+                    _error.value = null
+//                    _status.value = LoadApiStatus.DONE
+                    owner.data
+                }
+                is Result.Fail -> {
+                    _error.value = owner.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = owner.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+
+            val partner = repository.findUser(info.value!!.partnerID)
+            partnerUsers.value = when (partner) {
+                is Result.Success -> {
+                    _error.value = null
+//                    _status.value = LoadApiStatus.DONE
+                    partner.data
+                }
+                is Result.Fail -> {
+                    _error.value = partner.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = partner.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+
+        }
     }
 
     fun getRank() {

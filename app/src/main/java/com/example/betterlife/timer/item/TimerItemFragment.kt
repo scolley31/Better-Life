@@ -48,7 +48,10 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
 
         viewModel.leaveTimer.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
-                if (it) findNavController().popBackStack()
+//                if (it) findNavController().popBackStack()
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
+                        FirebaseAuth.getInstance().currentUser!!.uid
+                ))
             }
         })
 

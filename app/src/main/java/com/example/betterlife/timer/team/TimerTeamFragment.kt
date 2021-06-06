@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.betterlife.NavigationDirections
 import com.example.betterlife.R
 import com.example.betterlife.data.Plan
 import com.example.betterlife.data.PlanForShow
@@ -22,11 +23,12 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.auth.FirebaseAuth
 
 class TimerTeamFragment(private val plan: PlanForShow):Fragment() {
 
     lateinit var binding: FragmentTimerTeamBinding
-    private val viewModel by viewModels<TimerTeamDateViewModel> { getVmFactory() }
+    private val viewModel by viewModels<TimerTeamViewModel> { getVmFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -43,6 +45,7 @@ class TimerTeamFragment(private val plan: PlanForShow):Fragment() {
         viewModel.info.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.d("test", "info = ${viewModel.info.value}")
             viewModel.getRank()
+            viewModel.getUser()
         })
 
         viewModel.completedTest.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -51,7 +54,10 @@ class TimerTeamFragment(private val plan: PlanForShow):Fragment() {
 
         viewModel.leaveTimer.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (it) findNavController().popBackStack()
+//                if (it) findNavController().popBackStack()
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
+                        FirebaseAuth.getInstance().currentUser!!.uid
+                ))
             }
         })
 
@@ -64,6 +70,18 @@ class TimerTeamFragment(private val plan: PlanForShow):Fragment() {
         viewModel.rank.observe(viewLifecycleOwner, Observer {
             it?.let {
                 Log.d("test", "rank = ${viewModel.rank.value}")
+            }
+        })
+
+        viewModel.personnelUsers.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Log.d("personnelUsers", "personnelUsers = ${viewModel.personnelUsers.value}")
+            }
+        })
+
+        viewModel.partnerUsers.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Log.d("personnelUsers", "partnerUsers = ${viewModel.partnerUsers.value}")
             }
         })
 

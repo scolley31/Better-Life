@@ -104,105 +104,263 @@
                         android:background="@drawable/bg_other_item"
                         android:elevation="@dimen/elevation_all"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_timer_title">
 
-                        <TextView
-                            android:id="@+id/text_timer_sumText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:letterSpacing="0.15"
-                            android:text="@string/text_duedata"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/text_timer_sum"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:hint="0 分鐘"
-                            android:letterSpacing="0.15"
-                            android:text='@{TimeConverters.timestampToDate(viewModel.info.dueDate, Locale.TAIWAN)}'
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/text_timer_targetText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:letterSpacing="0.15"
-                            android:text="@string/text_totalday"
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_timer_sumText"
-                            tools:visibility="visible" />
-
-                        <TextView
-                            android:id="@+id/text_timer_target"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="16dp"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:hint="0 分鐘"
-                            android:letterSpacing="0.15"
-                            android:text=""
-                            android:textColor="@color/black"
-                            android:textSize="14sp"
-                            app:layout_constraintEnd_toEndOf="@+id/text_timer_sum"
-                            app:layout_constraintTop_toBottomOf="@+id/text_timer_sum"
-                            tools:visibility="visible" />
-
-                        <ProgressBar
-                            android:id="@+id/progressBar"
-                            style="?android:attr/progressBarStyleHorizontal"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/Constraint_personnel"
                             android:layout_width="0dp"
-                            android:layout_height="29dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="16dp"
-                            android:max="@{viewModel.info.target}"
-                            android:min="0"
-                            android:progress="50"
-                            android:progressDrawable="@drawable/custom_progress_bar_horizontal"
-                            android:secondaryProgress="100"
-                            android:visibility="visible"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_height="wrap_content"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.842"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/text_timer_targetText"
-                            tools:progress="50"
-                            tools:visibility="visible" />
+                            app:layout_constraintTop_toBottomOf="@+id/text_timer_duedata">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/card_view_personnel_image"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:contentDescription="Your profile image"
+                                app:cardCornerRadius="30dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/profile_personnel_image"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:contentDescription="Your profile image"
+                                    app:glide="@{viewModel.personnelUsers.userImage}"
+                                    tools:srcCompat="@drawable/_01_arm_wrestling" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/text_timer_sumText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:letterSpacing="0.15"
+                                android:text="@string/text_totalday"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/card_view_personnel_image"
+                                app:layout_constraintStart_toStartOf="@+id/text_username"
+                                app:layout_constraintTop_toBottomOf="@+id/text_username" />
+
+                            <TextView
+                                android:id="@+id/text_timer_sum"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="16dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:hint="0分鐘/10分鐘"
+                                android:letterSpacing="0.15"
+                                android:text='@{viewModel.info.progressTimeOwn+"天 / "+ viewModel.info.target+ "天"}'
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/text_timer_sumText"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/text_timer_sumText"
+                                app:layout_constraintTop_toTopOf="@+id/text_timer_sumText" />
+
+                            <TextView
+                                android:id="@+id/text_plan_progress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:elevation="1dp"
+                                android:gravity="center"
+                                android:hint="50%"
+                                android:text='@{String.valueOf(((viewModel.info.progressTimeOwn*100)/viewModel.info.target))+" %"}'
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                                app:layout_constraintEnd_toEndOf="@+id/progressBar"
+                                app:layout_constraintStart_toStartOf="@+id/progressBar"
+                                app:layout_constraintTop_toTopOf="@+id/progressBar"
+                                tools:visibility="visible" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBar"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="16dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:max="@{viewModel.info.target}"
+                                android:min="0"
+                                android:progress="@{viewModel.info.progressTimeOwn}"
+                                android:progressDrawable="@drawable/custom_progress_bar_horizontal"
+                                android:secondaryProgress="100"
+                                android:visibility="visible"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/card_view_personnel_image"
+                                tools:progress="50"
+                                tools:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/text_username"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="16dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:hint="Scolley"
+                                android:letterSpacing="0.15"
+                                android:text="@{viewModel.personnelUsers.userName}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                app:layout_constraintStart_toEndOf="@+id/card_view_personnel_image"
+                                app:layout_constraintTop_toTopOf="@+id/card_view_personnel_image" />
+
+                            <View
+                                android:id="@+id/line"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="10dp"
+                                android:background="@color/bottom_navigation_item_normal"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/Constraint_partner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.842"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/Constraint_personnel">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/card_view_partner_image"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:contentDescription="Your profile image"
+                                app:cardCornerRadius="30dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:id="@+id/profile_partner_image"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:contentDescription="Your profile image"
+                                    app:glide="@{viewModel.partnerUsers.userImage}"
+                                    tools:srcCompat="@drawable/_01_arm_wrestling" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:id="@+id/text_timer_partner_sumText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:letterSpacing="0.15"
+                                android:text="@string/text_totalday"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/card_view_partner_image"
+                                app:layout_constraintStart_toStartOf="@+id/text_partnerName"
+                                app:layout_constraintTop_toBottomOf="@+id/text_partnerName" />
+
+                            <TextView
+                                android:id="@+id/text_timer_partner_sum"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="16dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:hint="0分鐘/10分鐘"
+                                android:letterSpacing="0.15"
+                                android:text='@{viewModel.info.progressTimePartner+"天 / "+ viewModel.info.target+ "天"}'
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/text_timer_partner_sumText"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/text_timer_partner_sumText"
+                                app:layout_constraintTop_toTopOf="@+id/text_timer_partner_sumText" />
+
+                            <TextView
+                                android:id="@+id/text_plan_partner_progress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:elevation="1dp"
+                                android:gravity="center"
+                                android:hint="50%"
+                                android:text='@{String.valueOf(((viewModel.info.progressTimePartner*100)/viewModel.info.target))+" %"}'
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/progressBar_partner"
+                                app:layout_constraintEnd_toEndOf="@+id/progressBar_partner"
+                                app:layout_constraintStart_toStartOf="@+id/progressBar_partner"
+                                app:layout_constraintTop_toTopOf="@+id/progressBar_partner"
+                                tools:visibility="visible" />
+
+                            <ProgressBar
+                                android:id="@+id/progressBar_partner"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:max="@{viewModel.info.target}"
+                                android:min="0"
+                                android:progress="@{viewModel.info.progressTimePartner}"
+                                android:progressDrawable="@drawable/custom_progress_bar_horizontal"
+                                android:secondaryProgress="100"
+                                android:visibility="visible"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/card_view_partner_image"
+                                tools:progress="50"
+                                tools:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/text_partnerName"
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="16dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:hint="Scolley"
+                                android:letterSpacing="0.15"
+                                android:text="@{viewModel.partnerUsers.userName}"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_16dp"
+                                app:layout_constraintStart_toEndOf="@+id/card_view_partner_image"
+                                app:layout_constraintTop_toTopOf="@+id/card_view_partner_image" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
-                            android:id="@+id/text_plan_progress"
+                            android:id="@+id/text_timer_duedata"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:gravity="center"
-                            android:hint="50%"
-                            android:text="
- "
-                            android:textColor="@color/white"
-                            app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-                            app:layout_constraintEnd_toEndOf="@+id/progressBar"
-                            app:layout_constraintStart_toStartOf="@+id/progressBar"
-                            app:layout_constraintTop_toTopOf="@+id/progressBar"
-                            app:layout_constraintVertical_bias="0.0"
-                            tools:visibility="visible" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:hint="截止日期: yyyy/mm/dd"
+                            android:text='@{"截止日期:"+TimeConverters.timestampToDate(viewModel.info.dueDate, Locale.TAIWAN)}'
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/gray_888888"
+                            android:textSize="@dimen/text_12dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -402,14 +560,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[0] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"累積 "+viewModel.rank[0].totalTime + " 分鐘"}'
+                                android:text='@{"完成 "+viewModel.rank[0].targetRate + " %"}'
                                 android:textColor="@{viewModel.rank[0].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_1_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_1_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_1_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_1_user_name"
-                                tools:text="累計100分鐘" />
+                                tools:text="完成 50 %" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -485,14 +643,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[1] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"累積 "+viewModel.rank[1].totalTime + " 分鐘"}'
+                                android:text='@{"完成 "+viewModel.rank[1].targetRate + " %"}'
                                 android:textColor="@{viewModel.rank[1].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_2_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_2_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_2_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_2_user_name"
-                                tools:text="累計100分鐘" />
+                                tools:text="完成 50 %" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -569,14 +727,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[2] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"累積 "+viewModel.rank[2].totalTime + " 分鐘"}'
+                                android:text='@{"完成 "+viewModel.rank[2].targetRate + " %"}'
                                 android:textColor="@{viewModel.rank[2].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_3_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_3_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_3_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_3_user_name"
-                                tools:text="累計100分鐘" />
+                                tools:text="完成 50 %" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -654,14 +812,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[3] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"累積 "+viewModel.rank[3].totalTime + " 分鐘"}'
+                                android:text='@{"完成 "+viewModel.rank[3].targetRate + " %"}'
                                 android:textColor="@{viewModel.rank[3].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_4_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_4_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_4_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_4_user_name"
-                                tools:text="累計100分鐘" />
+                                tools:text="完成 50 %" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -739,14 +897,14 @@
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:visibility="@{viewModel.rank[4] == null ? View.GONE : View.VISIBLE }"
-                                android:text='@{"累積 "+viewModel.rank[4].totalTime + " 分鐘"}'
+                                android:text='@{"完成 "+viewModel.rank[4].targetRate + " %"}'
                                 android:textColor="@{viewModel.rank[4].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="13sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/card_view_rank_5_image"
                                 app:layout_constraintEnd_toEndOf="@+id/rank_5_user_name"
                                 app:layout_constraintStart_toStartOf="@+id/rank_5_user_name"
                                 app:layout_constraintTop_toBottomOf="@+id/rank_5_user_name"
-                                tools:text="累計100分鐘" />
+                                tools:text="完成 50 %" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView

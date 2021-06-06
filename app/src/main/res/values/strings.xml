@@ -84,6 +84,7 @@
 
     <string name="radio_count_target">達成每日目標</string>
     <string name="radio_count_noLimit">不限制時間</string>
+    <string name="text_sum_team">累積/目標</string>
 
 
 </resources>

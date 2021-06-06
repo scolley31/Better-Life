@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.betterlife.NavigationDirections
 import com.example.betterlife.R
 import com.example.betterlife.data.Plan
 import com.example.betterlife.databinding.FragmentTimerInfoBinding
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.auth.FirebaseAuth
 
 class TimerInfoDateFragment (private val plan: Plan): Fragment() {
 
@@ -49,7 +51,10 @@ class TimerInfoDateFragment (private val plan: Plan): Fragment() {
 
         viewModel.leaveTimer.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (it) findNavController().popBackStack()
+//                if (it) findNavController().popBackStack()
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
+                        FirebaseAuth.getInstance().currentUser!!.uid
+                ))
             }
         })
 

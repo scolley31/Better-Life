@@ -36,7 +36,9 @@ data class PlanForShow(
         var target: Int = 0, //min
         var dailyTarget: Int = 0, //min
         var progressTimeOwn: Int = 0, // min
+        var ownerID: String = "",
         var progressTimePartner: Int = 0, // min
+        var partnerID: String = "",
         var progressTimeTotal: Int = 0, // m
         var taskDone: Boolean = false, //whether a history task or not
         var todayDone: Boolean = false, //whether finish the task today

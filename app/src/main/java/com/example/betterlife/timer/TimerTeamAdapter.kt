@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.betterlife.data.PlanForShow
 import com.example.betterlife.timer.item.TimerInfoDateFragment
 import com.example.betterlife.timer.item.TimerInfoFragment
+import com.example.betterlife.timer.team.TimerTeamDateFragment
 import com.example.betterlife.timer.team.TimerTeamFragment
 import com.example.betterlife.timer.team.TimerTeamItemFragment
 
@@ -16,7 +17,7 @@ class TimerTeamAdapter(fragmentManager: FragmentManager, val planTeam: PlanForSh
             1 ->  if (planTeam!!.dueDate == -1L) {
                 TimerTeamFragment(planTeam)
             } else {
-                TimerTeamFragment(planTeam)
+                TimerTeamDateFragment(planTeam)
             }
             else -> TimerTeamItemFragment(planTeam)
 

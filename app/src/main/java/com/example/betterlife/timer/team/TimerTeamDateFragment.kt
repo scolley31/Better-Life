@@ -47,6 +47,7 @@ class TimerTeamDateFragment (private val plan: PlanForShow):Fragment() {
         viewModel.info.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.d("test", "info = ${viewModel.info.value}")
             viewModel.getRank()
+            viewModel.getUser()
         })
 
         viewModel.completedTest.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -55,7 +56,10 @@ class TimerTeamDateFragment (private val plan: PlanForShow):Fragment() {
 
         viewModel.leaveTimer.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (it) findNavController().popBackStack()
+//                if (it) findNavController().popBackStack()
+                findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
+                        FirebaseAuth.getInstance().currentUser!!.uid
+                ))
             }
         })
 
