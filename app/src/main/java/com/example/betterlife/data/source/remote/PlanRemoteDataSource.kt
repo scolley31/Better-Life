@@ -106,6 +106,32 @@ object PlanRemoteDataSource : PlanDataSource {
             }
 
 
+    override suspend fun findUserByName(userName: String): Result<Boolean> =
+            suspendCoroutine { continuation ->
+                FirebaseFirestore.getInstance().collection(PATH_USERS)
+                        .whereEqualTo(KEY_USER_NAME,userName)
+                        .get()
+                        .addOnCompleteListener { findUser ->
+                            if (findUser.isSuccessful) {
+                                findUser.result?.let { documentU ->
+                                    if (findUser.result!!.isEmpty) {
+                                        continuation.resume(Result.Success(true))
+                                    } else {
+                                        continuation.resume(Result.Success(false))
+                                    }
+                                }
+                            } else {
+                                findUser.exception?.let {
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(Result.Fail(instance.getString(R.string.you_know_nothing)))
+                            }
+                        }
+            }
+
+
     override suspend fun createUser(user: User): Result<Boolean> =
             suspendCoroutine { continuation ->
                 FirebaseFirestore.getInstance().collection(PATH_USERS).document(user.userId).set(user)

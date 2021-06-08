@@ -17,6 +17,10 @@ class DefaultPlanRepository (private val remoteDataSource: PlanDataSource,
         return remoteDataSource.findUser(firebaseUserId)
     }
 
+    override suspend fun findUserByName(userName: String): Result<Boolean>  {
+        return remoteDataSource.findUserByName(userName)
+    }
+
     override suspend fun createUser(user: User): Result<Boolean>  {
         return remoteDataSource.createUser(user)
     }

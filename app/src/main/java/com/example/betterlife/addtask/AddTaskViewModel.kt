@@ -3,6 +3,7 @@ package com.example.betterlife.addtask
 import android.graphics.Insets.add
 import android.icu.util.Calendar
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -51,6 +52,11 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
     val users: LiveData<List<User?>>
         get() = _users
 
+    private val _usersIsEmpty = MutableLiveData<List<Boolean>>()
+
+    val usersIsEmpty: LiveData<List<Boolean>>
+        get() = _usersIsEmpty
+
     var userName = MutableLiveData<List<String>>()
 
     var userID = MutableLiveData<List<String>>()
@@ -94,6 +100,7 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         target.value = 1
         dueDate.value = -1
         isGroup.value = false
+        selectedTypeRadio.value = 0
 
         findAllUser()
 
@@ -180,6 +187,51 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         Log.d("test","listName = $listName")
         userID.value = listID
         Log.d("test","listID = $listID")
+    }
+
+    fun userExist(){
+
+        coroutineScope.launch {
+            if (isGroup.value!!) {
+
+                var userIsEmpty: Boolean
+                userIsEmpty = when (val result = repository.findUserByName(partner.value!!)) {
+                    is Result.Success -> {
+                        _error.value = null
+                        _status.value = LoadApiStatus.DONE
+                        result.data
+
+                    }
+                    is Result.Fail -> {
+                        _error.value = result.error
+                        _status.value = LoadApiStatus.ERROR
+                        null == true
+                    }
+                    is Result.Error -> {
+                        _error.value = result.exception.toString()
+                        _status.value = LoadApiStatus.ERROR
+                        null == true
+                    }
+                    else -> {
+                        _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                        _status.value = LoadApiStatus.ERROR
+                        null == true
+                    }
+                }
+                Log.d("userIsEmpty", "userIsEmpty = $userIsEmpty")
+                if (userIsEmpty) {
+                    Toast.makeText(
+                            PlanApplication.appContext,
+                            PlanApplication.instance.getString(R.string.text_NoUser),
+                            Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    addTask()
+                }
+            }else{
+                addTask()
+            }
+        }
     }
 
 

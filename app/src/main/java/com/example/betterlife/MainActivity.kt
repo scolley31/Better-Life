@@ -10,6 +10,8 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -80,6 +82,17 @@ class MainActivity : BaseActivity()  {
             Logger.i("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         })
 
+//        val crashButton = binding.button
+//        crashButton.text = "Crash!"
+//        crashButton.setOnClickListener {
+//            throw RuntimeException("Test Crash") // Force a crash
+//        }
+//
+//        addContentView(crashButton, ViewGroup.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT))
+
+
         binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         setupToolbar()
@@ -93,6 +106,8 @@ class MainActivity : BaseActivity()  {
         viewModel.currentFragmentType.observe(this) {
             Log.d("test", "currentFragmentType = ${viewModel.currentFragmentType.value}")
         }
+
+
 
         return super.onCreateView(name, context, attrs)
     }

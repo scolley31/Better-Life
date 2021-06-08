@@ -66,7 +66,7 @@ class HomeDoneFragment (private val user: User) : Fragment() {
         binding.viewModel = viewModel
 
         binding.RecyclerHomeDone.layoutManager = LinearLayoutManager(context)
-        binding.RecyclerHomeDone.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+//        binding.RecyclerHomeDone.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         binding.RecyclerHomeDone.adapter = HomeDoneAdapter(viewModel, HomeDoneAdapter.OnClickListener{
             viewModel.navigateTimer(it)
             Log.d("test","plan = $it")

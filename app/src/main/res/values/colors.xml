@@ -20,6 +20,8 @@
     <color name="light_black">#1F1F1F</color>
 
 
+
+
     <!-- Gray Series -->
     <color name="gray_646464">#646464</color>
     <color name="gray_B5B2B3">#B5B2B3</color>
@@ -34,12 +36,17 @@
     <color name="red_heart_c73e3a">#c73e3a</color>
     <color name="light_red_home">#FFDBE7</color>
     <color name="red_progressbar">#FF8A80</color>
+    <color name="light_red">#68F450</color>
 
+    FF68F450
     <!-- Green Series -->
     <color name="green">#31BB27</color>
     <color name="light_green_home">#D8FCE2</color>
     <color name="green_progressbar">#B9F6CA</color>
-
+    <color name="green_theme">#f9ffed</color>
+    <color name="green_theme_dark">#696758</color>
+    <color name="green_theme_middle">#B4DBBB</color>
+    <color name="green_theme_middle_dark">#B1C3B8</color>
     <!-- Orange Series -->
     <color name="orange_8b572a">#8b572a</color>
 

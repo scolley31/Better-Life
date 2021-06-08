@@ -12,6 +12,8 @@ interface PlanRepository {
 
     suspend fun createUser(user: User): Result<Boolean>
 
+    suspend fun findUserByName(userName: String): Result<Boolean>
+
     suspend fun taskFinish(taskId: String): Result<Boolean>
 
     suspend fun addToOtherTask(userId: String, taskId: String): Result<Boolean>

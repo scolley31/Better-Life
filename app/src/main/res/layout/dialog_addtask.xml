@@ -455,9 +455,9 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:background='@{viewModel.name != "" &amp; viewModel.dailyTarget != 0  &amp; viewModel.selectedTypeRadio != null &amp; viewModel.category != null ? @drawable/border_circle_line_black : @drawable/border_circle_line_gray }'
-                android:clickable='@{viewModel.name != "" &amp; viewModel.dailyTarget != 0  &amp; viewModel.selectedTypeRadio != null &amp; viewModel.category != null  ? true : false }'
-                android:onClick="@{() -> viewModel.addTask()}"
+                android:background='@{viewModel.name != "" &amp; viewModel.dailyTarget != 0  &amp; viewModel.selectedTypeRadio != 0 &amp; viewModel.category != null ? @drawable/border_circle_line_black : @drawable/border_circle_line_gray }'
+                android:clickable='@{viewModel.name != "" &amp; viewModel.dailyTarget != 0  &amp; viewModel.selectedTypeRadio != 0 &amp; viewModel.category != null  ? true : false }'
+                android:onClick="@{() -> viewModel.userExist()}"
                 android:text="@string/button_addTask"
                 android:textColor="@color/white"
                 android:textSize="18sp"
