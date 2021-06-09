@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "460465664558",
+    "project_id": "betterlife-82568",
+    "storage_bucket": "betterlife-82568.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460465664558:android:ea91fa4c9504d6963f65bf",
+        "android_client_info": {
+          "package_name": "com.example.betterlife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460465664558-apur0lfpq0aolbnmt2b7fcpe09t3cmka.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.betterlife",
+            "certificate_hash": "107545dda8ca88934d032a27a3d047da3b7e5e91"
+          }
+        },
+        {
+          "client_id": "460465664558-jelj615vkvrrpnbvc98pg12c182ptpi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8T-nVcE69OsViMrNNnTOkAOUO6D6Goq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460465664558-jelj615vkvrrpnbvc98pg12c182ptpi4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460465664558:android:bac33e9d5c721e6f3f65bf",
+        "android_client_info": {
+          "package_name": "com.scolley.betterlife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460465664558-jelj615vkvrrpnbvc98pg12c182ptpi4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8T-nVcE69OsViMrNNnTOkAOUO6D6Goq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460465664558-jelj615vkvrrpnbvc98pg12c182ptpi4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
