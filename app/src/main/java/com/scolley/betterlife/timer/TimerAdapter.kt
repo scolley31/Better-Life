@@ -1,12 +1,9 @@
 package com.scolley.betterlife.timer
 
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.scolley.betterlife.R
 import com.scolley.betterlife.data.Plan
-import com.scolley.betterlife.data.PlanForShow
 import com.scolley.betterlife.timer.item.*
 
 

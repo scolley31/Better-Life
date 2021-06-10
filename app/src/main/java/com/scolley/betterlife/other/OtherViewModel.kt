@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.scolley.betterlife.PlanApplication
 import com.scolley.betterlife.R
 import com.scolley.betterlife.data.Category
-import com.scolley.betterlife.data.Completed
 import com.scolley.betterlife.data.Plan
 import com.scolley.betterlife.data.Result
 import com.scolley.betterlife.data.source.PlanRepository

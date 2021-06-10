@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.betterlife.login.LoginViewModel" />
+            type="com.scolley.betterlife.login.LoginViewModel" />
 
     </data>
 

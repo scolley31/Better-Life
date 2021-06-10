@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.betterlife.home.HomeFragment"
+        android:name="com.scolley.betterlife.home.HomeFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_home" >
         <argument
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/otherFragment"
-        android:name="com.example.betterlife.other.OtherFragment"
+        android:name="com.scolley.betterlife.other.OtherFragment"
         android:label="OtherFragment"
         tools:layout="@layout/fragment_other" />
     <action
@@ -29,16 +29,16 @@
         app:destination="@id/otherFragment" />
     <fragment
         android:id="@+id/timerFragment"
-        android:name="com.example.betterlife.timer.TimerFragment"
+        android:name="com.scolley.betterlife.timer.TimerFragment"
         android:label="TimerFragment"
         tools:layout="@layout/fragment_timer">
         <argument
             android:name="planKey"
-            app:argType="com.example.betterlife.data.Plan"
+            app:argType="com.scolley.betterlife.data.Plan"
             app:nullable="true" />
         <argument
             android:name="planTeam"
-            app:argType="com.example.betterlife.data.PlanForShow"
+            app:argType="com.scolley.betterlife.data.PlanForShow"
             app:nullable="true" />
     </fragment>
     <action
@@ -46,7 +46,7 @@
         app:destination="@id/timerFragment" />
     <dialog
         android:id="@+id/addTaskFragment"
-        android:name="com.example.betterlife.addtask.AddTaskFragment"
+        android:name="com.scolley.betterlife.addtask.AddTaskFragment"
         android:label="AddTaskFragment"
         tools:layout="@layout/dialog_addtask" />
     <action
@@ -54,7 +54,7 @@
         app:destination="@id/addTaskFragment" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.betterlife.login.LoginFragment"
+        android:name="com.scolley.betterlife.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"/>
     <action
@@ -62,7 +62,7 @@
         app:destination="@id/loginFragment" />
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.example.betterlife.MainActivity"
+        android:name="com.scolley.betterlife.MainActivity"
         android:label="MainActivity"
         tools:layout="@layout/activity_main"/>
 

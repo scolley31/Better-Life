@@ -2,7 +2,6 @@ package com.scolley.betterlife
 
 import android.content.Context
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.DisplayMetrics
@@ -10,25 +9,19 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.scolley.betterlife.data.CurrentFragmentType
 import com.scolley.betterlife.databinding.ActivityMainBinding
 import com.scolley.betterlife.databinding.NavHeaderDrawerBinding
 import com.scolley.betterlife.ext.getVmFactory
-import com.scolley.betterlife.login.UserManager
 import com.scolley.betterlife.util.Logger
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView

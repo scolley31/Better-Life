@@ -6,10 +6,10 @@
     <data>
         <import type="com.google.firebase.auth.FirebaseAuth"/>
         <import type="android.view.View"/>
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.team.TimerTeamViewModel" />
+            type="com.scolley.betterlife.timer.team.TimerTeamViewModel" />
 
     </data>
 

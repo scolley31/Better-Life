@@ -5,14 +5,14 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="com.scolley.betterlife.util.TimeConverters"/>
         <import type="java.util.Locale"/>
         <variable
             name="plan"
-            type="com.example.betterlife.data.Plan" />
+            type="com.scolley.betterlife.data.Plan" />
         <variable
             name="viewModel"
-            type="com.example.betterlife.home.item.HomeItemViewModel"/>
+            type="com.scolley.betterlife.home.item.HomeItemViewModel"/>
 
     </data>
 

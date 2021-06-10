@@ -5,14 +5,14 @@
 
     <data>
 
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
         <import type="com.google.firebase.auth.FirebaseAuth"/>
         <import type="android.view.View"/>
-        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="com.scolley.betterlife.util.TimeConverters"/>
         <import type="java.util.Locale"/>
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.team.TimerTeamDateViewModel" />
+            type="com.scolley.betterlife.timer.team.TimerTeamDateViewModel" />
 
     </data>
 

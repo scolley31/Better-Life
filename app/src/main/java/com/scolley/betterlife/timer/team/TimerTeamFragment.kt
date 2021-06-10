@@ -12,12 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.scolley.betterlife.NavigationDirections
 import com.scolley.betterlife.R
-import com.scolley.betterlife.data.Plan
 import com.scolley.betterlife.data.PlanForShow
-import com.scolley.betterlife.databinding.FragmentTimerInfoBinding
 import com.scolley.betterlife.databinding.FragmentTimerTeamBinding
 import com.scolley.betterlife.ext.getVmFactory
-import com.scolley.betterlife.timer.item.TimerInfoViewModel
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData

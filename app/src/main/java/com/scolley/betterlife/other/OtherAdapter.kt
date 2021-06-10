@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scolley.betterlife.R
 import com.scolley.betterlife.data.Category
 import com.scolley.betterlife.data.Plan
-import com.scolley.betterlife.databinding.ItemHomeGridBinding
 import com.scolley.betterlife.databinding.ItemOtherGridBinding
-import com.scolley.betterlife.home.item.HomeItemViewModel
 import kotlinx.android.synthetic.main.item_home_grid.view.*
 import kotlinx.android.synthetic.main.item_other_grid.view.*
 

@@ -5,14 +5,14 @@
 
     <data>
         <import type="android.view.View" />
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
 
         <variable
             name="viewModel"
-            type="com.example.betterlife.other.OtherViewModel" />
+            type="com.scolley.betterlife.other.OtherViewModel" />
         <variable
             name="category"
-            type="com.example.betterlife.data.Category" />
+            type="com.scolley.betterlife.data.Category" />
 
     </data>
 

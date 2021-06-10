@@ -13,9 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.scolley.betterlife.NavigationDirections
 import com.scolley.betterlife.R
 import com.scolley.betterlife.data.Plan
-import com.scolley.betterlife.databinding.FragmentTimerBinding
 import com.scolley.betterlife.databinding.FragmentTimerInfoBinding
-import com.scolley.betterlife.databinding.FragmentTimerItemBinding
 import com.scolley.betterlife.ext.getVmFactory
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis

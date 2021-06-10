@@ -10,9 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -20,9 +18,7 @@ import com.scolley.betterlife.NavigationDirections
 import com.scolley.betterlife.R
 import com.scolley.betterlife.databinding.DialogAddtaskBinding
 import com.scolley.betterlife.ext.getVmFactory
-import com.scolley.betterlife.home.item.HomeItemViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 
 class AddTaskFragment : AppCompatDialogFragment() {

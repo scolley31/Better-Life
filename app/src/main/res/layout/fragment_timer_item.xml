@@ -7,12 +7,12 @@
 
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.item.TimerItemViewModel" />
+            type="com.scolley.betterlife.timer.item.TimerItemViewModel" />
         <variable
             name="TimeStatus"
-            type="com.example.betterlife.timer.item.TimerStatus" />
+            type="com.scolley.betterlife.timer.item.TimerStatus" />
 
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
         <import type="android.view.View" />
 
     </data>

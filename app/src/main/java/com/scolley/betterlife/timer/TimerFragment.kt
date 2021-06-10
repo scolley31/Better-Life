@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.scolley.betterlife.R
-import com.scolley.betterlife.data.PlanForShow
 import com.scolley.betterlife.databinding.FragmentTimerBinding
 import com.scolley.betterlife.ext.getVmFactory
 import com.google.android.material.tabs.TabLayout

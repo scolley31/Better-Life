@@ -1,6 +1,5 @@
 package com.scolley.betterlife.timer.team
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +8,6 @@ import com.scolley.betterlife.R
 import com.scolley.betterlife.data.*
 import com.scolley.betterlife.data.source.PlanRepository
 import com.scolley.betterlife.newwork.LoadApiStatus
-import com.scolley.betterlife.timer.item.TimerStatus
-import com.scolley.betterlife.util.Logger
 import com.scolley.betterlife.util.TimeConverters
 import com.github.mikephil.charting.data.BarEntry
 import com.google.firebase.auth.FirebaseAuth

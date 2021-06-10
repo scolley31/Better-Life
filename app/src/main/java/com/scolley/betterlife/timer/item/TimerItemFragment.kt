@@ -1,5 +1,9 @@
 package com.scolley.betterlife.timer.item
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -18,6 +22,9 @@ import com.scolley.betterlife.databinding.FragmentTimerItemBinding
 import com.scolley.betterlife.ext.getVmFactory
 import com.scolley.betterlife.util.PrefUtil
 import com.google.firebase.auth.FirebaseAuth
+import com.scolley.betterlife.timer.TimerExpiredReceiver
+import com.scolley.betterlife.util.NotificationUtil
+import java.util.*
 
 class TimerItemFragment(private val plan: Plan) : Fragment() {
 
@@ -26,6 +33,30 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
     private lateinit var timer: CountDownTimer
     lateinit var runnable: Runnable
     private var handler = Handler()
+    private var timerLengthSeconds: Long = 0
+
+    companion object {
+        fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining: Long): Long{
+            val wakeUpTime = (nowSeconds + secondsRemaining) * 1000
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(context, TimerExpiredReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, wakeUpTime, pendingIntent)
+            PrefUtil.setAlarmSetTime(nowSeconds, context)
+            return wakeUpTime
+        }
+
+        fun removeAlarm(context: Context){
+            val intent = Intent(context, TimerExpiredReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.cancel(pendingIntent)
+            PrefUtil.setAlarmSetTime(0, context)
+        }
+
+        val nowSeconds: Long
+            get() = Calendar.getInstance().timeInMillis / 1000
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -125,6 +156,70 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
         updateCountdownUI()
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        initTimer()
+        removeAlarm(requireContext())
+//        NotificationUtil.hideTimerNotification(requireContext())
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (viewModel.timeStatus.value == TimerStatus.Running){
+            timer.cancel()
+            val wakeUpTime = setAlarm(requireContext(), nowSeconds, viewModel.dailyTaskRemained.value!!.toLong())
+//            NotificationUtil.showTimerRunning(requireContext(), wakeUpTime)
+        }
+        else if (viewModel.timeStatus.value == TimerStatus.Stopped){
+//            NotificationUtil.showTimerPaused(requireContext())
+        }
+
+        PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, requireContext())
+        PrefUtil.setSecondsRemaining(viewModel.dailyTaskRemained.value!!.toLong(), requireContext())
+        PrefUtil.setTimerState(viewModel.timeStatus.value!!, requireContext())
+    }
+
+    private fun initTimer(){
+        viewModel.timeStatus.value = PrefUtil.getTimerState(requireContext())
+
+        //we don't want to change the length of the timer which is already running
+        //if the length was changed in settings while it was backgrounded
+//        if (viewModel.timeStatus.value == TimerStatus.Stopped)
+//            setNewTimerLength()
+//        else
+//            setPreviousTimerLength()
+
+        viewModel.dailyTaskRemained.value = if (viewModel.timeStatus.value == TimerStatus.Running)
+            PrefUtil.getSecondsRemaining(requireContext()).toInt()
+        else
+            timerLengthSeconds.toInt()
+
+        val alarmSetTime = PrefUtil.getAlarmSetTime(requireContext())
+        if (alarmSetTime > 0)
+            viewModel.dailyTaskRemained.value = (viewModel.dailyTaskRemained.value!! - (nowSeconds - alarmSetTime) ).toInt()
+
+        if (viewModel.dailyTaskRemained.value!! <= 0)
+            onTimerFinished()
+        else if (viewModel.timeStatus.value == TimerStatus.Running)
+            startTimer()
+
+        updateButtons()
+        updateCountdownUI()
+    }
+
+    private fun setNewTimerLength(){
+        val lengthInMinutes = PrefUtil.getTimerLength(requireContext())
+        timerLengthSeconds = (lengthInMinutes * 60L)
+        binding.TimerProgressBar.max = timerLengthSeconds.toInt()
+    }
+
+    private fun setPreviousTimerLength(){
+        timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(requireContext())
+        binding.TimerProgressBar.max = timerLengthSeconds.toInt()
     }
 
 

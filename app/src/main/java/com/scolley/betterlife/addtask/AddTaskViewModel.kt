@@ -1,13 +1,11 @@
 package com.scolley.betterlife.addtask
 
-import android.graphics.Insets.add
 import android.icu.util.Calendar
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.scolley.betterlife.PlanApplication
 import com.scolley.betterlife.R
@@ -18,13 +16,11 @@ import com.scolley.betterlife.data.User
 import com.scolley.betterlife.data.source.PlanRepository
 import com.scolley.betterlife.newwork.LoadApiStatus
 import com.scolley.betterlife.util.Logger
-import com.scolley.betterlife.util.Util.getString
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
 
 class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
 

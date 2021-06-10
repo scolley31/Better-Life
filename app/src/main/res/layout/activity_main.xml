@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.betterlife.data.CurrentFragmentType"/>
+        <import type="com.scolley.betterlife.data.CurrentFragmentType"/>
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.example.betterlife.MainViewMode" />
+            type="com.scolley.betterlife.MainViewMode" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

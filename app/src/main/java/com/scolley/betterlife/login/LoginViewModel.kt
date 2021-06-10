@@ -12,7 +12,6 @@ import com.scolley.betterlife.R
 import com.scolley.betterlife.data.Result
 import com.scolley.betterlife.data.User
 import com.scolley.betterlife.data.source.PlanRepository
-import com.scolley.betterlife.data.source.remote.PlanRemoteDataSource.createUser
 import com.scolley.betterlife.util.Util.getString
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth

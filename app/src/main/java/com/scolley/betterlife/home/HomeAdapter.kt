@@ -2,15 +2,12 @@ package com.scolley.betterlife.home
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.scolley.betterlife.data.Plan
 import com.scolley.betterlife.data.PlanStatus
 import com.scolley.betterlife.data.User
 import com.scolley.betterlife.home.item.HomeDoneFragment
 import com.scolley.betterlife.home.item.HomeItemFragment
 import com.scolley.betterlife.home.item.HomeTeamFragment
-import com.scolley.betterlife.home.item.HomeTeamViewModel
 
 class HomeAdapter(fragmentManager: FragmentManager,val user: User) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment {

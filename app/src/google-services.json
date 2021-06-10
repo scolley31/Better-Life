@@ -51,6 +51,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "460465664558-g2iu8jl9t0qmjs3npnkqnri7etrau5df.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scolley.betterlife",
+            "certificate_hash": "107545dda8ca88934d032a27a3d047da3b7e5e91"
+          }
+        },
+        {
           "client_id": "460465664558-jelj615vkvrrpnbvc98pg12c182ptpi4.apps.googleusercontent.com",
           "client_type": 3
         }

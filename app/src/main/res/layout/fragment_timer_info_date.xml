@@ -6,13 +6,13 @@
     <data>
         <import type="com.google.firebase.auth.FirebaseAuth"/>
         <import type="android.view.View"/>
-        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="com.scolley.betterlife.util.TimeConverters"/>
         <import type="java.util.Locale"/>
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
 
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.item.TimerInfoDateViewModel" />
+            type="com.scolley.betterlife.timer.item.TimerInfoDateViewModel" />
 
     </data>
 

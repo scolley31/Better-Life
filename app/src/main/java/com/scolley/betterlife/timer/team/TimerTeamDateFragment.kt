@@ -1,7 +1,6 @@
 package com.scolley.betterlife.timer.team
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.scolley.betterlife.NavigationDirections
 import com.scolley.betterlife.R
 import com.scolley.betterlife.data.PlanForShow
-import com.scolley.betterlife.databinding.FragmentTimeTeamItemBinding
-import com.scolley.betterlife.databinding.FragmentTimerTeamBinding
 import com.scolley.betterlife.databinding.FragmentTimerTeamDateBinding
 import com.scolley.betterlife.ext.getVmFactory
-import com.scolley.betterlife.timer.item.TimerStatus
-import com.scolley.betterlife.util.PrefUtil
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData

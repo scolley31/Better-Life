@@ -1,6 +1,5 @@
 package com.scolley.betterlife.timer.item
 
-import android.os.Handler
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,13 +12,11 @@ import com.scolley.betterlife.data.Result
 import com.scolley.betterlife.data.source.PlanRepository
 import com.scolley.betterlife.newwork.LoadApiStatus
 import com.scolley.betterlife.util.Logger
-import com.scolley.betterlife.util.TimeConverters
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
 class TimerItemViewModel(private val repository: PlanRepository): ViewModel() {

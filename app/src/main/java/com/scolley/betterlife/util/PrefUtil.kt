@@ -2,7 +2,6 @@ package com.scolley.betterlife.util
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.scolley.betterlife.timer.item.TimerItemFragment
 import com.scolley.betterlife.timer.item.TimerStatus
 
 class PrefUtil {

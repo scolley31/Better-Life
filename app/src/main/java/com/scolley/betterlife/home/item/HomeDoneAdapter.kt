@@ -9,7 +9,6 @@ import com.scolley.betterlife.R
 import com.scolley.betterlife.data.Category
 import com.scolley.betterlife.data.Plan
 import com.scolley.betterlife.databinding.ItemHomeDoneGridBinding
-import com.scolley.betterlife.databinding.ItemHomeGridBinding
 import kotlinx.android.synthetic.main.item_home_grid.view.*
 
 class HomeDoneAdapter(val viewModel: HomeDoneViewModel,val onClickListener: OnClickListener) :

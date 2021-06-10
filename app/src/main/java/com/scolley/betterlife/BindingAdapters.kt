@@ -3,7 +3,6 @@ package com.scolley.betterlife
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
