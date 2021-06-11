@@ -11,8 +11,15 @@ import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
+import android.os.UserManager
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavDeepLinkBuilder
+import com.google.firebase.auth.FirebaseAuth
+import com.scolley.betterlife.MainActivity
 import com.scolley.betterlife.R
+import com.scolley.betterlife.data.Plan
 import com.scolley.betterlife.timer.AppConstants
 import com.scolley.betterlife.timer.TimerNotificationActionReceiver
 import com.scolley.betterlife.timer.item.TimerItemFragment
@@ -43,12 +50,11 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
-        fun showTimerRunning(context: Context, wakeUpTime: Long){
+        fun showTimerRunning(context: Context, wakeUpTime: Long , bundle: Bundle){
             val stopIntent = Intent(context, TimerNotificationActionReceiver::class.java)
             stopIntent.action = AppConstants.ACTION_STOP
             val stopPendingIntent = PendingIntent.getBroadcast(context,
                 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
             val pauseIntent = Intent(context, TimerNotificationActionReceiver::class.java)
             pauseIntent.action = AppConstants.ACTION_PAUSE
             val pausePendingIntent = PendingIntent.getBroadcast(context,
@@ -56,12 +62,22 @@ class NotificationUtil {
 
             val df = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
 
+            val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
+            val pendingIntent = NavDeepLinkBuilder(context)
+                .setComponentName(MainActivity::class.java)
+                .setGraph(R.navigation.navigation)
+                .setDestination(R.id.timerFragment)
+                .setArguments(bundle)
+                .createPendingIntent()
+
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("Timer is Running.")
                 .setContentText("End: ${df.format(Date(wakeUpTime))}")
-                .setContentIntent(getPendingIntentWithStack(context, TimerItemFragment::class.java))
+                .setContentIntent(pendingIntent)
+//                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
                 .setOngoing(true)
-                .addAction(R.drawable._01_arm_wrestling, "Stop", stopPendingIntent)
+                .addAction(R.drawable._01_arm_wrestling, "Start", stopPendingIntent)
                 .addAction(R.drawable._01_arm_wrestling, "Pause", pausePendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -76,16 +92,24 @@ class NotificationUtil {
             val resumePendingIntent = PendingIntent.getBroadcast(context,
                 0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+            val pendingIntent = NavDeepLinkBuilder(context)
+                .setComponentName(MainActivity::class.java)
+                .setGraph(R.navigation.navigation)
+                .setDestination(R.id.timerItemFragment)
+                .createPendingIntent()
+
+
+
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle("Timer is paused.")
                 .setContentText("Resume?")
-                .setContentIntent(getPendingIntentWithStack(context, TimerItemFragment::class.java))
+                .setContentIntent(pendingIntent)
+//                .setContentIntent(getPendingIntentWithStack(context, TimerItemFragment::class.java))
                 .setOngoing(true)
                 .addAction(R.drawable._01_arm_wrestling, "Resume", resumePendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
-
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
@@ -109,7 +133,16 @@ class NotificationUtil {
             val resultIntent = Intent(context, javaClass)
             resultIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
 
+            val pendingIntent = NavDeepLinkBuilder(context)
+                .setGraph(R.navigation.navigation)
+                .setDestination(R.id.timerItemFragment)
+                .createPendingIntent()
+
+
+
             val stackBuilder = TaskStackBuilder.create(context)
+//            val shareIntent = Intent.createChooser(resultIntent, null)
+//            startActivity(context,shareIntent,null)
             stackBuilder.addParentStack(javaClass)
             stackBuilder.addNextIntent(resultIntent)
 

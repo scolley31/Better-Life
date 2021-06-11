@@ -61,6 +61,7 @@ class LoginViewModel(private val repository: PlanRepository) : ViewModel() {
     fun findUser(firebaseUser: FirebaseUser, firstLogin: Boolean) {
         coroutineScope.launch {
             val result = repository.findUser(firebaseUser.uid)
+            UserManager.userID = firebaseUser.uid
             UserManager.userName = firebaseUser.displayName
             _user.value = when (result) {
                 is Result.Success -> {

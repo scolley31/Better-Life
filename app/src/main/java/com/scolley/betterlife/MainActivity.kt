@@ -26,6 +26,8 @@ import com.scolley.betterlife.util.Logger
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.scolley.betterlife.data.Plan
+import com.scolley.betterlife.data.PlanForShow
 import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity()  {
@@ -92,6 +94,12 @@ class MainActivity : BaseActivity()  {
         setupBottomNav()
         setupNavController()
         setUpDrawer()
+
+        val planKey = intent.getParcelableExtra<Plan>("planKey")
+        val planTeam = intent.getParcelableExtra<PlanForShow>("planTeam")
+        Log.d("planKey", "planKeyInActivity = $planKey")
+        Log.d("planKey", "planTeamInActivity = $planTeam")
+
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {

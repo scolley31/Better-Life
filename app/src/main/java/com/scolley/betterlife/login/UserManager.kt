@@ -9,6 +9,8 @@ object UserManager {
     private const val USER_NAME = "user_name"
     private const val LAST_TIME_LOGIN_GOOGLE = "last_time_google"
 
+    var userID : String? = null
+
     var userName: String? = null
         get() = PlanApplication.instance
                 .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)

@@ -65,5 +65,10 @@
         android:name="com.scolley.betterlife.MainActivity"
         android:label="MainActivity"
         tools:layout="@layout/activity_main"/>
+    <fragment
+        android:id="@+id/timerItemFragment"
+        android:name="com.scolley.betterlife.timer.item.TimerItemFragment"
+        android:label="TimerItemFragment"
+        tools:layout="@layout/fragment_timer_item"/>
 
 </navigation>

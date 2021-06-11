@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -36,6 +37,7 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
     private var timerLengthSeconds: Long = 0
 
     companion object {
+
         fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining: Long): Long{
             val wakeUpTime = (nowSeconds + secondsRemaining) * 1000
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -161,21 +163,30 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
     override fun onResume() {
         super.onResume()
 
+
+
         initTimer()
         removeAlarm(requireContext())
-//        NotificationUtil.hideTimerNotification(requireContext())
+        NotificationUtil.hideTimerNotification(requireContext())
     }
 
     override fun onPause() {
         super.onPause()
 
         if (viewModel.timeStatus.value == TimerStatus.Running){
-            timer.cancel()
+            when(viewModel.selectedTypeRadio.value) {
+                R.id.radio_count_target -> timer.cancel()
+                R.id.radio_count_noLimit -> endTimming()
+            }
             val wakeUpTime = setAlarm(requireContext(), nowSeconds, viewModel.dailyTaskRemained.value!!.toLong())
-//            NotificationUtil.showTimerRunning(requireContext(), wakeUpTime)
+            val bundle = Bundle()
+            bundle.putParcelable("planKey",viewModel.timer.value)
+            bundle.putParcelable("planTeam",null)
+            Log.d("planKey","planKey = $bundle")
+            NotificationUtil.showTimerRunning(requireContext(), wakeUpTime, bundle )
         }
         else if (viewModel.timeStatus.value == TimerStatus.Stopped){
-//            NotificationUtil.showTimerPaused(requireContext())
+            NotificationUtil.showTimerPaused(requireContext())
         }
 
         PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, requireContext())
@@ -193,19 +204,28 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
 //        else
 //            setPreviousTimerLength()
 
-        viewModel.dailyTaskRemained.value = if (viewModel.timeStatus.value == TimerStatus.Running)
-            PrefUtil.getSecondsRemaining(requireContext()).toInt()
-        else
-            timerLengthSeconds.toInt()
+//        viewModel.dailyTaskRemained.value = if (viewModel.timeStatus.value == TimerStatus.Running)
+//            PrefUtil.getSecondsRemaining(requireContext()).toInt()
+//        else
+//            timerLengthSeconds.toInt()
 
         val alarmSetTime = PrefUtil.getAlarmSetTime(requireContext())
         if (alarmSetTime > 0)
-            viewModel.dailyTaskRemained.value = (viewModel.dailyTaskRemained.value!! - (nowSeconds - alarmSetTime) ).toInt()
+            when(viewModel.selectedTypeRadio.value) {
+                R.id.radio_count_target ->  viewModel.dailyTaskRemained.value = (viewModel.dailyTaskRemained.value!! - (nowSeconds - alarmSetTime) ).toInt()
+                R.id.radio_count_noLimit -> viewModel.dailyTaskRemained.value = (viewModel.dailyTaskRemained.value!! + (nowSeconds - alarmSetTime) ).toInt()
+            }
+
 
         if (viewModel.dailyTaskRemained.value!! <= 0)
-            onTimerFinished()
+            when(viewModel.selectedTypeRadio.value) {
+                R.id.radio_count_target ->  onTimerFinished()
+            }
         else if (viewModel.timeStatus.value == TimerStatus.Running)
-            startTimer()
+            when(viewModel.selectedTypeRadio.value) {
+                R.id.radio_count_target ->  startTimer()
+                R.id.radio_count_noLimit -> timeNumberGo()
+            }
 
         updateButtons()
         updateCountdownUI()
