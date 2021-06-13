@@ -1,11 +1,15 @@
 package com.scolley.betterlife.util
 
 import android.content.Context
+import android.os.Bundle
 import android.preference.PreferenceManager
+import com.scolley.betterlife.timer.item.SelectedTypeRadio
 import com.scolley.betterlife.timer.item.TimerStatus
 
 class PrefUtil {
     companion object {
+
+
 
         private const val TIMER_LENGTH_ID = "com.resocoder.timer.timer_length"
         fun getTimerLength(context: Context): Int{
@@ -39,6 +43,19 @@ class PrefUtil {
             val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
             val ordinal = state.ordinal
             editor.putInt(TIMER_STATE_ID, ordinal)
+            editor.apply()
+        }
+
+        private const val TIMER_selectedTypeRadio = "com.resocoder.timer.selectedTypeRadio"
+
+        fun getSelectedTypeRadio(context: Context): Int {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return  preferences.getInt(TIMER_selectedTypeRadio, 0)
+        }
+
+        fun setSelectedTypeRadio(state: Int, context: Context){
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putInt(TIMER_selectedTypeRadio, state)
             editor.apply()
         }
 

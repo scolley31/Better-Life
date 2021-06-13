@@ -17,7 +17,10 @@ data class Plan(
         var taskDone: Boolean = false, //whether a history task or not
         var todayDone: Boolean = false, //whether finish the task today
         var group: Boolean = false, //whether is a group
-        var dueDate: Long = 0
+        var dueDate: Long = 0,
+        var dailyRemainTime: Int = 0, // for timer notification
+        var selectedTypeRadio: Int = 0, // for time limit or time target
+        var dailyCountTime: Int = 0
 
 ): Parcelable
 
@@ -39,7 +42,9 @@ data class PlanForShow(
         var taskDone: Boolean = false, //whether a history task or not
         var todayDone: Boolean = false, //whether finish the task today
         var group: Boolean = false, //whether is a group
-        var dueDate: Long = 0
+        var dueDate: Long = 0,
+        var dailyRemainTime: Int = 0, // for timer notification
+        var selectedTypeRadio: Int = 0 // for time limit or time target
 
 ): Parcelable
 
