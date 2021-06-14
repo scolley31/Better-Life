@@ -78,6 +78,7 @@ class TimerItemFragment(private val plan: Plan) : Fragment() {
 //        } else {
 //            viewModel.dailyTaskRemained.value = plan.dailyTarget.times(60)
 //        }
+
         viewModel.dailyTaskTarget.value = plan.dailyTarget.times(60)
 
         NotificationUtil.plan = plan

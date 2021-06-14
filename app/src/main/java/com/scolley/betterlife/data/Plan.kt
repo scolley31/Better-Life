@@ -44,7 +44,8 @@ data class PlanForShow(
         var group: Boolean = false, //whether is a group
         var dueDate: Long = 0,
         var dailyRemainTime: Int = 0, // for timer notification
-        var selectedTypeRadio: Int = 0 // for time limit or time target
+        var selectedTypeRadio: Int = 0, // for time limit or time target
+        var dailyCountTime: Int = 0
 
 ): Parcelable
 

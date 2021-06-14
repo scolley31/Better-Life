@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.scolley.betterlife.MainActivity
 import com.scolley.betterlife.R
 import com.scolley.betterlife.data.Plan
+import com.scolley.betterlife.data.PlanForShow
 import com.scolley.betterlife.timer.AppConstants
 import com.scolley.betterlife.timer.TimerNotificationActionReceiver
 import com.scolley.betterlife.timer.item.TimerItemFragment
@@ -38,6 +39,7 @@ class NotificationUtil {
         private const val TIMER_ID = 0
 
         var plan = Plan()
+        var planTeam = PlanForShow()
         var selectedTypeRadio = 0
 
         fun showTimerExpired(context: Context){
@@ -48,10 +50,11 @@ class NotificationUtil {
             val bundle = Bundle()
             plan.dailyRemainTime = 1
             bundle.putParcelable("planKey", plan)
-            bundle.putParcelable("planTeam", null)
+            bundle.putParcelable("planTeam", planTeam)
 
             Log.d("bundle","bundle = $bundle")
             Log.d("bundle","plan = $plan")
+            Log.d("bundle","planTeam = $planTeam")
 
             val pendingIntent = NavDeepLinkBuilder(context)
                     .setComponentName(MainActivity::class.java)
@@ -61,7 +64,13 @@ class NotificationUtil {
                     .createPendingIntent()
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("${plan.name}" +" 完成了")
+            nBuilder.setContentTitle(
+                    if (plan != null) {
+                            "${plan.name}" +" 完成了"
+                        } else {
+                            "${planTeam.name}" +" 完成了"
+                        }
+            )
                 .setContentText("快去送出紀錄吧")
                 .setContentIntent(pendingIntent)
 //                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
@@ -93,7 +102,13 @@ class NotificationUtil {
                 .createPendingIntent()
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("${bundle.getParcelable<Plan>("planKey")?.name.toString()}" + " 記時中")
+            nBuilder.setContentTitle(
+                    if (bundle.getParcelable<Plan>("planKey") != null) {
+                        "${bundle.getParcelable<Plan>("planKey")?.name.toString()}" + " 記時中"
+                    } else {
+                        "${bundle.getParcelable<PlanForShow>("planTeam")?.name.toString()}" + " 記時中"
+                    }
+            )
                 .setContentText("截止時間: ${df.format(Date(wakeUpTime))}")
                 .setContentIntent(pendingIntent)
 //                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
@@ -117,7 +132,13 @@ class NotificationUtil {
                     .createPendingIntent()
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("${bundle.getParcelable<Plan>("planKey")?.name.toString()}" + " 記時中")
+            nBuilder.setContentTitle(
+                    if (bundle.getParcelable<Plan>("planKey") != null) {
+                        "${bundle.getParcelable<Plan>("planKey")?.name.toString()}" + " 記時中"
+                    } else {
+                        "${bundle.getParcelable<PlanForShow>("planTeam")?.name.toString()}" + " 記時中"
+                    }
+                    )
                     .setContentText("無截止時間")
                     .setContentIntent(pendingIntent)
 //                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
@@ -146,7 +167,13 @@ class NotificationUtil {
                     .createPendingIntent()
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("${bundle.getParcelable<Plan>("planKey")?.name.toString()}"+" 時間暫停")
+            nBuilder.setContentTitle(
+                    if (bundle.getParcelable<Plan>("planKey") != null) {
+                        "${bundle.getParcelable<Plan>("planKey")?.name.toString()}"+" 時間暫停"
+                    } else {
+                        "${bundle.getParcelable<Plan>("planTeam")?.name.toString()}"+" 時間暫停"
+                    }
+                    )
                 .setContentText("要繼續嗎?")
                 .setContentIntent(pendingIntent)
 //                .setContentIntent(getPendingIntentWithStack(context, TimerItemFragment::class.java))
