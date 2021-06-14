@@ -29,4 +29,10 @@ object TimeConverters {
         return simpleDateFormat.format(Date(date))
     }
 
+    @JvmStatic
+    fun timestampToDateNoYear( date:Long , locale: Locale) : String {
+        val simpleDateFormat = SimpleDateFormat("MM-dd",locale )
+        return simpleDateFormat.format(Date(date))
+    }
+
 }

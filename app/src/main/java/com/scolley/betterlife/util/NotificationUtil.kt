@@ -171,7 +171,7 @@ class NotificationUtil {
                     if (bundle.getParcelable<Plan>("planKey") != null) {
                         "${bundle.getParcelable<Plan>("planKey")?.name.toString()}"+" 時間暫停"
                     } else {
-                        "${bundle.getParcelable<Plan>("planTeam")?.name.toString()}"+" 時間暫停"
+                        "${bundle.getParcelable<PlanForShow>("planTeam")?.name.toString()}"+" 時間暫停"
                     }
                     )
                 .setContentText("要繼續嗎?")

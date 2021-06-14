@@ -235,11 +235,11 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
             for ( i in completedTest.value!!.indices) {
 
                 xTitle.add(completedTest.value!![i].date.let {
-                    TimeConverters.timestampToDate(it, Locale.TAIWAN)
+                    TimeConverters.timestampToDateNoYear(it, Locale.TAIWAN)
                 })
 
                 label.add(completedTest.value!![i].date.let {
-                    TimeConverters.timestampToDate(it, Locale.TAIWAN)
+                    TimeConverters.timestampToDateNoYear(it, Locale.TAIWAN)
                 })
 
 
