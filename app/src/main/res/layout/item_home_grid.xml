@@ -90,15 +90,18 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@{plan.todayDone == false ? @drawable/border_circle_text_red : @drawable/border_circle_text_green}"
+                android:background="@{plan.todayDone == false ? @drawable/bg_chip_text_no_done : @drawable/bg_chip_text_done}"
                 android:hint="未執行"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="@{plan.todayDone == false ? @string/text_todayNotDone : @string/text_todayDone}"
                 android:textAlignment="textEnd"
-                android:textColor="@{plan.todayDone == false ? @color/red_d0021b : @color/green}"
+                android:textColor="@{plan.todayDone == false ? @color/red_E71D36 : @color/green_0A9396}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+<!--                android:textColor="@{plan.todayDone == false ? @color/red_d0021b : @color/green}"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <ImageView
                 android:id="@+id/image_icon_task"

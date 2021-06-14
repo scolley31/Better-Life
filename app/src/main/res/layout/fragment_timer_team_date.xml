@@ -74,7 +74,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/text_timer_title"
@@ -463,6 +463,7 @@
                     android:id="@+id/Constraint_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white_f5f6f8"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -540,7 +541,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[0].userName}"
@@ -625,7 +625,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[1].userName}"
@@ -710,7 +709,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[2].userName}"
@@ -796,7 +794,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[3].userName}"
@@ -882,7 +879,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[4].userName}"
