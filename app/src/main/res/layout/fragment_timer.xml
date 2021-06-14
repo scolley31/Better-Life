@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.TimerViewModel" />
+            type="com.scolley.betterlife.timer.TimerViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -49,6 +49,8 @@
     <string name="login_success">登入成功</string>
     <string name="login_name_unknown">無名氏</string>
 
+    <string name="text_NoUser">無此使用者</string>
+
     <string-array name="category_array">
         <item>學習</item>
         <item>運動</item>

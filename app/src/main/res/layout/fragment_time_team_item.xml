@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.team.TimerTeamItemViewModel" />
+            type="com.scolley.betterlife.timer.team.TimerTeamItemViewModel" />
         <variable
             name="TimeStatus"
-            type="com.example.betterlife.timer.item.TimerStatus" />
+            type="com.scolley.betterlife.timer.item.TimerStatus" />
 
         <import type="android.view.View" />
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
 
     </data>
 

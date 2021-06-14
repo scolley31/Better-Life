@@ -5,11 +5,11 @@
 
     <data>
         <import type="android.view.View" />
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
 
         <variable
             name="viewModel"
-            type="com.example.betterlife.home.HomeViewModel" />
+            type="com.scolley.betterlife.home.HomeViewModel" />
 
     </data>
 
@@ -111,7 +111,7 @@
                         android:gravity="center"
                         android:hint="5件未執行"
                         android:text='@{String.valueOf(viewModel.plans.size-viewModel.taskDoneNumber)+" 件未執行"}'
-                        android:textColor="@color/red_d0021b"
+                        android:textColor="@color/red_E71D36"
                         android:textSize="16dp"
                         app:layout_constraintBottom_toBottomOf="@+id/button_onGoingIcon"
                         app:layout_constraintStart_toEndOf="@+id/button_onGoingIcon"
@@ -133,7 +133,7 @@
                         android:gravity="center"
                         android:hint="5件已執行"
                         android:text='@{String.valueOf(viewModel.taskDoneNumber)+" 件已執行"}'
-                        android:textColor="@color/green"
+                        android:textColor="@color/green_0A9396"
                         android:textSize="16dp"
                         app:layout_constraintBottom_toBottomOf="@+id/button_CompletedIcon"
                         app:layout_constraintStart_toStartOf="@+id/text_dailytask_ongoing"

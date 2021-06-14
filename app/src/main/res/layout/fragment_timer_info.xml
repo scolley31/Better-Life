@@ -6,10 +6,10 @@
     <data>
         <import type="com.google.firebase.auth.FirebaseAuth"/>
         <import type="android.view.View"/>
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.item.TimerInfoViewModel" />
+            type="com.scolley.betterlife.timer.item.TimerInfoViewModel" />
 
     </data>
 
@@ -65,13 +65,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white_f5f6f8"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/text_timer_title"
@@ -303,6 +304,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:background="@color/white_f5f6f8"
                     app:layout_constraintTop_toBottomOf="@+id/Constraint_info"
                     tools:visibility="visible">
 
@@ -327,10 +329,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            android:visibility="@{viewModel.rank[0] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/imageView">
-
 
                             <TextView
                                 android:id="@+id/badge_rank_1"
@@ -376,10 +378,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[0].userName}"
+                                android:textAlignment="gravity"
                                 android:textColor="@{viewModel.rank[0].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toTopOf="@+id/rank_1_accumulated"
@@ -411,6 +413,7 @@
                             android:id="@+id/profile_rank_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="@{viewModel.rank[1] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/profile_rank_1">
@@ -460,10 +463,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[1].userName}"
+                                android:textAlignment="gravity"
                                 android:textColor="@{viewModel.rank[1].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toTopOf="@+id/rank_2_accumulated"
@@ -495,6 +498,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
+                            android:visibility="@{viewModel.rank[2] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/profile_rank_2">
@@ -544,10 +548,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[2].userName}"
+                                android:textAlignment="gravity"
                                 android:textColor="@{viewModel.rank[2].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toTopOf="@+id/rank_3_accumulated"
@@ -580,6 +584,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
+                            android:visibility="@{viewModel.rank[3] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/profile_rank_3">
@@ -629,10 +634,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[3].userName}"
+                                android:textAlignment="gravity"
                                 android:textColor="@{viewModel.rank[3].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toTopOf="@+id/rank_4_accumulated"
@@ -664,6 +669,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
+                            android:visibility="@{viewModel.rank[4] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -714,10 +720,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[4].userName}"
+                                android:textAlignment="gravity"
                                 android:textColor="@{viewModel.rank[4].userName == FirebaseAuth.getInstance().currentUser.uid ? @color/red_heart_c73e3a : @color/black}"
                                 android:textSize="16sp"
                                 app:layout_constraintBottom_toTopOf="@+id/rank_5_accumulated"

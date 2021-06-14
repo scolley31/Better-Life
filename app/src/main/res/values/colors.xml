@@ -19,6 +19,14 @@
     <color name="black_3f3a3a">#3f3a3a</color>
     <color name="light_black">#1F1F1F</color>
 
+    <!-- chip Series -->
+    <color name="rich_black">#0A111F</color>
+    <color name="oxford_blue">#14213D</color>
+    <color name="orange_web">#FCA311</color>
+    <color name="platinum">#E5E5E5</color>
++
+
+
 
     <!-- Gray Series -->
     <color name="gray_646464">#646464</color>
@@ -33,19 +41,29 @@
     <color name="red_d0021b">#d0021b</color>
     <color name="red_heart_c73e3a">#c73e3a</color>
     <color name="light_red_home">#FFDBE7</color>
+    <color name="red_9B2226">#9B2226</color>
+    <color name="red_E71D36">#E71D36</color>
     <color name="red_progressbar">#FF8A80</color>
+    <color name="light_red">#68F450</color>
 
+    FF68F450
     <!-- Green Series -->
     <color name="green">#31BB27</color>
+    <color name="green_0A9396">#0A9396</color>
     <color name="light_green_home">#D8FCE2</color>
     <color name="green_progressbar">#B9F6CA</color>
-
+    <color name="green_theme">#f9ffed</color>
+    <color name="green_theme_dark">#696758</color>
+    <color name="green_theme_middle">#B4DBBB</color>
+    <color name="green_theme_middle_dark">#B1C3B8</color>
     <!-- Orange Series -->
     <color name="orange_8b572a">#8b572a</color>
 
     <!-- Blue Series -->
     <color name="dark_blue">#3b5998</color>
     <color name="light_blue">#82B1FF</color>
+    <color name="Tiffany_blue">#2EC4B6</color>
+    <color name="blue_005F73">#005F73</color>
     <color name="light_blue_home">#E7EAED</color>
     <color name="light2_blue_home">#F6F9FF</color>
 

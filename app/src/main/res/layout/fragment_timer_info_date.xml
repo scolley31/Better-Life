@@ -6,13 +6,13 @@
     <data>
         <import type="com.google.firebase.auth.FirebaseAuth"/>
         <import type="android.view.View"/>
-        <import type="com.example.betterlife.util.TimeConverters"/>
+        <import type="com.scolley.betterlife.util.TimeConverters"/>
         <import type="java.util.Locale"/>
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
 
         <variable
             name="viewModel"
-            type="com.example.betterlife.timer.item.TimerInfoDateViewModel" />
+            type="com.scolley.betterlife.timer.item.TimerInfoDateViewModel" />
 
     </data>
 
@@ -74,7 +74,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <TextView
                         android:id="@+id/text_timer_title"
@@ -307,6 +307,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@color/white_f5f6f8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Constraint_info"
@@ -333,6 +334,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            android:visibility="@{viewModel.rank[0] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/imageView">
@@ -382,7 +384,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[0].userName}"
@@ -417,6 +418,7 @@
                             android:id="@+id/profile_rank_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="@{viewModel.rank[1] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/profile_rank_1">
@@ -466,7 +468,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[1].userName}"
@@ -501,6 +502,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
+                            android:visibility="@{viewModel.rank[2] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/profile_rank_2">
@@ -550,7 +552,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[2].userName}"
@@ -586,6 +587,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
+                            android:visibility="@{viewModel.rank[3] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/profile_rank_3">
@@ -635,7 +637,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[3].userName}"
@@ -670,6 +671,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
+                            android:visibility="@{viewModel.rank[4] == null ? View.INVISIBLE : View.VISIBLE}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -720,7 +722,6 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
                                 android:fontFamily="@font/noto_sans"
                                 android:letterSpacing="0.15"
                                 android:text="@{viewModel.rank[4].userName}"

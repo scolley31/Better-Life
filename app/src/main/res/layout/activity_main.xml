@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.betterlife.data.CurrentFragmentType"/>
+        <import type="com.scolley.betterlife.data.CurrentFragmentType"/>
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.example.betterlife.MainViewMode" />
+            type="com.scolley.betterlife.MainViewMode" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -82,6 +82,15 @@
             app:menu="@menu/bottom_nav_menu">
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+<!--        <Button-->
+<!--            android:id="@+id/button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Button"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/toolbar" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

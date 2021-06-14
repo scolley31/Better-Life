@@ -5,10 +5,10 @@
 
     <data>
         <import type="android.view.View" />
-        <import type="com.example.betterlife.newwork.LoadApiStatus" />
+        <import type="com.scolley.betterlife.newwork.LoadApiStatus" />
         <variable
             name="viewModel"
-            type="com.example.betterlife.home.item.HomeDoneViewModel" />
+            type="com.scolley.betterlife.home.item.HomeDoneViewModel" />
 
     </data>
 
