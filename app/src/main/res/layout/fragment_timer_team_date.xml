@@ -74,7 +74,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <TextView
                         android:id="@+id/text_timer_title"
@@ -175,7 +175,7 @@
                                 android:elevation="1dp"
                                 android:gravity="center"
                                 android:hint="50%"
-                                android:text='@{String.valueOf(((viewModel.info.progressTimeOwn*100)/viewModel.info.target))+" %"}'
+                                android:text='@{String.valueOf(((viewModel.info.progressTimeOwn*100)/safeUnbox(viewModel.info.target)))+" %"}'
                                 android:textColor="@color/white"
                                 android:textSize="12sp"
                                 app:layout_constraintBottom_toBottomOf="@+id/progressBar"

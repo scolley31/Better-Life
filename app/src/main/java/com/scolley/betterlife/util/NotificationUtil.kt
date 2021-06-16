@@ -19,7 +19,6 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavDeepLinkBuilder
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.google.api.ResourceProto.resource
 import com.google.firebase.auth.FirebaseAuth
 import com.scolley.betterlife.MainActivity
