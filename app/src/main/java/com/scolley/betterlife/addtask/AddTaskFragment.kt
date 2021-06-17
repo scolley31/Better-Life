@@ -23,17 +23,14 @@ import java.text.SimpleDateFormat
 
 class AddTaskFragment : AppCompatDialogFragment() {
 
-    lateinit var binding:DialogAddtaskBinding
-
-    lateinit var adapter:ArrayAdapter<String>
-
+    lateinit var binding: DialogAddtaskBinding
+    lateinit var adapter: ArrayAdapter<String>
     private val viewModel by viewModels<AddTaskViewModel> { getVmFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.LoginDialog)
     }
-
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -45,40 +42,33 @@ class AddTaskFragment : AppCompatDialogFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-//        val colors = arrayOf(
-//                "Red","Green","Blue","Maroon","Magenta",
-//                "Gold","GreenYellow"
-//        )
-
-        viewModel.userName.observe (viewLifecycleOwner, Observer {
+        viewModel.userName.observe(viewLifecycleOwner, Observer {
             Log.i("test", "userName = ${viewModel.userName.value}")
             it?.let {
-                // Initialize a new array adapter object
+
                 adapter = ArrayAdapter<String>(
                         requireContext(), // Context
-                        android.R.layout.simple_dropdown_item_1line, // Layout
-                        viewModel.userName.value as MutableList<String> // Array
+                        android.R.layout.simple_dropdown_item_1line,
+                        viewModel.userName.value as MutableList<String>
                 )
                 binding.autoCompleteTextView.setAdapter(adapter)
             }
         }
         )
 
-        binding.autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener{
-            parent,view,position,id->
+        binding.autoCompleteTextView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             val selectedItem = parent.getItemAtPosition(position).toString()
             // Display the clicked item using toast
-            Toast.makeText(requireContext(),"Selected : $selectedItem",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Selected : $selectedItem", Toast.LENGTH_SHORT).show()
         }
 
         binding.autoCompleteTextView.setOnDismissListener {
-            Toast.makeText(requireContext(),"Suggestion closed.",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Suggestion closed.", Toast.LENGTH_SHORT).show()
         }
 
         // Set a focus change listener for auto complete text view
-        binding.autoCompleteTextView.onFocusChangeListener = View.OnFocusChangeListener{
-            view, b ->
-            if(b){
+        binding.autoCompleteTextView.onFocusChangeListener = View.OnFocusChangeListener { view, b ->
+            if (b) {
                 // Display the suggestion dropdown on focus
                 binding.autoCompleteTextView.showDropDown()
             }
@@ -107,10 +97,12 @@ class AddTaskFragment : AppCompatDialogFragment() {
             spinner.adapter = adapter
         }
 
-        binding.spinnerGoalCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.spinnerGoalCategory.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
+
             override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
@@ -126,7 +118,7 @@ class AddTaskFragment : AppCompatDialogFragment() {
             }
         }
 
-        viewModel.selectedTypeRadio.observe (viewLifecycleOwner, Observer {
+        viewModel.selectedTypeRadio.observe(viewLifecycleOwner, Observer {
             Log.i("test", "selectedTypeRadio = ${viewModel.selectedTypeRadio.value}")
             it?.let {
                 when (viewModel.selectedTypeRadio.value) {
@@ -147,7 +139,7 @@ class AddTaskFragment : AppCompatDialogFragment() {
         )
 
         viewModel.navigateToHome.observe(viewLifecycleOwner, Observer {
-            Log.i("test","navigateToHome = ${viewModel.navigateToHome.value}")
+            Log.i("test", "navigateToHome = ${viewModel.navigateToHome.value}")
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
                         FirebaseAuth.getInstance().currentUser!!.uid
@@ -157,42 +149,45 @@ class AddTaskFragment : AppCompatDialogFragment() {
         )
 
         viewModel.dueDate.observe(viewLifecycleOwner, Observer {
-            Log.i("test","dueDate = ${viewModel.dueDate.value}")
+            Log.i("test", "dueDate = ${viewModel.dueDate.value}")
         }
         )
 
         viewModel.name.observe(viewLifecycleOwner, Observer {
-            Log.i("test","name = ${viewModel.name.value}")
+            Log.i("test", "name = ${viewModel.name.value}")
         }
         )
 
         viewModel.category.observe(viewLifecycleOwner, Observer {
-            Log.i("test","category = ${viewModel.category.value}")
+            Log.i("test", "category = ${viewModel.category.value}")
         }
         )
 
         viewModel.target.observe(viewLifecycleOwner, Observer {
-            Log.i("test","target = ${viewModel.target.value}")
+            Log.i("test", "target = ${viewModel.target.value}")
         }
         )
 
         viewModel.dailyTarget.observe(viewLifecycleOwner, Observer {
-            Log.i("test","dailyTarget = ${viewModel.dailyTarget.value}")
+            Log.i("test", "dailyTarget = ${viewModel.dailyTarget.value}")
         }
         )
 
         viewModel.partner.observe(viewLifecycleOwner, Observer {
-            Log.i("test","partner = ${viewModel.partner.value}")
+            Log.i("test", "partner = ${viewModel.partner.value}")
         }
         )
 
         viewModel.isGroup.observe(viewLifecycleOwner, Observer {
-            Log.i("test","isGroup = ${viewModel.isGroup.value}")
+            Log.i("test", "isGroup = ${viewModel.isGroup.value}")
         }
         )
 
         viewModel.users.observe(viewLifecycleOwner, Observer {
-            Log.i("test","users = ${viewModel.users.value}")
+            Log.i("test", "users = ${viewModel.users.value}")
+            it?.let {
+                viewModel.convertUserDataToArray()
+            }
         }
         )
 

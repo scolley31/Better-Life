@@ -49,32 +49,6 @@ data class PlanForShow(
 
 ): Parcelable
 
-@Parcelize
-data class Groups(
 
-        var id: String = "",
-        var membersID: List<String> = listOf()
-
-): Parcelable
-
-@Parcelize
-data class Completed(
-
-        var id: String = "",
-        var user_id: String = "",
-        var completed: Boolean = false,
-        var daily: Int = 0, //sec
-        var date: Long = -1
-
-) : Parcelable
-
-@Parcelize
-data class Rank(
-        var user_id: String = "",
-        var userName: String = "",
-        var totalTime: Int = 0,
-        var targetRate: Int = 0,
-        var userImage: String = ""
-) : Parcelable
 
 

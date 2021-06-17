@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
+class AddTaskViewModel(private val repository: PlanRepository) : ViewModel() {
 
     val name = MutableLiveData<String?>()
 
@@ -46,11 +46,6 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
 
     val users: LiveData<List<User?>>
         get() = _users
-
-    private val _usersIsEmpty = MutableLiveData<List<Boolean>>()
-
-    val usersIsEmpty: LiveData<List<Boolean>>
-        get() = _usersIsEmpty
 
     var userName = MutableLiveData<List<String>>()
 
@@ -90,6 +85,7 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
+        partner.value = ""
         name.value = ""
         dailyTarget.value = 0
         target.value = 1
@@ -98,15 +94,14 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         selectedTypeRadio.value = 0
 
         findAllUser()
-
     }
 
-    fun navigateToHome () {
+    fun navigateToHome() {
         _navigateToHome.value = true
     }
 
-    fun navigateToHomeAfterSend (needRefresh: Boolean = false) {
-        _navigateToHome.value = needRefresh
+    private fun navigateToHomeAfterSend() {
+        _navigateToHome.value = true
     }
 
 
@@ -115,11 +110,11 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         return try {
             value.toLong()
                     .let {
-                when (it) {
-                    0L -> 1
-                    else -> it
-                }
-            }
+                        when (it) {
+                            0L -> 1
+                            else -> it
+                        }
+                    }
         } catch (e: NumberFormatException) {
             1
         }
@@ -129,12 +124,11 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
         return value.toString()
     }
 
-    fun findAllUser(){
+    private fun findAllUser() {
 
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
             val result = repository.findAllUser()
-            Log.d("test","findAllUser = $result")
 
             _users.value = when (result) {
                 is Result.Success -> {
@@ -156,64 +150,64 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
                     _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
-//                }
                 }
             }
-            userToArray()
             _refreshStatus.value = false
         }
 
     }
 
-    fun userToArray(){
-        var listName = mutableListOf<String>()
-        var listID = mutableListOf<String>()
-        for (i in users.value!!.indices){
-            if (users.value!![i]!!.userId != FirebaseAuth.getInstance().currentUser!!.uid) {
-                listName.run {
-                    add(users.value!![i]!!.userName)
-                }
-                listID.run {
-                    add(users.value!![i]!!.userId)
+    fun convertUserDataToArray() {
+
+        val listName = mutableListOf<String>()
+        val listID = mutableListOf<String>()
+        users.value?.let {
+            it.indices.let { indices ->
+                for (i in indices) {
+                    if (it[i]!!.userId != FirebaseAuth.getInstance().currentUser!!.uid) {
+                        listName.run {
+                            add(it[i]!!.userName)
+                        }
+                        listID.run {
+                            add(it[i]!!.userId)
+                        }
+                    }
                 }
             }
         }
         userName.value = listName
-        Log.d("test","listName = $listName")
         userID.value = listID
-        Log.d("test","listID = $listID")
     }
 
-    fun userExist(){
+
+    fun isUserExist() {
 
         coroutineScope.launch {
-            if (isGroup.value!!) {
 
-                var userIsEmpty: Boolean
-                userIsEmpty = when (val result = repository.findUserByName(partner.value!!)) {
+            if (isGroup.value == true) {
+                val userIsEmpty: Boolean = when (val result = repository.findUserByName(partner.value!!)) {
                     is Result.Success -> {
                         _error.value = null
                         _status.value = LoadApiStatus.DONE
                         result.data
-
                     }
                     is Result.Fail -> {
                         _error.value = result.error
                         _status.value = LoadApiStatus.ERROR
-                        null == true
+                        false
                     }
                     is Result.Error -> {
                         _error.value = result.exception.toString()
                         _status.value = LoadApiStatus.ERROR
-                        null == true
+                        false
                     }
                     else -> {
                         _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
                         _status.value = LoadApiStatus.ERROR
-                        null == true
+                        false
                     }
                 }
-                Log.d("userIsEmpty", "userIsEmpty = $userIsEmpty")
+
                 if (userIsEmpty) {
                     Toast.makeText(
                             PlanApplication.appContext,
@@ -223,33 +217,65 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
                 } else {
                     addTask()
                 }
-            }else{
+            } else {
                 addTask()
             }
+        }
+
+    }
+
+    private fun setNewGroup(partnerID: String, taskID: String) {
+
+        coroutineScope.launch {
+
+            if (isGroup.value == true) {
+                val newGroup = Groups(
+                        membersID = listOf(FirebaseAuth.getInstance().currentUser!!.uid, partnerID)
+                )
+                when (val result = repository.addGroup(newGroup, taskID)) {
+                    is Result.Success -> {
+                        _error.value = null
+                        _status.value = LoadApiStatus.DONE
+                    }
+                    is Result.Fail -> {
+                        _error.value = result.error
+                        _status.value = LoadApiStatus.ERROR
+                    }
+                    is Result.Error -> {
+                        _error.value = result.exception.toString()
+                        _status.value = LoadApiStatus.ERROR
+                    }
+                    else -> {
+                        _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                        _status.value = LoadApiStatus.ERROR
+                    }
+                }
+            }
+
         }
     }
 
 
-    fun addTask(){
+    private fun addTask() {
 
         coroutineScope.launch {
 
             var partnerID: String = ""
+
             if (isGroup.value == true) {
                 for (i in users.value!!.indices) {
-                    if (users.value!![i]!!.userName == partner.value){
+                    if (users.value!![i]!!.userName == partner.value) {
                         partnerID = users.value!![i]!!.userId
                         break
                     }
                 }
             }
-            Log.d("test","partnerID =$partnerID")
 
             val newTask = Plan(
-                    members = if(isGroup.value == false){
+                    members = if (isGroup.value == false) {
                         listOf(FirebaseAuth.getInstance().currentUser!!.uid)
                     } else {
-                        listOf(FirebaseAuth.getInstance().currentUser!!.uid, partnerID )
+                        listOf(FirebaseAuth.getInstance().currentUser!!.uid, partnerID)
                     },
                     name = name.value!!,
                     dailyTarget = dailyTarget.value!!,
@@ -257,10 +283,9 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
                     target = target.value!!.toInt(),
                     dueDate = dueDate.value!!,
                     group = isGroup.value!!
-                )
-            var taskID : String
+            )
 
-            taskID = when (val result = repository.addTask(newTask)) {
+            var taskID: String = when (val result = repository.addTask(newTask)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -283,30 +308,10 @@ class AddTaskViewModel(private val repository: PlanRepository): ViewModel() {
                 }
             }
 
-            if (isGroup.value == true) {
-                val newGroup = Groups(
-                    membersID = listOf(FirebaseAuth.getInstance().currentUser!!.uid, partnerID)
-                )
-            when (val result = repository.addGroup(newGroup,taskID)) {
-                is Result.Success -> {
-                    _error.value = null
-                    _status.value = LoadApiStatus.DONE
-                }
-                is Result.Fail -> {
-                    _error.value = result.error
-                    _status.value = LoadApiStatus.ERROR
-                }
-                is Result.Error -> {
-                    _error.value = result.exception.toString()
-                    _status.value = LoadApiStatus.ERROR
-                }
-                else -> {
-                    _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
-                    _status.value = LoadApiStatus.ERROR
-                }
-            }
-            }
-            navigateToHomeAfterSend(true)
+            setNewGroup(partnerID, taskID)
+
+            navigateToHomeAfterSend()
+
         }
     }
 
