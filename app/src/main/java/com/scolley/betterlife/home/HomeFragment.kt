@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
         )
 
         viewModel.navigateToAddTask.observe(viewLifecycleOwner, Observer {
-            Log.i("test","navigateToAddTask = ${viewModel.navigateToAddTask.value}")
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalAddTaskFragment())
             }
@@ -47,7 +46,6 @@ class HomeFragment : Fragment() {
 
         viewModel.user.observe(viewLifecycleOwner, Observer {
             it?.let{
-//                Log.d("user","user = ${viewModel.user.value}")
                 binding.viewpagerHome.adapter = HomeAdapter(childFragmentManager, viewModel.user.value!!)
                 binding.tabsHome.setupWithViewPager(binding.viewpagerHome)
             }

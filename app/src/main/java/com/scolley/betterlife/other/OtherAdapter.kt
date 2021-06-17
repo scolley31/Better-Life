@@ -12,7 +12,7 @@ import com.scolley.betterlife.databinding.ItemOtherGridBinding
 import kotlinx.android.synthetic.main.item_home_grid.view.*
 import kotlinx.android.synthetic.main.item_other_grid.view.*
 
-class OtherAdapter(val viewModel: OtherViewModel, val onClickListener: OnClickListener) :
+class OtherAdapter(val viewModel: OtherViewModel, private val onClickListener: OnClickListener) :
         ListAdapter<Plan, OtherAdapter.OtherPlanViewHolder>(DiffCallback) {
 
     class OtherPlanViewHolder(private var binding: ItemOtherGridBinding)
@@ -39,12 +39,6 @@ class OtherAdapter(val viewModel: OtherViewModel, val onClickListener: OnClickLi
         return OtherPlanViewHolder(ItemOtherGridBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-
-    /**
-     * Custom listener that handles clicks on [RecyclerView] items.  Passes the [Product]
-     * associated with the current item to the [onClick] function.
-     * @param clickListener lambda that will be called with the current [Product]
-     */
     override fun onBindViewHolder(holder: OtherPlanViewHolder, position: Int) {
         val plan = getItem(position)
         holder.bind(getItem(position), viewModel)
@@ -56,18 +50,18 @@ class OtherAdapter(val viewModel: OtherViewModel, val onClickListener: OnClickLi
         }
 
         holder.itemView.image_other_category.setImageResource(
-            when(plan.category){
-                Category.STUDY.category -> R.drawable._28_learning
-                Category.EXERCISE.category -> R.drawable._10_training
-                Category.HABIT.category -> R.drawable._33_skill
-                Category.OTHER.category -> R.drawable._22_puzzle
-                else ->  R.drawable._28_learning
-            }
+                when (plan.category) {
+                    Category.STUDY.category -> R.drawable._28_learning
+                    Category.EXERCISE.category -> R.drawable._10_training
+                    Category.HABIT.category -> R.drawable._33_skill
+                    Category.OTHER.category -> R.drawable._22_puzzle
+                    else -> R.drawable._28_learning
+                }
         )
 
     }
 
-    class OnClickListener(val clickListener: (plan : Plan) -> Unit) {
-        fun onClick(plan : Plan) = clickListener(plan)
+    class OnClickListener(val clickListener: (plan: Plan) -> Unit) {
+        fun onClick(plan: Plan) = clickListener(plan)
     }
 }

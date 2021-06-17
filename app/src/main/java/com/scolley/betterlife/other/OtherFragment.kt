@@ -12,37 +12,34 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.scolley.betterlife.databinding.FragmentOtherBinding
 import com.scolley.betterlife.ext.getVmFactory
 
-class OtherFragment: Fragment() {
+class OtherFragment : Fragment() {
 
     private val viewModel by viewModels<OtherViewModel> { getVmFactory() }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentOtherBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
-        binding.RecyclerOther.layoutManager = GridLayoutManager(context,2)
-//        binding.RecyclerOther.addItemDecoration(DividerItemDecoration(context, GridLayoutManager.VERTICAL))
-        binding.RecyclerOther.adapter = OtherAdapter(viewModel, OtherAdapter.OnClickListener{
-            Log.d("test","otherPlan = $it")
+        binding.RecyclerOther.layoutManager = GridLayoutManager(context, 2)
+        binding.RecyclerOther.adapter = OtherAdapter(viewModel, OtherAdapter.OnClickListener {
+            Log.d("test", "otherPlan = $it")
         })
 
         viewModel.otherPlan.observe(viewLifecycleOwner, Observer {
-            Log.i("test","otherPlan = ${viewModel.otherPlan.value}")
-
+            Log.i("test", "otherPlan = ${viewModel.otherPlan.value}")
         }
         )
 
         viewModel.category.observe(viewLifecycleOwner, Observer {
-            Log.i("test","category = ${viewModel.category.value}")
+            Log.i("test", "category = ${viewModel.category.value}")
             it?.let {
                 viewModel.getOtherSelectedPlanResult(it)
             }
-
         }
         )
 

@@ -20,7 +20,7 @@ import java.util.*
 
 class HomeViewModel(private val repository: PlanRepository, private val arguments: String):ViewModel() {
 
-    val ONE_DAY_MILLI_SECOND : Int = 86400 * 1000
+    private val ONE_DAY_MILLI_SECOND : Int = 86400 * 1000
 
     private val _plans = MutableLiveData<List<Plan>>()
 
@@ -57,11 +57,11 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
     val navigateToAddTask: MutableLiveData<Boolean>
         get() = _navigateToAddTask
 
-    val ownPlanCompleted = MutableLiveData<List<Completed>>()
+    private val ownPlanCompleted = MutableLiveData<List<Completed>>()
 
-    val partnerPlanCompleted = MutableLiveData<List<Completed>>()
+    private val partnerPlanCompleted = MutableLiveData<List<Completed>>()
 
-    val singlePlanCompleted = MutableLiveData<List<Completed>?>()
+    private val singlePlanCompleted = MutableLiveData<List<Completed>?>()
 
     val taskDoneNumber = MutableLiveData<Int>()
 

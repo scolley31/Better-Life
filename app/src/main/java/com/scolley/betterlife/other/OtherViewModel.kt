@@ -18,9 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
-
-
+class OtherViewModel(private val repository: PlanRepository) : ViewModel() {
 
     private val _otherPlan = repository.getLiveOtherPlanResult()
 
@@ -67,13 +65,11 @@ class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
         getOtherPlanResult()
     }
 
-
-    fun categoryTask (selected: Category) {
+    fun categoryTask(selected: Category) {
         _category.value = selected
     }
 
-
-    fun getOtherSelectedPlanResult (category: Category) {
+    fun getOtherSelectedPlanResult(category: Category) {
 
         coroutineScope.launch {
 
@@ -86,7 +82,6 @@ class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
                 _status.value = LoadApiStatus.LOADING
 
                 val result = repository.getOtherSelectedPlanResult(category.category)
-                Log.d("test", "result = $result")
                 _otherPlan.value = when (result) {
                     is Result.Success -> {
                         _error.value = null
@@ -115,20 +110,16 @@ class OtherViewModel(private val repository: PlanRepository) : ViewModel()  {
         }
     }
 
-
     fun addToOtherTask(plan: Plan) {
 
         coroutineScope.launch {
-
-                val result = repository.addToOtherTask(FirebaseAuth.getInstance().currentUser!!.uid,plan.id)
-                _otherPlan.value = _otherPlan.value
-
+            val result = repository.addToOtherTask(FirebaseAuth.getInstance().currentUser!!.uid, plan.id)
+            _otherPlan.value = _otherPlan.value
         }
 
     }
 
-
-    fun getOtherPlanResult() {
+    private fun getOtherPlanResult() {
 
         coroutineScope.launch {
 

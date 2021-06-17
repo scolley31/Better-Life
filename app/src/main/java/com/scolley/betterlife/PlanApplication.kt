@@ -8,7 +8,6 @@ import kotlin.properties.Delegates
 
 class PlanApplication : Application() {
 
-    // Depends on the flavor,
     val repository: PlanRepository
         get() = ServiceLocator.provideRepository(this)
 

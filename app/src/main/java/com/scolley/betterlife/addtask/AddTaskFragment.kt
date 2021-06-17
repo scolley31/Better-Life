@@ -119,7 +119,7 @@ class AddTaskFragment : AppCompatDialogFragment() {
         }
 
         viewModel.selectedTypeRadio.observe(viewLifecycleOwner, Observer {
-            Log.i("test", "selectedTypeRadio = ${viewModel.selectedTypeRadio.value}")
+
             it?.let {
                 when (viewModel.selectedTypeRadio.value) {
                     R.id.radio_enddate -> {
@@ -139,7 +139,6 @@ class AddTaskFragment : AppCompatDialogFragment() {
         )
 
         viewModel.navigateToHome.observe(viewLifecycleOwner, Observer {
-            Log.i("test", "navigateToHome = ${viewModel.navigateToHome.value}")
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalHomeFragment(
                         FirebaseAuth.getInstance().currentUser!!.uid

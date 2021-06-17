@@ -41,7 +41,7 @@ class NotificationUtil {
         var planTeam = PlanForShow()
         var selectedTypeRadio = 0
 
-        fun showTimerExpired(context: Context){
+        fun showTimerExpired(context: Context) {
 //            val startIntent = Intent(context, TimerNotificationActionReceiver::class.java)
 //            startIntent.action = AppConstants.ACTION_START
 //            val startPendingIntent = PendingIntent.getBroadcast(context,
@@ -51,9 +51,9 @@ class NotificationUtil {
             bundle.putParcelable("planKey", plan)
             bundle.putParcelable("planTeam", planTeam)
 
-            Log.d("bundle","bundle = $bundle")
-            Log.d("bundle","plan = $plan")
-            Log.d("bundle","planTeam = $planTeam")
+            Log.d("bundle", "bundle = $bundle")
+            Log.d("bundle", "plan = $plan")
+            Log.d("bundle", "planTeam = $planTeam")
 
             val pendingIntent = NavDeepLinkBuilder(context)
                     .setComponentName(MainActivity::class.java)
@@ -65,13 +65,13 @@ class NotificationUtil {
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle(
                     if (plan != null) {
-                            "${plan.name}" +" 完成了"
-                        } else {
-                            "${planTeam.name}" +" 完成了"
-                        }
+                        "${plan.name}" + " 完成了"
+                    } else {
+                        "${planTeam.name}" + " 完成了"
+                    }
             )
-                .setContentText("快去送出紀錄吧")
-                .setContentIntent(pendingIntent)
+                    .setContentText("快去送出紀錄吧")
+                    .setContentIntent(pendingIntent)
 //                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
 //                .addAction(R.drawable.logo, "Start", startPendingIntent)
 
@@ -81,7 +81,7 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
-        fun showTimerRunning(context: Context, wakeUpTime: Long , bundle: Bundle){
+        fun showTimerRunning(context: Context, wakeUpTime: Long, bundle: Bundle) {
 //            val stopIntent = Intent(context, TimerNotificationActionReceiver::class.java)
 //            stopIntent.action = AppConstants.ACTION_STOP
 //            val stopPendingIntent = PendingIntent.getBroadcast(context,
@@ -94,11 +94,11 @@ class NotificationUtil {
             val df = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT)
 
             val pendingIntent = NavDeepLinkBuilder(context)
-                .setComponentName(MainActivity::class.java)
-                .setGraph(R.navigation.navigation)
-                .setDestination(R.id.timerFragment)
-                .setArguments(bundle)
-                .createPendingIntent()
+                    .setComponentName(MainActivity::class.java)
+                    .setGraph(R.navigation.navigation)
+                    .setDestination(R.id.timerFragment)
+                    .setArguments(bundle)
+                    .createPendingIntent()
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle(
@@ -108,10 +108,10 @@ class NotificationUtil {
                         "${bundle.getParcelable<PlanForShow>("planTeam")?.name.toString()}" + " 記時中"
                     }
             )
-                .setContentText("截止時間: ${df.format(Date(wakeUpTime))}")
-                .setContentIntent(pendingIntent)
+                    .setContentText("截止時間: ${df.format(Date(wakeUpTime))}")
+                    .setContentIntent(pendingIntent)
 //                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
-                .setOngoing(true)
+                    .setOngoing(true)
 //                .addAction(R.drawable._02_struggle, "Start", stopPendingIntent)
 //                .addAction(R.drawable._01_arm_wrestling, "Pause", pausePendingIntent)
 
@@ -121,7 +121,7 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
-        fun showTimerRunningNoLimit(context: Context, bundle: Bundle){
+        fun showTimerRunningNoLimit(context: Context, bundle: Bundle) {
 
             val pendingIntent = NavDeepLinkBuilder(context)
                     .setComponentName(MainActivity::class.java)
@@ -137,7 +137,7 @@ class NotificationUtil {
                     } else {
                         "${bundle.getParcelable<PlanForShow>("planTeam")?.name.toString()}" + " 記時中"
                     }
-                    )
+            )
                     .setContentText("無截止時間")
                     .setContentIntent(pendingIntent)
 //                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
@@ -152,7 +152,7 @@ class NotificationUtil {
         }
 
 
-        fun showTimerPaused(context: Context,  bundle: Bundle){
+        fun showTimerPaused(context: Context, bundle: Bundle) {
 //            val resumeIntent = Intent(context, TimerNotificationActionReceiver::class.java)
 //            resumeIntent.action = AppConstants.ACTION_RESUME
 //            val resumePendingIntent = PendingIntent.getBroadcast(context,
@@ -168,15 +168,15 @@ class NotificationUtil {
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
             nBuilder.setContentTitle(
                     if (bundle.getParcelable<Plan>("planKey") != null) {
-                        "${bundle.getParcelable<Plan>("planKey")?.name.toString()}"+" 時間暫停"
+                        "${bundle.getParcelable<Plan>("planKey")?.name.toString()}" + " 時間暫停"
                     } else {
-                        "${bundle.getParcelable<PlanForShow>("planTeam")?.name.toString()}"+" 時間暫停"
+                        "${bundle.getParcelable<PlanForShow>("planTeam")?.name.toString()}" + " 時間暫停"
                     }
-                    )
-                .setContentText("要繼續嗎?")
-                .setContentIntent(pendingIntent)
+            )
+                    .setContentText("要繼續嗎?")
+                    .setContentIntent(pendingIntent)
 //                .setContentIntent(getPendingIntentWithStack(context, TimerItemFragment::class.java))
-                .setOngoing(true)
+                    .setOngoing(true)
 //                .addAction(R.drawable._01_arm_wrestling, "Resume", resumePendingIntent)
 
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -184,21 +184,21 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
-        fun hideTimerNotification(context: Context){
+        fun hideTimerNotification(context: Context) {
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.cancel(TIMER_ID)
         }
 
         private fun getBasicNotificationBuilder(context: Context, channelId: String, playSound: Boolean)
-                : NotificationCompat.Builder{
+                : NotificationCompat.Builder {
             val notificationSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val resources = context.resources
-            val largeIcon = BitmapFactory.decodeResource(resources,R.drawable.ic_launcher)
+            val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.ic_launcher)
             val nBuilder = NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setLargeIcon(largeIcon)
-                .setAutoCancel(true)
-                .setDefaults(0)
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setLargeIcon(largeIcon)
+                    .setAutoCancel(true)
+                    .setDefaults(0)
             if (playSound) nBuilder.setSound(notificationSound)
             return nBuilder
         }
@@ -206,8 +206,6 @@ class NotificationUtil {
         private fun <T> getPendingIntentWithStack(context: Context, javaClass: Class<T>): PendingIntent {
             val resultIntent = Intent(context, javaClass)
             resultIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-
-
 
 
 //            val pendingIntent = NavDeepLinkBuilder(context)
@@ -227,8 +225,8 @@ class NotificationUtil {
         @TargetApi(26)
         private fun NotificationManager.createNotificationChannel(channelID: String,
                                                                   channelName: String,
-                                                                  playSound: Boolean){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                                                                  playSound: Boolean) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val channelImportance = if (playSound) NotificationManager.IMPORTANCE_DEFAULT
                 else NotificationManager.IMPORTANCE_LOW
                 val nChannel = NotificationChannel(channelID, channelName, channelImportance)
