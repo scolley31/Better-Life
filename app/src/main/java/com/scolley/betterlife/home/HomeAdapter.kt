@@ -19,7 +19,6 @@ class HomeAdapter(fragmentManager: FragmentManager,val user: User) : FragmentSta
         }
     }
 
-
     override fun getCount() = PlanStatus.values().size
 
     override fun getPageTitle(position: Int): CharSequence? {

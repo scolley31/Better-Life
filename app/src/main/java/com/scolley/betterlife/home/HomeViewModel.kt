@@ -1,6 +1,5 @@
 package com.scolley.betterlife.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,11 +15,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.text.FieldPosition
 import java.util.*
 
-class HomeViewModel(private val repository: PlanRepository, private val arguments: String):ViewModel() {
-
-    private val ONE_DAY_MILLI_SECOND : Int = 86400 * 1000
+class HomeViewModel(private val repository: PlanRepository, private val arguments: String) : ViewModel() {
 
     private val _plans = MutableLiveData<List<Plan>>()
 
@@ -82,17 +80,14 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
         Logger.i("------------------------------------")
 
         getPlanResult()
-
     }
 
-    fun getPlanResult() {
+    private fun getPlanResult() {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
             val result = repository.getPlanResult()
-            Log.d("test","result = $result")
-
             _plans.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
@@ -113,16 +108,46 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                     _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
-//                }
                 }
             }
             getCompleted()
-            Log.d("test","plan = ${_plans.value}")
             _refreshStatus.value = false
         }
+
     }
 
-    fun getCompleted(){
+    fun getGroup(position: Int) {
+
+        coroutineScope.launch {
+            var group = repository.getGroup(_plans.value!![position].id, user.value!!.userId)
+            _groups.value = when (group) {
+                is Result.Success -> {
+                    _error.value = null
+//                            _status.value = LoadApiStatus.DONE
+                    group.data
+
+                }
+                is Result.Fail -> {
+                    _error.value = group.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = group.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = PlanApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+        }
+
+    }
+
+    fun getCompleted() {
 
         coroutineScope.launch {
 
@@ -130,7 +155,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
 
             for (i in _plans.value!!.indices) {
 
-                if (_plans.value!![i].group){
+                if (_plans.value!![i].group) {
 
                     var group = repository.getGroup(_plans.value!![i].id, user.value!!.userId)
                     _groups.value = when (group) {
@@ -157,7 +182,7 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                         }
                     }
 
-                    if ( _groups.value!![0].membersID[0] == user.value!!.userId) {
+                    if (_groups.value!![0].membersID[0] == user.value!!.userId) {
 
                         var completedOne = repository.getCompleted(_plans.value!![i].id, _groups.value!![0].membersID[0])
 //                    Log.d("group","completedOne = $completedOne"+ "i = $i")
@@ -260,11 +285,9 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                             }
                         }
                     }
-                }
-
-                else {
+                } else {
                     var completed = repository.getCompleted(_plans.value!![i].id, arguments)
-                    singlePlanCompleted.value = when(completed) {
+                    singlePlanCompleted.value = when (completed) {
                         is Result.Success -> {
                             _error.value = null
 //                            _status.value = LoadApiStatus.DONE
@@ -289,32 +312,32 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
                 }
 
                 when (_plans.value!![i].group) {
-                    true  ->
+                    true ->
                         when (_plans.value!![i].dueDate) {
-                            -1L -> teamTarget(i)
-                            else -> teamDueData(i)
+                            -1L -> setTeamTarget(i)
+                            else -> setTeamDueData(i)
                         }
-                    else  ->
+                    else ->
                         when (_plans.value!![i].dueDate) {
-                            -1L -> singleTarget(i)
-                            else -> singleDueData(i)
+                            -1L -> setSingleTarget(i)
+                            else -> setSingleDueData(i)
                         }
                 }
             }
 
             val filter = _plans.value!!.filter {
-                it.taskDone == false
+                !it.taskDone
             }
+
             _plans.value = filter
             checkTodayDoneNumber()
             _plans.value = _plans.value
-
             _status.value = LoadApiStatus.DONE
 
         }
     }
 
-    fun checkTodayDone(j: Int,i : Int) {
+    private fun checkTodayDone(j: Int, i: Int) {
 
         val today = TimeConverters.timestampToDate(Calendar.getInstance().timeInMillis, Locale.TAIWAN)
         val completedDay = TimeConverters.timestampToDate(singlePlanCompleted.value!![j].date, Locale.TAIWAN)
@@ -322,46 +345,48 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
         if (completedDay == today) {
             _plans.value!![i].todayDone = true
         }
+
     }
 
-    fun teamTarget(i: Int) {
-        var sumOne : Int = 0
-        for (j in ownPlanCompleted.value!!.indices){
+    private fun setTeamTarget(i: Int) {
+
+        var sumOne: Int = 0
+        for (j in ownPlanCompleted.value!!.indices) {
             sumOne += ownPlanCompleted.value!![j].daily
-            checkOwnTodayDone(j,i)
+            checkOwnTodayDone(j, i)
         }
-//        Log.d("HomeTeamFragment","sumOne = $sumOne")
-        var sumtwo : Int = 0
-        for (k in partnerPlanCompleted.value!!.indices){
+
+        var sumtwo: Int = 0
+        for (k in partnerPlanCompleted.value!!.indices) {
             sumtwo += partnerPlanCompleted.value!![k].daily
-            checkPartnerTodayDone(k,i)
+            checkPartnerTodayDone(k, i)
         }
-//        Log.d("HomeTeamFragment","sumTwo = $sumtwo")
+
         var sum = sumOne + sumtwo
 
-        if (sum >= _plans.value!![i].target*60) {
+        if (sum >= _plans.value!![i].target * 60) {
             _plans.value!![i].taskDone = true
         }
     }
 
-    fun teamDueData(i: Int) {
+    private fun setTeamDueData(i: Int) {
 
-        var completedDayOne : Int = 0
-        var completedDayTwo : Int = 0
-        var totalCompletedDay: Long = (_plans.value!![i].dueDate - _plans.value!![i].createdTime) / ONE_DAY_MILLI_SECOND
+        var completedDayOne: Int = 0
+        var completedDayTwo: Int = 0
+        var totalCompletedDay: Long = (_plans.value!![i].dueDate - _plans.value!![i].createdTime) / Time.ONE_DAY_MILLI_SECOND
 
-        for (j in ownPlanCompleted.value!!.indices){
-            if (ownPlanCompleted.value!![j].completed){
+        for (j in ownPlanCompleted.value!!.indices) {
+            if (ownPlanCompleted.value!![j].completed) {
                 completedDayOne++
             }
-            checkOwnTodayDone(j,i)
+            checkOwnTodayDone(j, i)
         }
 
-        for (j in partnerPlanCompleted.value!!.indices){
-            if (partnerPlanCompleted.value!![j].completed){
+        for (j in partnerPlanCompleted.value!!.indices) {
+            if (partnerPlanCompleted.value!![j].completed) {
                 completedDayTwo++
             }
-            checkPartnerTodayDone(j,i)
+            checkPartnerTodayDone(j, i)
         }
 
         val today = Calendar.getInstance().timeInMillis
@@ -373,97 +398,83 @@ class HomeViewModel(private val repository: PlanRepository, private val argument
     }
 
 
-    fun singleTarget(i: Int) {
-        var sum : Int = 0
-        for (j in singlePlanCompleted.value!!.indices){
+    private fun setSingleTarget(i: Int) {
+        var sum: Int = 0
+        for (j in singlePlanCompleted.value!!.indices) {
             sum += singlePlanCompleted.value!![j].daily
-            checkTodayDone(j,i)
+            checkTodayDone(j, i)
         }
 
-        _plans.value!![i].progressTime = sum/60
+        _plans.value!![i].progressTime = sum / 60
 
-        if (sum>= _plans.value!![i].target*60) {
+        if (sum >= _plans.value!![i].target * 60) {
             _plans.value!![i].taskDone = true
         }
     }
 
 
-    fun singleDueData(i: Int) {
-        var completedDay : Int = 0
-        var totalCompletedDay: Long = (_plans.value!![i].dueDate - _plans.value!![i].createdTime) / ONE_DAY_MILLI_SECOND
-        for (j in singlePlanCompleted.value!!.indices){
-            if (singlePlanCompleted.value!![j].completed){
+    private fun setSingleDueData(i: Int) {
+        var completedDay: Int = 0
+        var totalCompletedDay: Long = (_plans.value!![i].dueDate - _plans.value!![i].createdTime) / Time.ONE_DAY_MILLI_SECOND
+        for (j in singlePlanCompleted.value!!.indices) {
+            if (singlePlanCompleted.value!![j].completed) {
                 completedDay++
             }
-            checkTodayDone(j,i)
+            checkTodayDone(j, i)
         }
-//        Log.d("test","totalCompletedDay = $totalCompletedDay")
-//        Log.d("test","completedDay = $completedDay")
 
         _plans.value!![i].progressTime = completedDay
-        _plans.value!![i].target = when(totalCompletedDay) {
+        _plans.value!![i].target = when (totalCompletedDay) {
             0L -> 1
             else -> totalCompletedDay.toInt()
         }
 
         val today = Calendar.getInstance().timeInMillis
         val dueDate = _plans.value!![i].dueDate
-//        Log.d("test","today = $today")
-//        Log.d("test","dueDate = $dueDate")
+
         if (dueDate <= today) {
             _plans.value!![i].taskDone = true
         }
-//        Log.d("test","_plans.value!![i].taskDone = ${_plans.value!![i].taskDone}")
 
     }
 
-    fun checkTodayDoneNumber() {
+    private fun checkTodayDoneNumber() {
         var doneNumber = 0
         var totalNumber = 0
         for (i in plans.value!!.indices) {
             totalNumber += 1
-            if (plans.value!![i].todayDone == true)
+            if (plans.value!![i].todayDone)
                 doneNumber += 1
         }
         taskDoneNumber.value = doneNumber
-        if(totalNumber != 0) {
+        if (totalNumber != 0) {
             taskPercent.value = doneNumber * 100 / totalNumber
-//            Log.d("test", "taskDoneNumber.value  = ${taskDoneNumber.value}")
-//            Log.d("test", "taskPercent.value  = ${taskPercent.value}")
         }
     }
 
-    fun checkOwnTodayDone(j: Int,i : Int) {
+    private fun checkOwnTodayDone(j: Int, i: Int) {
 
         val today = TimeConverters.timestampToDate(Calendar.getInstance().timeInMillis, Locale.TAIWAN)
         val completedDay = TimeConverters.timestampToDate(ownPlanCompleted.value!![j].date, Locale.TAIWAN)
         val completedUser = ownPlanCompleted.value!![j].user_id
-//        Log.d("test1","completedUser = $completedUser")
-//        Log.d("test1","FirebaseAuth.getInstance().currentUser!!.uid = ${FirebaseAuth.getInstance().currentUser!!.uid}")
+
         if (completedDay == today && completedUser == FirebaseAuth.getInstance().currentUser!!.uid) {
             _plans.value!![i].todayDone = true
         }
-//        Log.d("test1","_plans.value!![i].todayDone = ${_plans.value!![i].todayDone}")
-//        Log.d("test1","_plans.value!![i] = ${_plans.value!![i]}")
-
     }
 
-    fun checkPartnerTodayDone(j: Int,i : Int) {
+    private fun checkPartnerTodayDone(j: Int, i: Int) {
 
         val today = TimeConverters.timestampToDate(Calendar.getInstance().timeInMillis, Locale.TAIWAN)
         val completedDay = TimeConverters.timestampToDate(partnerPlanCompleted.value!![j].date, Locale.TAIWAN)
         val completedUser = partnerPlanCompleted.value!![j].user_id
-//        Log.d("test1","completedUser = $completedUser")
-//        Log.d("test1","FirebaseAuth.getInstance().currentUser!!.uid = ${FirebaseAuth.getInstance().currentUser!!.uid}")
+
         if (completedDay == today && completedUser == FirebaseAuth.getInstance().currentUser!!.uid) {
             _plans.value!![i].todayDone = true
         }
-//        Log.d("test1","_plans.value!![i].todayDone = ${_plans.value!![i].todayDone}")
-//        Log.d("test1","_plans.value!![i] = ${_plans.value!![i]}")
-
     }
 
-    fun navigateAddTask () {
+    fun navigateAddTask() {
         _navigateToAddTask.value = true
     }
 

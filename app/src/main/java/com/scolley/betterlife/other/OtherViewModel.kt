@@ -65,7 +65,7 @@ class OtherViewModel(private val repository: PlanRepository) : ViewModel() {
         getOtherPlanResult()
     }
 
-    fun categoryTask(selected: Category) {
+    fun getCategoryTask(selected: Category) {
         _category.value = selected
     }
 

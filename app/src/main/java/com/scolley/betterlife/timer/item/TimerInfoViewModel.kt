@@ -168,32 +168,29 @@ class TimerInfoViewModel(private val repository: PlanRepository): ViewModel() {
 
     fun sortToRank (rankList : MutableList<Rank>): MutableList<Rank> {
         for (i in 0 until rankList.size-1) {
-//            Log.d("test","rankList.size = ${rankList.size}")
-//            Log.d("test","i = $i")
+
             var num = i
 
-                for (j in (num+1) .. rankList.size-1) {
-//                    Log.d("test","j = $j")
-//                    Log.d("test","i = $i")
-                    if (rankList[j].totalTime > rankList[i].totalTime) {
-                        var tmpTotalTime = rankList[i].totalTime
-                        var tmpID = rankList[i].user_id
-                        var tmpName = rankList[i].userName
-                        var tmpImage = rankList[i].userImage
+            for (j in (num+1) until rankList.size) {
 
+                if (rankList[j].totalTime > rankList[i].totalTime) {
 
-                        rankList[i].totalTime = rankList[j].totalTime
-                        rankList[i].user_id = rankList[j].user_id
-                        rankList[i].userName = rankList[j].userName
-                        rankList[i].userImage = rankList[j].userImage
+                    var tmpTotalTime = rankList[i].totalTime
+                    var tmpID = rankList[i].user_id
+                    var tmpName = rankList[i].userName
+                    var tmpImage = rankList[i].userImage
 
-                        rankList[j].totalTime = tmpTotalTime
-                        rankList[j].user_id = tmpID
-                        rankList[j].userName = tmpName
-                        rankList[j].userImage = tmpImage
-                    }
+                    rankList[i].totalTime = rankList[j].totalTime
+                    rankList[i].user_id = rankList[j].user_id
+                    rankList[i].userName = rankList[j].userName
+                    rankList[i].userImage = rankList[j].userImage
+
+                    rankList[j].totalTime = tmpTotalTime
+                    rankList[j].user_id = tmpID
+                    rankList[j].userName = tmpName
+                    rankList[j].userImage = tmpImage
                 }
-
+            }
         }
         return rankList
     }
