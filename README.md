@@ -38,7 +38,7 @@
 
 - 設計模式：MVVM、Singleton
 - Android Jetpack - ViewModel、LiveData、Lifecycle、Data Binding、Navigation
-- 第三方套件：Glide、ImagePicker、Lottie
+- 第三方套件：Glide、MPAndroidChart、Lottie
 - 分析工具：Firebase Crashlytics
 
 
